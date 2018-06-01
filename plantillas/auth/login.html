@@ -1,0 +1,73 @@
+{% extends "base/main.html" %}
+	{% load static %}
+	{% block body %}
+	
+	<div class="container well">
+		
+	
+	{% block legend %}
+		<legend class="text-center">Login</legend>
+	{% endblock legend %}	
+			
+	{% block errores %}
+		{% if form.errors %}
+				<p>Tu nombre de usuario o password no se an encontrado. Intente de nuevo</p>
+		{% endif %}
+
+		{% if next %}
+			{% if user.is_authenticated %}
+			    <p>Tu cuenta no tiene acceso a esta página. Para continuar,
+			    logeese con una cuenta que cuente con los permisos nesesarios.</p>
+			{% else %}
+			    <p>Por favor Logeate para ver esta página.</p>
+			{% endif %}
+		{% endif %}	
+	{% endblock errores %}		
+						
+	{% block formulario %}
+		<form {% block iddanger %} {% endblock iddanger %} action="{% url 'usuarios:login' %}" method="post" enctype="multipart/form-data" class="form-horizontal">
+				
+		<fieldset>
+			{% csrf_token %}
+			<div class="form-group">
+				    <label for="username" class="col-lg-2 control-label">Username</label>
+				    <div class="col-lg-10">
+				      <input type="text" class="form-control" placeholder="Username" name="username">
+				    </div>
+				  </div>
+
+			<div class="form-group">
+				    <label for="password" class="col-lg-2 control-label">Password</label>
+				    <div class="col-lg-10">
+				      <input type="password" class="form-control" placeholder="password" name="password">
+				    </div>
+				  </div>
+
+			<input type="hidden" name="next" value="{{ next }}" />
+					
+				  <div class="col-lg-10 col-lg-offset-2 text-center" >
+				   		<!--<a href="">Perdio su contraseña?</a>-->
+				      	<button type="reset" class="btn btn-default">Reset</button>
+				      	<button type="submit" value="login" class="btn btn-primary">Login</button>
+				  </div>
+		</fieldset>
+		</form>
+	{% endblock formulario %}
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<img src="{% static "logo.png" %}" width="200" alt="">
+			</div>
+			<div class="col-sm-9">
+				<div class="jumbotron">
+					<div class="container">
+						<h1>Dirección de Evaluación y Acreditación</h1>
+						<p>Sistema de Evaluacion Docente</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{% endblock body %}

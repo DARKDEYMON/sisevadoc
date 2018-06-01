@@ -1,0 +1,15 @@
+body {
+  //min-height: 2000px;
+  padding-top: 70px;
+  background-image: url("/static/fondo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fondo{
+	background-color: #D3D3D3;
+}
+
+.jumbotron{
+    background-color: transparent;
+}
