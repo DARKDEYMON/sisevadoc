@@ -16,3 +16,8 @@ class crear_user_form(UserCreationForm):
 			'last_name',
 			'email'
 		]
+	def __init__(self, *args, **kwargs):
+		super(crear_user_form, self).__init__(*args, **kwargs)
+		self.fields['email'].required = True
+		self.fields['first_name'].required = True
+		self.fields['last_name'].required = True

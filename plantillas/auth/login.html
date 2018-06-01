@@ -46,8 +46,8 @@
 			<input type="hidden" name="next" value="{{ next }}" />
 					
 				  <div class="col-lg-10 col-lg-offset-2 text-center" >
-				   		<!--<a href="">Perdio su contraseña?</a>-->
-				      	<button type="reset" class="btn btn-default">Reset</button>
+				   		<a href="{% url 'usuarios:password_reset' %}">Perdio su contraseña?</a>
+				      	<!--<button type="reset" class="btn btn-default">Reset</button>-->
 				      	<button type="submit" value="login" class="btn btn-primary">Login</button>
 				  </div>
 		</fieldset>

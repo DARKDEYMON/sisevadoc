@@ -13,3 +13,10 @@ class crear_usuario_view(CreateView):
 	form_class = crear_user_form
 	template_name = 'auth/nuevo_user.html'
 	success_url = '/'
+
+class lista_usuarios(ListView):
+    model = User
+    paginate_by = 10
+    template_name = 'auth/lista_users.html'
+    def get_queryset(self):
+    	return self.model.objects.filter(is_staff=False)

@@ -1,0 +1,46 @@
+{% extends "base/base_list.html" %}
+
+	{% block listbody %}
+
+		<h2 style="text-align: center;">Lista de Usuarios</h2>
+	    <table class="table table-striped table-hover ">
+	    	<thead>
+	    		<tr>
+	    			<th>
+	    				#id
+	    			</th>
+	    			<th>
+	    				Nombre
+	    			</th>
+	    			<th>
+	    				Apellidos
+	    			</th>
+	    			<th>
+	    				Email
+	    			</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    	{% if object_list %}
+	    	    {% for user in object_list %}
+	    	    	<tr>
+	    	    		<td>
+	    	    			{{user.id}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{user.first_name }}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{user.last_name}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{user.email}}
+	    	    		</td>
+	    	    	</tr>
+	    	    {% endfor %}
+	    	{% else %}
+
+	    	{% endif %}
+	    	</tbody>
+	    </table>
+	{% endblock listbody %}
