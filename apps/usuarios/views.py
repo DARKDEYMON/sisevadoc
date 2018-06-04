@@ -3,7 +3,11 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect
 from .forms import *
+from .models import *
 
 # Create your views here.
 def main_mage(request):
@@ -12,11 +16,83 @@ def main_mage(request):
 class crear_usuario_view(CreateView):
 	form_class = crear_user_form
 	template_name = 'auth/nuevo_user.html'
-	success_url = '/'
+	success_url = reverse_lazy('usuarios:listauser')
 
-class lista_usuarios(ListView):
+class update_usuario_view(UpdateView):
+	model = User
+	form_class = update_user_form
+	template_name = 'auth/update_user.html'
+	success_url = '/'
+	def get_object(self, queryset=None):
+		return self.request.user
+
+class update_user_gen_view(UpdateView):
+	model = User
+	form_class = update_user_form
+	template_name = 'auth/update_user.html'
+	success_url = reverse_lazy('usuarios:listauser')
+
+class lista_usuarios_view(ListView):
     model = User
     paginate_by = 10
     template_name = 'auth/lista_users.html'
     def get_queryset(self):
     	return self.model.objects.filter(is_staff=False)
+
+class user_baja_alta_view(UpdateView):
+	model = User
+	form_class = baja_alta_form
+	template_name = 'auth/baja_alta.html'
+	success_url = reverse_lazy('usuarios:listauser')
+
+class permisos_view(FormView):
+	model = User
+	modelper = permisos
+	form_class = add_permissions_form
+	template_name = 'auth/permisos.html'
+	success_url = reverse_lazy('usuarios:listauser')
+
+	def get_context_data(self, **kwargs):
+		context = super(permisos_view, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		user = self.model.objects.get(id=pk)
+		form = self.form_class(initial={'mod_usuarios':user.has_perm('usuarios.usuarios'),
+										'mod_academico':user.has_perm('usuarios.academico'),
+										'mod_conf_evaluacion':user.has_perm('usuarios.conf_evaluaion'),
+										'mod_evaluacion':user.has_perm('usuarios.evaluacion')})
+		if 'form'not in context or 'user' not in context:
+			context['form'] = form
+			context['user'] = user
+		return context
+	def post(self, request, *args, **kwargs):
+		#self.object = self.get_object	
+		form = self.form_class(request.POST)
+		pk = self.kwargs.get('pk',0)
+		my_user = self.model.objects.get(id=pk)
+		if form.is_valid():
+			content_type = ContentType.objects.get_for_model(self.modelper)
+			permission = Permission.objects.get(content_type=content_type, codename='usuarios')
+			if(form.cleaned_data['mod_usuarios']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='academico')
+			if(form.cleaned_data['mod_academico']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='conf_evaluaion')
+			if(form.cleaned_data['mod_conf_evaluacion']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='evaluacion')
+			if(form.cleaned_data['mod_evaluacion']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+
+			return  HttpResponseRedirect(self.success_url)
+		else:
+			print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))

@@ -10,6 +10,9 @@
 	    				#id
 	    			</th>
 	    			<th>
+	    				Username
+	    			</th>
+	    			<th>
 	    				Nombre
 	    			</th>
 	    			<th>
@@ -17,6 +20,9 @@
 	    			</th>
 	    			<th>
 	    				Email
+	    			</th>
+	    			<th>
+	    				Opciones
 	    			</th>
 	    		</tr>
 	    	</thead>
@@ -28,6 +34,9 @@
 	    	    			{{user.id}}
 	    	    		</td>
 	    	    		<td>
+	    	    			{{user.username}}
+	    	    		</td>
+	    	    		<td>
 	    	    			{{user.first_name }}
 	    	    		</td>
 	    	    		<td>
@@ -35,6 +44,24 @@
 	    	    		</td>
 	    	    		<td>
 	    	    			{{user.email}}
+	    	    		</td>
+	    	    		<td>
+	    	    			<div class="btn-group">
+								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    	Gestion de Usuarios <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+								    <li>
+								    	<a href="{% url 'usuarios:updateusergen' user.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'usuarios:permisos' user.pk %}">Añadir Permisos<span class="glyphicon glyphicon-wrench"/></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'usuarios:altabaja' user.pk %}">Dar baja/alta<span class="glyphicon glyphicon-remove"></a>
+								    </li>
+								</ul>
+							</div>
 	    	    		</td>
 	    	    	</tr>
 	    	    {% endfor %}
