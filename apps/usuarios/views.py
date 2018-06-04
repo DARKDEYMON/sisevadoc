@@ -1,5 +1,7 @@
 from django.shortcuts import render
-#from django.contrib.auth.forms import UserCreationForm
+#from django.contrib.auth.tokens import default_token_generator
+#from django.utils.http import urlsafe_base64_encode
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
 from django.urls import reverse_lazy
@@ -33,11 +35,33 @@ class update_user_gen_view(UpdateView):
 	success_url = reverse_lazy('usuarios:listauser')
 
 class lista_usuarios_view(ListView):
-    model = User
-    paginate_by = 10
-    template_name = 'auth/lista_users.html'
-    def get_queryset(self):
-    	return self.model.objects.filter(is_staff=False)
+	model = User
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'auth/lista_users.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_usuarios_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class() 
+		return context
+	def get_queryset(self):
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				search = form.cleaned_data['search']
+				print(search)
+		if (search):
+			return self.model.objects.filter(
+				Q(id__icontains=search)|
+				Q(username__icontains=search)|
+				Q(first_name__icontains=search)|
+				Q(last_name__icontains=search),
+				#Q(email__icontains=search),
+				is_staff=False)
+		else:
+			return self.model.objects.all().filter(is_staff=False).order_by('id')
 
 class user_baja_alta_view(UpdateView):
 	model = User
@@ -91,7 +115,6 @@ class permisos_view(FormView):
 				my_user.user_permissions.add(permission)
 			else:
 				my_user.user_permissions.remove(permission)
-
 			return  HttpResponseRedirect(self.success_url)
 		else:
 			print ("paso2")

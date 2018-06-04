@@ -33,18 +33,17 @@ urlpatterns = [
         {'template_name':'auth/pass_reset.html','post_change_redirect' : '/'}, 
         name='reset_password'
     ),
+    path('logout/',logout_then_login, name='logout'),
     path('password_reset/', auth_views.PasswordResetView.as_view(success_url=reverse_lazy('usuarios:password_reset_done')), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(success_url=reverse_lazy('usuarios:password_reset_complete')), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
-    path('logout/',logout_then_login, name='logout'),
-    path('', login_required(main_mage), name="main"),
-
-    path('crearuser/',login_required(crear_usuario_view.as_view()),name='nuevouser'),
-    path('listauser/',login_required(lista_usuarios_view.as_view()),name="listauser"),
-    path('actinf/',login_required(update_usuario_view.as_view()),name='updateuser'),
-    path('permisos/<int:pk>/',login_required(permisos_view.as_view()), name='permisos'),
-    path('altabaja/<int:pk>/',login_required(user_baja_alta_view.as_view()), name='altabaja'),
-    path('actinfgen/<int:pk>/',login_required(update_user_gen_view.as_view()), name='updateusergen'),
+    path('',login_required(main_mage), name="main"),
+    path('crearuser/',permission_required('usuarios.usuarios')(login_required(crear_usuario_view.as_view())),name='nuevouser'),
+    path('listauser/',permission_required('usuarios.usuarios')(login_required(lista_usuarios_view.as_view())),name="listauser"),
+    path('actinf/',permission_required('usuarios.usuarios')(login_required(update_usuario_view.as_view())),name='updateuser'),
+    path('permisos/<int:pk>/',permission_required('usuarios.usuarios')(login_required(permisos_view.as_view())), name='permisos'),
+    path('altabaja/<int:pk>/',permission_required('usuarios.usuarios')(login_required(user_baja_alta_view.as_view())), name='altabaja'),
+    path('actinfgen/<int:pk>/',permission_required('usuarios.usuarios')(login_required(update_user_gen_view.as_view())), name='updateusergen'),
 ]

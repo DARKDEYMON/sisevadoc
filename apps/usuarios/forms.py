@@ -49,3 +49,7 @@ class add_permissions_form(forms.Form):
 	mod_academico = forms.BooleanField(label='Dar permiso para el modulo academico', required=False)
 	mod_conf_evaluacion = forms.BooleanField(label='Dar permiso para el modulo de configuracion de evaluacion', required=False)
 	mod_evaluacion = forms.BooleanField(label='Dar permiso para el modulo de evaluacion', required=False)
+
+class search_form(forms.Form):
+	search = forms.CharField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Buscar...'}))
+	#buscar_por = forms.ChoiceField(label="", help_text="", choices=CHOICES)

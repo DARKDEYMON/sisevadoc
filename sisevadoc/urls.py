@@ -24,5 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include(('apps.usuarios.urls','usuarios'), namespace='usuarios')),
+    path('academico/', include(('apps.academico.urls','academico'), namespace='academico')),
     path('', RedirectView.as_view(url=reverse_lazy('usuarios:main')), name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
