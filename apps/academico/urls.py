@@ -19,4 +19,8 @@ from .views import *
 
 urlpatterns = [
     path('createcarrera/',permission_required('usuarios.academico')(login_required(create_carrera_view.as_view())), name='createcarrera'),
+    path('updatecarrera/<int:pk>/',permission_required('usuarios.academico')(login_required(update_carrera_view.as_view())), name='updatecarrera'),
+    path('listacarrera/',permission_required('usuarios.academico')(login_required(lista_carreras_view.as_view())), name='listcarrera'),
+    path('createmateria/',permission_required('usuarios.academico')(login_required(create_materia_view.as_view())), name='createmateria'),
+    path('listamateria/',permission_required('usuarios.academico')(login_required(lista_materias_view.as_view())), name='listamateria')
 ]

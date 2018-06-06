@@ -2,7 +2,7 @@
 	{% block formbody %}
 	    {% load bootstrap3 %}
 	    <h2 style="text-align: center;">Nueva Carrera</h2>
-		<form action="" method="post" class="form">
+		<form action="" method="post" id="form-carrera">
 		    {% csrf_token %}
 		    {% bootstrap_form form %}
 		    {% buttons %}

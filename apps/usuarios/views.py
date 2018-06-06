@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from .forms import *
 from .models import *
 
@@ -23,7 +24,7 @@ class crear_usuario_view(CreateView):
 class update_usuario_view(UpdateView):
 	model = User
 	form_class = update_user_form
-	template_name = 'auth/update_user.html'
+	template_name = 'auth/update_user_self.html'
 	success_url = '/'
 	def get_object(self, queryset=None):
 		return self.request.user
@@ -42,16 +43,22 @@ class lista_usuarios_view(ListView):
 	def get_context_data(self, **kwargs):
 		context = super(lista_usuarios_view, self).get_context_data(**kwargs)
 		if 'form' not in context:
-			context['form'] = self.form_class() 
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
 		return context
 	def get_queryset(self):
 		search = None
 		if self.request.method == "GET":
 			form = self.form_class(self.request.GET)
-			print (form.is_valid())
 			if form.is_valid():
 				search = form.cleaned_data['search']
-				print(search)
 		if (search):
 			return self.model.objects.filter(
 				Q(id__icontains=search)|
