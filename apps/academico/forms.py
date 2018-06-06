@@ -12,5 +12,10 @@ class create_materia_form(ModelForm):
 		model = materias
 		exclude = ['']
 
+class create_docente_form(ModelForm):
+	class Meta:
+		model = docentes
+		exclude = ['']
+
 class search_form(forms.Form):
 	search = forms.CharField(required=False ,label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Buscar...'}))

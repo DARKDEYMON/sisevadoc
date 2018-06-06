@@ -2,7 +2,7 @@
 
 	{% block listbody %}
 
-		<h2 style="text-align: center;">Lista de Materias</h2>
+		<h2 style="text-align: center;">Lista de Docentes</h2>
 		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 			{% load bootstrap3 %}
 			{% bootstrap_form form layout='inline' %}
@@ -21,37 +21,31 @@
 	    				Nombre
 	    			</th>
 	    			<th>
-	    				Sigla
-	    			</th>
-	    			<th>
 	    				Opciones
 	    			</th>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
 	    	{% if object_list %}
-	    	    {% for mat in object_list %}
+	    	    {% for dct in object_list %}
 	    	    	<tr>
 	    	    		<td>
-	    	    			{{mat.id}}
+	    	    			{{dct.id}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{mat.carrera}}
+	    	    			{{dct.carrera}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{mat.nombre}}
-	    	    		</td>
-	    	    		<td>
-	    	    			{{mat.sigla}}
+	    	    			{{dct.nombre}}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestion de Materias <span class="caret"></span>
+							    	Gestion de Docentes <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'academico:updatemateria' mat.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
+								    	<a href="">Editar<span class="glyphicon glyphicon-edit"></a>
 								    </li>
 								</ul>
 							</div>

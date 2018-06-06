@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(carreras)
 admin.site.register(materias)
+admin.site.register(docentes)

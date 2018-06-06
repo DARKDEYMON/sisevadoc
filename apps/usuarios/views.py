@@ -124,5 +124,4 @@ class permisos_view(FormView):
 				my_user.user_permissions.remove(permission)
 			return  HttpResponseRedirect(self.success_url)
 		else:
-			print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))

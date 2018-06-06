@@ -47,3 +47,18 @@ class materias(models.Model):
 	)
 	def __str__(self):
 		return str(self.sigla)
+
+class docentes(models.Model):
+	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
+	nombre = models.CharField(
+		max_length=100,
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{4,100}',
+				message='El nombre solo debe contener letras y contener mínimo 4 letras',
+				code='dato solo alfabetico'
+			)
+		]
+	)
