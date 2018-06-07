@@ -95,7 +95,13 @@ class lista_materias_view(ListView):
 class create_docente_view(CreateView):
 	form_class = create_docente_form
 	template_name = 'academico/nuevo_docente.html'
-	success_url = '/'
+	success_url = reverse_lazy('academico:listadocente')
+
+class update_docente_view(UpdateView):
+	model = docentes
+	form_class = create_docente_form
+	template_name = 'academico/update_docente.html'
+	success_url = reverse_lazy('academico:listadocente')
 
 class lista_docentes_view(ListView):
 	model = docentes
