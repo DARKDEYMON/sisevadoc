@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.usuarios',
     'apps.academico',
+    'apps.evaluacion',
     'bootstrap3',
+    'smart_selects',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'reynaldo.pereira.heredia@gmail.com'
 EMAIL_HOST_PASSWORD = 'nosdurno1988'
 EMAIL_PORT = 587
+
+#USE_DJANGO_JQUERY = True
+#JQUERY_URL = True
