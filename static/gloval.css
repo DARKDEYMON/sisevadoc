@@ -21,6 +21,10 @@ body {
 	text-transform:uppercase;
 }
 
+#form-docente input[name=nombre]{
+  text-transform:uppercase;
+}
+
 ::-webkit-input-placeholder { /* WebKit browsers */
     text-transform: none;
 }

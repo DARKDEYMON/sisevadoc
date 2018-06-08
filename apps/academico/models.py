@@ -56,8 +56,8 @@ class docentes(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{4,100}',
-				message='El nombre solo debe contener letras y contener mínimo 4 letras',
+				regex=r'[A-ZÑÁÉÍÓÚ ]{4,100}',
+				message='El nombre solo debe contener letras y contener mínimo 4 letras en mayusculas',
 				code='dato solo alfabetico'
 			)
 		]

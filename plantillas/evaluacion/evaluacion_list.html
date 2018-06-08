@@ -1,0 +1,97 @@
+{% extends "base/base_list.html" %}
+
+	{% block listbody %}
+
+		<h2 style="text-align: center;">Lista de Evaluaciones</h2>
+		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
+			{% load bootstrap3 %}
+			{% bootstrap_form form layout='inline' %}
+			<button class="btn btn-default" type="submit" style="visibility: hidden;">Buscar</button>
+		</form>
+	    <table class="table table-striped table-hover ">
+	    	<thead>
+	    		<tr>
+	    			<th>
+	    				#id
+	    			</th>
+	    			<th>
+	    				Carrera
+	    			</th>
+	    			<th>
+	    				Docente
+	    			</th>
+	    			<th>
+	    				M. Sigla
+	    			</th>
+	    			<th>
+	    				Gestion
+	    			</th>
+	    			<th>
+	    				Opciones
+	    			</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    	{% if object_list %}
+	    	    {% for eva in object_list %}
+	    	    	<tr>
+	    	    		<td>
+	    	    			{{eva.id}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.carrera}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.docente}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.materia}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.gestion}}
+	    	    		</td>
+	    	    		<td>
+	    	    			<div class="btn-group">
+								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    	Gestion de Evaluaciones <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+								    <li>
+								    	<a href="{% url 'evaluacion:updateevaluacion' eva.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
+								    </li>
+								</ul>
+							</div>
+	    	    		</td>
+	    	    	</tr>
+	    	    {% endfor %}
+	    	{% else %}
+
+	    	{% endif %}
+	    	</tbody>
+	    </table>
+
+			{% if is_paginated %}
+				<div class="text-center">
+				<ul class="pagination">
+				{% if page_obj.has_previous %}
+				    <li>
+				        <span><a href="?page={{ page_obj.previous_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Anterior</a></span>
+				    </li>
+				{% endif %}
+				    <li class="">
+				        <span>Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+				    </li>
+				{% if page_obj.has_next %}
+				    <li>
+				        <span><a href="?page={{ page_obj.next_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Siguiente</a></span>
+				    </li>
+				{% endif %}
+				</ul>
+				</div>
+			{% else %}
+				<div class="text-center">
+					<!--<p>Sin Paginacion</p>-->
+				</div>
+			{% endif %}
+
+	{% endblock listbody %}

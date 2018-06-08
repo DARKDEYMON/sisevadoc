@@ -18,5 +18,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .views import *
 
 urlpatterns = [
-    path('createvaluacion',permission_required('usuarios.conf_evaluaion')(login_required(create_evaluacion_view.as_view())), name='createevaluacion'),
+    path('createvaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(create_evaluacion_view.as_view())), name='createevaluacion'),
+    path('updateevaluacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_view.as_view())), name='updateevaluacion'),
+    path('listaevaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(lista_docentes_view.as_view())), name='listaevaluacion'),
 ]
