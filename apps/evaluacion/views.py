@@ -49,3 +49,20 @@ class lista_docentes_view(ListView):
 				).order_by('gestion')
 		else:
 			return self.model.objects.all().order_by('gestion')
+#en pruebas
+class send_mail_view(FormView):
+	form_class = email_send_form
+	template_name = 'evaluacion/send_email.html'
+	template_email = 'evaluacion/to_send_email.html'
+	success_url = '/'
+	def form_valid(self, form):
+		form.send_email(self.template_email,self.request.scheme,self.request.META['HTTP_HOST'],self.kwargs['pk'])
+		return super().form_valid(form)
+
+class create_cuestionario_alumno_view(CreateView):
+	form_class = cuestionario_alumno_form
+	template_name = 'evaluacion/nuevo_cuestionario_alumno.html'
+	success_url = '/'
+	def form_valid(self, form):
+		#form.instance.evaluacion = evaluacion.objects.get(self.kwargs['pk'])
+		return super().form_valid(form)

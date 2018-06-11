@@ -21,4 +21,7 @@ urlpatterns = [
     path('createvaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(create_evaluacion_view.as_view())), name='createevaluacion'),
     path('updateevaluacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_view.as_view())), name='updateevaluacion'),
     path('listaevaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(lista_docentes_view.as_view())), name='listaevaluacion'),
+
+    path('sendmail/<int:pk>',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_view.as_view())), name='sendmail'),
+    path('createcuestionarioalumno/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen')
 ]
