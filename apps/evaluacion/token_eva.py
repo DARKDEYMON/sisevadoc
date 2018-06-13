@@ -3,14 +3,15 @@ from datetime import date
 from django.conf import settings
 from django.utils.crypto import constant_time_compare, salted_hmac
 from django.utils.http import base36_to_int, int_to_base36
+#from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
-
-class PasswordResetTokenGenerator:
+class TokenGenerator:
     """
     Strategy object used to generate and check tokens for the password
     reset mechanism.
     """
-    key_salt = "django.contrib.auth.tokens.PasswordResetTokenGenerator"
+    #key_salt = "django.contrib.auth.tokens.PasswordResetTokenGenerator"
+    key_salt = "apps.evaluacion.token_eva.TokenGenerator"
     secret = settings.SECRET_KEY
 
     def make_token(self, user):
@@ -69,8 +70,8 @@ class PasswordResetTokenGenerator:
     def _make_hash_value(self, user, timestamp):
         # aqui crear en cero todo
         # Ensure results are consistent across DB backends
-        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
-        return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+        #login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+        return str(user.pk) + str(user.evaluacion) + str(user.numero_ran) + str(user.usado) + str(user.creacion)
 
     def _num_days(self, dt):
         return (dt - date(2001, 1, 1)).days
@@ -80,4 +81,4 @@ class PasswordResetTokenGenerator:
         return date.today()
 
 
-default_token_generator = PasswordResetTokenGenerator()
+evaluacion_token_generator = TokenGenerator()

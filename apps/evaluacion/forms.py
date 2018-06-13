@@ -16,9 +16,9 @@ class search_form(forms.Form):
 
 class email_send_form(forms.Form):
 	email = forms.CharField(required=True, widget=forms.EmailInput)
-	def send_email(self,template,protocol,domain,pk):
+	def send_email(self,template,protocol,domain,evaluacion,pk,token):
 		email = self.cleaned_data['email']
-		context = {'protocol':protocol,'domain':domain,'pk':pk}
+		context = {'protocol':protocol,'domain':domain,'evaluacion':evaluacion,'uidb64':pk,'token':token}
 		send_mail(
 			'Evaluacion Docente',
 			render_to_string(template, context),
@@ -30,7 +30,7 @@ class email_send_form(forms.Form):
 class cuestionario_alumno_form(ModelForm):
 	class Meta:
 		model = cuestionario_alumno
-		exclude = ['']
+		exclude = ['evaluacion']
 		widgets = {
 			'pregunta_1':forms.RadioSelect(),
 			'pregunta_2':forms.RadioSelect(),

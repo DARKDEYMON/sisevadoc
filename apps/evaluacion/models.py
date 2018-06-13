@@ -2,7 +2,9 @@ from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 from apps.academico.models import *
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import User
 import datetime
+import random
 
 # Create your models here.
 class evaluacion(models.Model):
@@ -13,14 +15,16 @@ class evaluacion(models.Model):
 		chained_model_field="carrera",
 		show_all=False,
 		auto_choose=True,
-		sort=True)
+		sort=True
+	)
 	docente = ChainedForeignKey(
 		docentes,
 		chained_field="carrera",
 		chained_model_field="carrera",
 		show_all=False,
 		auto_choose=True,
-		sort=True)
+		sort=True
+	)
 	gestion = models.PositiveIntegerField(
 		blank=False,
 		null=False,
@@ -42,6 +46,27 @@ class evaluacion(models.Model):
 		return str(self.docente)
 	class Meta:
 		unique_together = (('docente', 'gestion','materia'),)
+
+class token_alumno(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	evaluacion = models.ForeignKey(evaluacion, on_delete=models.CASCADE)
+	numero_ran = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=random.randint(1,10**10)
+	)
+	usado = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
+	creacion = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	def __str__(self):
+		return str(self.evaluacion)
 
 class cuestionario_alumno(models.Model):
 	choices=((1,'Nunca'),(2,'Casi Nunca'),(3,'A Veces'),(4,'Casi Siempre'),(5,'Siempre'))
@@ -179,3 +204,10 @@ class cuestionario_alumno(models.Model):
 		verbose_name=u'¿El docente desarrolla los temas en una secuencia lógica?',
 		choices=choices
 	)
+	creacion = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	def __str__(self):
+		return str(self.evaluacion)

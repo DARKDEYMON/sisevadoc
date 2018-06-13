@@ -1,0 +1,24 @@
+{% extends "base/base_form.html" %}
+	{% block nav %}
+		
+	{% endblock nav %}
+	{% block formbody %}
+		{% if valido %}
+		    {% load bootstrap3 %}
+		    <h2 style="text-align: center;">Evaluacion Estudiante</h2>
+		    <h4>Docente: {{token_alumno.evaluacion.docente}} </h4>
+		    <h4>Materia: {{token_alumno.evaluacion.materia.nombre}}</h4>
+			<form action="" method="post">
+			    {% csrf_token %}
+			    {% bootstrap_form form %}
+			    {% buttons %}
+			        <button type="submit" class="btn btn-primary center-block">
+			            {% bootstrap_icon "send" %} Enviar
+			        </button>
+			    {% endbuttons %}
+			</form>
+		{% else %}
+			<h2>Error!!!</h2>
+			<p>El link que trata de utilizar caduco o ya fue usado</p>
+		{% endif %}
+	{% endblock formbody %}

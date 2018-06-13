@@ -22,6 +22,9 @@ urlpatterns = [
     path('updateevaluacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_view.as_view())), name='updateevaluacion'),
     path('listaevaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(lista_docentes_view.as_view())), name='listaevaluacion'),
 
+    path('createcuestionarioalumno/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen'),
+
     path('sendmail/<int:pk>',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_view.as_view())), name='sendmail'),
-    path('createcuestionarioalumno/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen')
+    path('createcualum/<uidb64>/<token>',create_cuestionario_alumno_token_view.as_view(), name='alumtoken'),
+    path('gracias/',thanks_view, name='thanks')
 ]
