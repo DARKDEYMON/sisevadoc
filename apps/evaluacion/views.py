@@ -60,7 +60,7 @@ class create_cuestionario_alumno_view(CreateView):
 	model_extra = evaluacion
 	form_class = cuestionario_alumno_form
 	template_name = 'evaluacion/nuevo_cuestionario_alumno.html'
-	success_url = '/'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
 	def dispatch(self, request, *args, **kwargs):
 		self.model_res = get_object_or_404(self.model_extra, id=kwargs['pk'])
 		return super(create_cuestionario_alumno_view, self).dispatch(request, *args, **kwargs)
@@ -75,15 +75,14 @@ class send_mail_view(FormView):
 	model_token = token_alumno
 	template_name = 'evaluacion/send_email.html'
 	template_email = 'evaluacion/to_send_email.html'
-	success_url = '/'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
 	def dispatch(self, request, *args, **kwargs):
 		self.model_res = get_object_or_404(self.model, id=kwargs['pk'])
-		#aqui falta crear el token solo estoy sacando el primero para probar
-		#self.model_res_token = Test(evaluacion=self.model_res).save()
-		self.model_res_token = self.model_token.objects.create(user=request.user, evaluacion=self.model_res)
+		#deve esto ir aca
 		#self.model_res_token = self.model_token.objects.get(pk=2)
 		return super(send_mail_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
+		self.model_res_token = self.model_token.objects.create(user=self.request.user, evaluacion=self.model_res)
 		form.send_email(
 			self.template_email,
 			self.request.scheme,

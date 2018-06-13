@@ -1,11 +1,14 @@
 {% autoescape off %}
-Para iniciar el proceso de restablecimiento de contraseña para la cuenta de  ,
-precione en el link debajo:
+Usted ha sido seleccionado para la evaluación docente dentro de su carrera,
+presione en el link debajo para realizar la evaluación,
+también se le darán más detalles de la misma una ves dentro:
 
 {{ protocol }}://{{ domain }}{% url 'evaluacion:alumtoken' uidb64 token %}
 
+Su identidad será totalmente anónima durante y después de la evaluación nuestro servidor no guarda ningún detalle personal 
 Si al hacer clic en el enlace de arriba no funciona, copie y pegue la URL en una nueva ventana en el navegador.
 
-Sinseramente,
+Le deseamos un Buen día
+Sinceramente,
 El equipo de desarrollo de la Dirección de Evaluación y Acreditación de la UATF
 {% endautoescape %}
