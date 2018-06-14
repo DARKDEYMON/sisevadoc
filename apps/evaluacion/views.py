@@ -55,7 +55,11 @@ class lista_docentes_view(ListView):
 				).order_by('gestion')
 		else:
 			return self.model.objects.all().order_by('gestion')
-#en pruebas
+
+def thanks_view(request):
+	return render(request,'evaluacion/thanks.html',{})
+
+#en pruebas cuestionaro alumno
 class create_cuestionario_alumno_view(CreateView):
 	model_extra = evaluacion
 	form_class = cuestionario_alumno_form
@@ -69,18 +73,18 @@ class create_cuestionario_alumno_view(CreateView):
 		#pdb.set_trace()
 		return super().form_valid(form)
 
-class send_mail_view(FormView):
+class send_mail_evalum_view(FormView):
 	form_class = email_send_form
 	model = evaluacion
 	model_token = token_alumno
-	template_name = 'evaluacion/send_email.html'
+	template_name = 'evaluacion/send_email_evalum.html'
 	template_email = 'evaluacion/to_send_email.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
 	def dispatch(self, request, *args, **kwargs):
 		self.model_res = get_object_or_404(self.model, id=kwargs['pk'])
 		#deve esto ir aca
 		#self.model_res_token = self.model_token.objects.get(pk=2)
-		return super(send_mail_view, self).dispatch(request, *args, **kwargs)
+		return super(send_mail_evalum_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
 		self.model_res_token = self.model_token.objects.create(user=self.request.user, evaluacion=self.model_res)
 		form.send_email(
@@ -120,5 +124,71 @@ class create_cuestionario_alumno_token_view(CreateView):
 		self.model_res.save()
 		return super().form_valid(form)
 
-def thanks_view(request):
-	return render(request,'evaluacion/thanks.html',{})
+#en pruebas cuestionario dcarrera
+class cuestionario_dcarrera_view(CreateView):
+	form_class = cuestionario_dcarrera_form
+	model_extra = evaluacion
+	template_name = 'evaluacion/nuevo_cuestionario_dcarrera.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+	def dispatch(self, request, *args, **kwargs):
+		self.model_res = get_object_or_404(self.model_extra, id=kwargs['pk'])
+		return super(cuestionario_dcarrera_view, self).dispatch(request, *args, **kwargs)
+	def form_valid(self, form):
+		form.instance.evaluacion = self.model_res
+		#pdb.set_trace()
+		return super().form_valid(form)
+
+class send_mail_evadirec_view(FormView):
+	form_class = email_send_form
+	model = evaluacion
+	model_token = token_dcarrera
+	template_name = 'evaluacion/send_email_evadirec.html'
+	template_email = 'evaluacion/to_send_email_direct.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+	def dispatch(self, request, *args, **kwargs):
+		self.model_res = get_object_or_404(self.model, id=kwargs['pk'])
+		#deve esto ir aca
+		#self.model_res_token = self.model_token.objects.get(pk=2)
+		return super(send_mail_evadirec_view, self).dispatch(request, *args, **kwargs)
+	def form_valid(self, form):
+		self.model_res_token = self.model_token.objects.create(user=self.request.user, evaluacion=self.model_res)
+		form.send_email(
+			self.template_email,
+			self.request.scheme,
+			self.request.META['HTTP_HOST'],
+			self.model_res,
+			urlsafe_base64_encode(force_bytes(self.model_res_token.pk)).decode('utf-8'),
+			evaluacion_token_generator.make_token(self.model_res_token)
+		)
+		return super().form_valid(form)
+
+class create_cuestionario_dcarrera_token_view(CreateView):
+	model_extra = token_dcarrera
+	form_class = cuestionario_dcarrera_form
+	template_name = 'evaluacion/nuevo_cuestionario_dcarrera_token.html'
+	success_url = reverse_lazy('evaluacion:thanks')
+	def get_context_data(self, **kwargs):
+		context = super(create_cuestionario_dcarrera_token_view, self).get_context_data(**kwargs)
+		if 'evaluacion' or 'valido' not in context:
+			context['token_dcarrera'] = self.model_res
+			context['valido'] = self.valido
+		return context
+	def dispatch(self, request, *args, **kwargs):
+		id = urlsafe_base64_decode(kwargs['uidb64']).decode('utf-8')
+		self.model_res = get_object_or_404(self.model_extra,id=id)
+		try:
+			self.cuestionario_dcarrera
+			self.valido = False
+		except:
+			if self.model_res.usado:
+				self.valido = False
+			else:
+				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+		return super(create_cuestionario_dcarrera_token_view, self).dispatch(request, *args, **kwargs)
+	def form_valid(self, form):
+		#aqui ponerlo en false
+		#obj = Product.objects.get(pk=pk)
+		form.instance.evaluacion = self.model_res.evaluacion
+		self.model_res.usado = True
+		self.model_res.save()
+		return super().form_valid(form)

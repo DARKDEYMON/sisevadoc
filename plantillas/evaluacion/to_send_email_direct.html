@@ -1,0 +1,13 @@
+{% autoescape off %}
+Como director de carrera se le ha enviado este correo para la evaluación de uno de sus docentes,
+para llenar la evaluación siga el link debajo:
+
+{{ protocol }}://{{ domain }}{% url 'evaluacion:dcarreratoken' uidb64 token %}
+
+Su identidad será totalmente anónima durante y después de la evaluación nuestro servidor no guarda ningún detalle personal 
+Si al hacer clic en el enlace de arriba no funciona, copie y pegue la URL en una nueva ventana en el navegador.
+
+Le deseamos un Buen día
+Sinceramente,
+El equipo de desarrollo de la Dirección de Evaluación y Acreditación de la UATF
+{% endautoescape %}

@@ -28,6 +28,9 @@
 	    				Gestion
 	    			</th>
 	    			<th>
+	    				Estado
+	    			</th>
+	    			<th>
 	    				Opciones
 	    			</th>
 	    		</tr>
@@ -52,6 +55,13 @@
 	    	    			{{eva.gestion}}
 	    	    		</td>
 	    	    		<td>
+	    	    			{% if eva.estado %}
+	    	    				<span class="label label-success">{{eva.estado_actual}}</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">{{eva.estado_actual}}</span>
+	    	    			{% endif %}
+	    	    		</td>
+	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							    	Gestion de Evaluaciones <span class="caret"></span>
@@ -61,10 +71,16 @@
 								    	<a href="{% url 'evaluacion:updateevaluacion' eva.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'evaluacion:sendmail' eva.pk %}">Enviar Email<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{% url 'evaluacion:sendmailevalum' eva.pk %}">Enviar Email Evaluacion Estudiantil<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
 								    	<a href="{% url 'evaluacion:createvadocen' eva.pk %}">Evaluacion Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'evaluacion:sendmailevadire' eva.pk %}">Enviar Email Evaluacion  Director Carrera<span class="glyphicon glyphicon-send"></span></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'evaluacion:createvadcarrera' eva.pk %}">Evaluacion Director Carrera <span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 								</ul>
 							</div>

@@ -21,10 +21,15 @@ urlpatterns = [
     path('createvaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(create_evaluacion_view.as_view())), name='createevaluacion'),
     path('updateevaluacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_view.as_view())), name='updateevaluacion'),
     path('listaevaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(lista_docentes_view.as_view())), name='listaevaluacion'),
-
+    path('gracias/',thanks_view, name='thanks'),
+    #alumno
     path('createcuestionarioalumno/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen'),
 
-    path('sendmail/<int:pk>',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_view.as_view())), name='sendmail'),
+    path('sendmailevalum/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_evalum_view.as_view())), name='sendmailevalum'),
     path('createcualum/<uidb64>/<token>',create_cuestionario_alumno_token_view.as_view(), name='alumtoken'),
-    path('gracias/',thanks_view, name='thanks')
+    #dcarrera
+    path('createcuestinariodcarrera/<int:pk>',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_dcarrera_view.as_view())), name='createvadcarrera'),
+
+    path('sendmailevadire/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_evadirec_view.as_view())), name='sendmailevadire'),
+    path('createcdcarerra/<uidb64>/<token>',create_cuestionario_dcarrera_token_view.as_view(), name='dcarreratoken'),
 ]

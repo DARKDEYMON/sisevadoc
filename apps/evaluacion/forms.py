@@ -9,7 +9,7 @@ from .models import *
 class create_evaluacion_form(ModelForm):
 	class Meta:
 		model = evaluacion
-		exclude = ['']
+		exclude = ['estado']
 
 class search_form(forms.Form):
 	search = forms.CharField(required=False ,label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Buscar...'}))
@@ -51,4 +51,17 @@ class cuestionario_alumno_form(ModelForm):
 			'pregunta_17':forms.RadioSelect(),
 			'pregunta_18':forms.RadioSelect(),
 			'pregunta_19':forms.RadioSelect(),
+		}
+
+class cuestionario_dcarrera_form(ModelForm):
+	class Meta:
+		model = cuestionario_dcarrera
+		exclude = ['evaluacion']
+		widgets = {
+			'pregunta_1':forms.RadioSelect(),
+			'pregunta_2':forms.RadioSelect(),
+			'pregunta_3':forms.RadioSelect(),
+			'pregunta_4':forms.RadioSelect(),
+			'pregunta_5':forms.RadioSelect(),
+			'pregunta_6':forms.RadioSelect(),
 		}

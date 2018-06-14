@@ -1,30 +1,35 @@
-from datetime import date
 
-from django.conf import settings
-from django.utils.crypto import constant_time_compare, salted_hmac
-from django.utils.http import base36_to_int, int_to_base36
-#from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
+#devido a que todas la clases de token son las mismas 
+class TokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user, timestamp):
+        # aqui crear en cero todo
+        # Ensure results are consistent across DB backends
+        #login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+        return str(user.pk) + str(user.evaluacion) + str(user.numero_ran) + str(user.usado) + str(user.creacion)
+
+evaluacion_token_generator = TokenGenerator()
+
+"""
 class TokenGenerator:
-    """
-    Strategy object used to generate and check tokens for the password
-    reset mechanism.
-    """
+
+    #Strategy object used to generate and check tokens for the password
+    #reset mechanism.
+
     #key_salt = "django.contrib.auth.tokens.PasswordResetTokenGenerator"
     key_salt = "apps.evaluacion.token_eva.TokenGenerator"
     secret = settings.SECRET_KEY
 
     def make_token(self, user):
-        """
-        Return a token that can be used once to do a password reset
-        for the given user.
-        """
+        #Return a token that can be used once to do a password reset
+        #for the given user.
         return self._make_token_with_timestamp(user, self._num_days(self._today()))
 
     def check_token(self, user, token):
-        """
-        Check that a password reset token is correct for a given user.
-        """
+        
+        #Check that a password reset token is correct for a given user.
+        
         if not (user and token):
             return False
         # Parse the token
@@ -82,3 +87,4 @@ class TokenGenerator:
 
 
 evaluacion_token_generator = TokenGenerator()
+"""

@@ -42,6 +42,13 @@ class evaluacion(models.Model):
 		null=False,
 		auto_now=True
 	)
+	estado = models.BooleanField(
+		null = False,
+		blank = False,
+		default = True
+	)
+	def estado_actual(self):
+		return 'Activo' if self.estado else 'Finalizado';
 	def __str__(self):
 		return str(self.docente)
 	class Meta:
@@ -202,6 +209,80 @@ class cuestionario_alumno(models.Model):
 		null=False,
 		default=1,
 		verbose_name=u'¿El docente desarrolla los temas en una secuencia lógica?',
+		choices=choices
+	)
+	creacion = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	def __str__(self):
+		return str(self.evaluacion)
+
+class token_dcarrera(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	evaluacion = models.ForeignKey(evaluacion, on_delete=models.CASCADE)
+	numero_ran = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=random.randint(1,10**10)
+	)
+	usado = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
+	creacion = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	def __str__(self):
+		return str(self.evaluacion)
+
+class cuestionario_dcarrera(models.Model):
+	choices=((1,'Nunca'),(2,'Casi Nunca'),(3,'A Veces'),(4,'Casi Siempre'),(5,'Siempre'))
+	evaluacion = models.OneToOneField(evaluacion, on_delete=models.CASCADE)
+	pregunta_1 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente cumple con el horario de clases establecido?',
+		choices=choices
+	)
+	pregunta_2 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente presenta el Plan de asignatura a los estudiantes al inicio de la actividad académica?',
+		choices=choices
+	)
+	pregunta_3 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente concluye los contenidos temáticos y/o actividades propuestos en el Plan de asignatura?',
+		choices=choices
+	)
+	pregunta_4 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente publica y entrega las calificaciones, en un plazo no mayor a los 10 días?',
+		choices=choices
+	)
+	pregunta_5 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente participa en forma efectiva en tutorías y tribunal de graduación?',
+		choices=choices
+	)
+	pregunta_6 = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=1,
+		verbose_name=u'¿El docente cumple en las tareas asignadas por el Director de Carrera?',
 		choices=choices
 	)
 	creacion = models.DateTimeField(
