@@ -3,7 +3,10 @@ from .models import *
 
 # Register your models here.
 admin.site.register(token_alumno)
+admin.site.register(token_dcarrera)
+admin.site.register(token_aevaluacion)
 admin.site.register(cuestionario_alumno)
+admin.site.register(cuestionario_aevaluacion)
 admin.site.register(cuestionario_dcarrera)
 
 class ItemEva(admin.ModelAdmin):

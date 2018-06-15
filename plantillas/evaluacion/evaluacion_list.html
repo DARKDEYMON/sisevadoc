@@ -77,6 +77,12 @@
 								    	<a href="{% url 'evaluacion:createvadocen' eva.pk %}">Evaluacion Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 								    <li>
+								    	<a href="{% url 'evaluacion:sendmailaevadoc' eva.pk %}">Enviar Email Autoevaluacion Docente <span class="glyphicon glyphicon-send"></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'evaluacion:createautoeval' eva.pk %}">Autoevaluacion Docente<span class="glyphicon glyphicon-question-sign"></a>
+								    </li>
+								    <li>
 								    	<a href="{% url 'evaluacion:sendmailevadire' eva.pk %}">Enviar Email Evaluacion  Director Carrera<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>

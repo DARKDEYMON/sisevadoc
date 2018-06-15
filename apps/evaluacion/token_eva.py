@@ -1,7 +1,7 @@
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
-#devido a que todas la clases de token son las mismas 
+#devido a que todas la clases de token son las mismas se usa un solo generador de tokens
 class TokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
         # aqui crear en cero todo

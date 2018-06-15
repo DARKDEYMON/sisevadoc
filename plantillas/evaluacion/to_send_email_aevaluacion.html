@@ -1,0 +1,12 @@
+{% autoescape off %}
+Como docente de carrera se le ha enviado este correo para su autoevaluación,
+para llenar la evaluación siga el link debajo:
+
+{{ protocol }}://{{ domain }}{% url 'evaluacion:aevaldoctoken' uidb64 token %}
+
+Si al hacer clic en el enlace de arriba no funciona, copie y pegue la URL en una nueva ventana en el navegador.
+
+Le deseamos un Buen día
+Sinceramente,
+El equipo de desarrollo de la Dirección de Evaluación y Acreditación de la UATF
+{% endautoescape %}

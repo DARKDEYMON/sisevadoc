@@ -26,10 +26,15 @@ urlpatterns = [
     path('createcuestionarioalumno/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen'),
 
     path('sendmailevalum/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_evalum_view.as_view())), name='sendmailevalum'),
-    path('createcualum/<uidb64>/<token>',create_cuestionario_alumno_token_view.as_view(), name='alumtoken'),
+    path('createcualum/<uidb64>/<token>/',create_cuestionario_alumno_token_view.as_view(), name='alumtoken'),
+    #aevaluacion
+    path('createcuestionarioaeval/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_aevaluacion_view.as_view())), name='createautoeval'),
+
+    path('sendmailaevadoc/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_aevaluacion_view.as_view())), name='sendmailaevadoc'),
+    path('createaevadoc/<uidb64>/<token>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_aevaluacion_token_view.as_view())), name='aevaldoctoken'),
     #dcarrera
-    path('createcuestinariodcarrera/<int:pk>',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_dcarrera_view.as_view())), name='createvadcarrera'),
+    path('createcuestinariodcarrera/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_dcarrera_view.as_view())), name='createvadcarrera'),
 
     path('sendmailevadire/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_evadirec_view.as_view())), name='sendmailevadire'),
-    path('createcdcarerra/<uidb64>/<token>',create_cuestionario_dcarrera_token_view.as_view(), name='dcarreratoken'),
+    path('createcdcarerra/<uidb64>/<token>/',create_cuestionario_dcarrera_token_view.as_view(), name='dcarreratoken'),
 ]

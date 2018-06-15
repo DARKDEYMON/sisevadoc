@@ -53,6 +53,32 @@ class cuestionario_alumno_form(ModelForm):
 			'pregunta_19':forms.RadioSelect(),
 		}
 
+class cuestionario_aevaluacion_form(ModelForm):
+	class Meta:
+		model = cuestionario_aevaluacion
+		exclude = ['evaluacion']
+		widgets = {
+			'pregunta_1':forms.RadioSelect(),
+			'pregunta_2':forms.RadioSelect(),
+			'pregunta_3':forms.RadioSelect(),
+			'pregunta_4':forms.RadioSelect(),
+			'pregunta_5':forms.RadioSelect(),
+			'pregunta_6':forms.RadioSelect(),
+			'pregunta_7':forms.RadioSelect(),
+			'pregunta_8':forms.RadioSelect(),
+			'pregunta_9':forms.RadioSelect(),
+			'pregunta_10':forms.RadioSelect(),
+			'pregunta_11':forms.RadioSelect(),
+			'pregunta_12':forms.RadioSelect(),
+			'pregunta_13':forms.RadioSelect(),
+			'pregunta_14':forms.RadioSelect(),
+			'pregunta_15':forms.RadioSelect(),
+			'pregunta_16':forms.RadioSelect(),
+			'pregunta_17':forms.RadioSelect(),
+			'pregunta_18':forms.RadioSelect(),
+			'pregunta_19':forms.RadioSelect(),
+		}
+
 class cuestionario_dcarrera_form(ModelForm):
 	class Meta:
 		model = cuestionario_dcarrera

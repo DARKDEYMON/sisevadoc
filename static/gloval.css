@@ -41,10 +41,10 @@ body {
     text-transform: none;
 }
 
-
+/*
 @media (max-width: 767px) {
     .table-responsive .dropdown-menu {
-        position: static !important;
+      position: static !important;
     }
 }
 @media (min-width: 768px) {
@@ -52,3 +52,4 @@ body {
         overflow: visible;
     }
 }
+*/
