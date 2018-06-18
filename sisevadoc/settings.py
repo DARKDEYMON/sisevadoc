@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.academico',
     'apps.evaluacion',
+    'apps.procesoeval',
     'bootstrap3',
     'smart_selects',
 ]

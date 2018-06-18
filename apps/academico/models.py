@@ -10,7 +10,7 @@ class carreras(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[A-ZÑÁÉÍÓÚ ]{4,25}$',
+				regex=r'^(([A-ZÑÁÉÍÓÚ]{2,} )|([A-ZÑÁÉÍÓÚ]{2,}))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras en mayusculas', 
 				code='dato solo alfabetico'
 			)
@@ -27,7 +27,7 @@ class materias(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{4,25}$',
+				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,})))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras',
 				code = 'dato solo alfabetico'
 			)
@@ -56,7 +56,7 @@ class docentes(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[A-ZÑÁÉÍÓÚ ]{4,100}$',
+				regex=r'^(([A-ZÑÁÉÍÓÚ]{2,} )|([A-ZÑÁÉÍÓÚ]{2,}))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras en mayusculas',
 				code='dato solo alfabetico'
 			)

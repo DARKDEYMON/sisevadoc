@@ -1,0 +1,76 @@
+{% extends "base/base_list.html" %}
+
+	{% block listbody %}
+
+		<h2 style="text-align: center;">Lista Designaciones</h2>
+		{% if object_list %}
+		    <h4 style="text-align: center;">Nombre: {{object_list.0.usuario.first_name}}</h4>
+		{% else %}
+
+		{% endif %}
+		<h3>{{evaluacion}}</h3>
+		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
+			{% load bootstrap3 %}
+			{% bootstrap_form form layout='inline' %}
+			<button class="btn btn-default" type="submit" style="visibility: hidden;">Buscar</button>
+		</form>
+	    <table class="table table-striped table-hover ">
+	    	<thead>
+	    		<tr>
+	    			<th>
+	    				#id
+	    			</th>
+	    			<th>
+	    				Carrera
+	    			</th>
+	    			<th>
+	    				Opciones
+	    			</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    	{% if object_list %}
+	    	    {% for asig in object_list %}
+	    	    	<tr>
+	    	    		<td>
+	    	    			{{asig.id}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{asig.carrera}}
+	    	    		</td>
+	    	    		<td>
+	    	    			<a href="{% url 'procesoeval:deletedesignacion' asig.pk%}" type="button" class="btn btn-danger">Borrar <span class="glyphicon glyphicon-remove"></span></a>
+	    	    		</td>
+	    	    	</tr>
+	    	    {% endfor %}
+	    	{% else %}
+
+	    	{% endif %}
+	    	</tbody>
+	    </table>
+
+			{% if is_paginated %}
+				<div class="text-center">
+				<ul class="pagination">
+				{% if page_obj.has_previous %}
+				    <li>
+				        <span><a href="?page={{ page_obj.previous_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Anterior</a></span>
+				    </li>
+				{% endif %}
+				    <li class="">
+				        <span>Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+				    </li>
+				{% if page_obj.has_next %}
+				    <li>
+				        <span><a href="?page={{ page_obj.next_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Siguiente</a></span>
+				    </li>
+				{% endif %}
+				</ul>
+				</div>
+			{% else %}
+				<div class="text-center">
+					<!--<p>Sin Paginacion</p>-->
+				</div>
+			{% endif %}
+
+	{% endblock listbody %}

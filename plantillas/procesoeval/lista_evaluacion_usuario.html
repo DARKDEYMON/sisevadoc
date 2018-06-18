@@ -2,29 +2,33 @@
 
 	{% block listbody %}
 
-		<h2 style="text-align: center;">Lista de Usuarios</h2>
+		<h2 style="text-align: center;">Lista de Evaluaciones Activas del Usuario</h2>
+		<h3>{{evaluacion}}</h3>
 		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 			{% load bootstrap3 %}
 			{% bootstrap_form form layout='inline' %}
 			<button class="btn btn-default" type="submit" style="visibility: hidden;">Buscar</button>
 		</form>
-	    <table class="table table-striped table-hover">
+	    <table class="table table-striped table-hover ">
 	    	<thead>
 	    		<tr>
 	    			<th>
 	    				#id
 	    			</th>
 	    			<th>
-	    				Username
+	    				Carrera
 	    			</th>
 	    			<th>
-	    				Nombre
+	    				Docente
 	    			</th>
 	    			<th>
-	    				Apellidos
+	    				M. Sigla
 	    			</th>
 	    			<th>
-	    				Email
+	    				Gestion
+	    			</th>
+	    			<th>
+	    				Estado
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -33,44 +37,38 @@
 	    	</thead>
 	    	<tbody>
 	    	{% if object_list %}
-	    	    {% for user in object_list %}
+	    	    {% for eva in object_list %}
 	    	    	<tr>
 	    	    		<td>
-	    	    			{{user.id}}
+	    	    			{{eva.id}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{user.username}}
+	    	    			{{eva.carrera}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{user.first_name }}
+	    	    			{{eva.docente}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{user.last_name}}
+	    	    			{{eva.materia}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{user.email}}
+	    	    			{{eva.gestion}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{% if eva.estado %}
+	    	    				<span class="label label-success">{{eva.estado_actual}}</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">{{eva.estado_actual}}</span>
+	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestion de Usuarios <span class="caret"></span>
+							    	Gestion de Evaluaciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'usuarios:updateusergen' user.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
-								    </li>
-								    <li>
-								    	<a href="{% url 'usuarios:permisos' user.pk %}">Añadir Permisos<span class="glyphicon glyphicon-wrench"/></a>
-								    </li>
-								    <li>
-								    	<a href="{% url 'usuarios:altabaja' user.pk %}">Dar baja/alta<span class="glyphicon glyphicon-remove"></a>
-								    </li>
-								    <li class="divider"></li>
-								    <li>
-								    	<a href="{% url 'procesoeval:createasig' user.pk %}">Asignar Evaluador<span class="glyphicon glyphicon-ok"></span></a>
-								    </li>
-								    <li>
-								    	<a href="{% url 'procesoeval:listevaluseradmin' user.pk %}">Lista de Asignaciones<span class="glyphicon glyphicon-th-list"></span></a>
+								    	<a href="">Email<span class="glyphicon glyphicon-edit"></a>
 								    </li>
 								</ul>
 							</div>

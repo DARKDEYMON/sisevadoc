@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.db.models import Q
 #import pdb
 from .forms import *
 from .token_eva import *
@@ -19,6 +20,12 @@ class update_evaluacion_view(UpdateView):
 	model = evaluacion
 	form_class = create_evaluacion_form
 	template_name = 'evaluacion/update_evaluacion.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+
+class update_evaluacion_activo_view(UpdateView):
+	model = evaluacion
+	form_class = create_evaluacion_estado_form
+	template_name = 'evaluacion/update_evaluacion_estado.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
 
 class lista_docentes_view(ListView):

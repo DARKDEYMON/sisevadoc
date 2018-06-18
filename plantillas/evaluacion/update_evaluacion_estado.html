@@ -1,0 +1,15 @@
+{% extends "base/base_form.html" %}
+	{% block formbody %}
+	    {% load bootstrap3 %}
+	    <h2 style="text-align: center;">Activar/Desactivar Evaluación</h2>
+	    <h4 style="text-align: center;">Nombre: {{evaluacion.docente}}</h4>
+		<form action="" method="post" class="form">
+		    {% csrf_token %}
+		    {% bootstrap_form form %}
+		    {% buttons %}
+		        <button type="submit" class="btn btn-primary center-block">
+		            {% bootstrap_icon "send" %} Enviar
+		        </button>
+		    {% endbuttons %}
+		</form>
+	{% endblock formbody %}
