@@ -7,7 +7,7 @@ body {
 }
 
 .fondo{
-	background-color: #D3D3D3;
+  background-color: #D3D3D3;
 }
 
 .jumbotron{
@@ -15,10 +15,10 @@ body {
 }
 
 #form-carrera input[name=nombre]{
-	text-transform:uppercase;
+  text-transform:uppercase;
 }
 #form-materia input[name=sigla]{
-	text-transform:uppercase;
+  text-transform:uppercase;
 }
 
 #form-docente input[name=nombre]{
@@ -53,3 +53,6 @@ body {
     }
 }
 */
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }

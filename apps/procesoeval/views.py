@@ -1,12 +1,19 @@
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.db.models import Q
 from apps.evaluacion.models import *
 from .models import *
 from .forms import *
+from apps.evaluacion.views import (send_mail_evalum_view,
+									create_cuestionario_alumno_view, 
+									cuestionario_aevaluacion_view,
+									send_mail_aevaluacion_view,
+									cuestionario_dcarrera_view,
+									send_mail_evadirec_view)
 
 # Create your views here.
 
@@ -98,3 +105,53 @@ class lista_evaluacion_usuario_view(ListView):
 				).order_by('gestion')
 		else:
 			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user, estado=True)
+#alumno
+class create_cuestionario_alum_pro_view(create_cuestionario_alumno_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(create_cuestionario_alum_pro_view, self).dispatch(request, *args, **kwargs)
+
+class send_mail_alum_pro_view(send_mail_evalum_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(send_mail_alum_con_view, self).dispatch(request, *args, **kwargs)
+
+#autoevaluacion
+class create_cuestionario_aeval_pro_view(cuestionario_aevaluacion_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(create_cuestionario_aeval_pro_view, self).dispatch(request, *args, **kwargs)
+
+class send_mail_aeval_pro_view(send_mail_aevaluacion_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(send_mail_aeval_pro_view, self).dispatch(request, *args, **kwargs)
+
+#evaluacion director carrera
+class cuestionario_dcarrera_pro_view(cuestionario_dcarrera_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(cuestionario_dcarrera_pro_view, self).dispatch(request, *args, **kwargs)
+
+class send_mail_evadirec_pro_view(send_mail_evadirec_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+		except:
+			raise Http404
+		return super(send_mail_evadirec_pro_view, self).dispatch(request, *args, **kwargs)

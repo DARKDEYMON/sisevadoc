@@ -127,3 +127,9 @@ class permisos_view(FormView):
 			return  HttpResponseRedirect(self.success_url)
 		else:
 			return self.render_to_response(self.get_context_data(form=form))
+
+def handler404(request,exception):
+	return render(request,'errors/404.html',{})
+
+def handler500(request,exception):
+	return render(request,'errors/500.html',{})

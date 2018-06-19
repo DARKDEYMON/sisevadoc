@@ -8,5 +8,7 @@ class asignacion_evaluacion(models.Model):
 	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
 	def __str__(self):
 		return str(self.carrera)
+	class Meta:
+		unique_together = (('usuario', 'carrera'),)
 #consulta para optener de un usuario lo que puede ver en evaluaciones
 #evaluacion.objects.filter(carrera__asignacion_evaluacion__usuario=2)

@@ -7,6 +7,7 @@ $(document).click(function (event) {
 
 
 $(document).on('click', '.table-responsive [data-toggle="dropdown"]', function () {
+    $('.dropdown-menu[data-parent]').hide();
     // if the button is inside a modal
     if ($('body').hasClass('modal-open')) {
         throw new Error("This solution is not working inside a responsive table inside a modal, you need to find out a way to calculate the modal Z-index and add it to the element")
