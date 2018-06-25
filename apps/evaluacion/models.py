@@ -3,6 +3,7 @@ from smart_selects.db_fields import ChainedForeignKey
 from apps.academico.models import *
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from django.db.models import Avg
 import datetime
 import random
 
@@ -47,6 +48,56 @@ class evaluacion(models.Model):
 		blank = False,
 		default = True
 	)
+	def alum_p1(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg']
+	def alum_p2(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_2'))['pregunta_2__avg']
+	def alum_p3(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_3'))['pregunta_3__avg']
+	def alum_p4(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_4'))['pregunta_4__avg']
+	def alum_p5(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_5'))['pregunta_5__avg']
+	def alum_p6(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_6'))['pregunta_6__avg']
+	def alum_p7(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_7'))['pregunta_7__avg']
+	def alum_p8(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_8'))['pregunta_8__avg']
+	def alum_p9(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_9'))['pregunta_9__avg']
+	def alum_p10(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_10'))['pregunta_10__avg']
+	def alum_p11(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_11'))['pregunta_11__avg']
+	def alum_p12(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_12'))['pregunta_12__avg']
+	def alum_p13(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_13'))['pregunta_13__avg']
+	def alum_p14(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_14'))['pregunta_14__avg']
+	def alum_p15(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_15'))['pregunta_15__avg']
+	def alum_p16(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_16'))['pregunta_16__avg']
+	def alum_p17(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_17'))['pregunta_17__avg']
+	def alum_p18(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_18'))['pregunta_18__avg']
+	def alum_p19(self):
+		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_19'))['pregunta_19__avg']
+	def prom_alum(self):
+		return round(self.cuestionario_alumno_set.all().aggregate(sol=
+															(Avg('pregunta_1')+Avg('pregunta_2')+
+															Avg('pregunta_3')+Avg('pregunta_4')+
+															Avg('pregunta_5')+Avg('pregunta_6')+
+															Avg('pregunta_7')+Avg('pregunta_8')+
+															Avg('pregunta_9')+Avg('pregunta_10')+
+															Avg('pregunta_11')+Avg('pregunta_12')+
+															Avg('pregunta_13')+Avg('pregunta_14')+
+															Avg('pregunta_15')+Avg('pregunta_16')+
+															Avg('pregunta_17')+Avg('pregunta_18')+
+															Avg('pregunta_19'))/19)['sol'],2)
 	def estado_actual(self):
 		return 'Activo' if self.estado else 'Finalizado';
 	def __str__(self):
