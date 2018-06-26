@@ -9,6 +9,10 @@ from django.db.models import Q
 from .forms import *
 from .token_eva import *
 from .models import *
+
+#reportes en prueba
+from django_weasyprint import WeasyTemplateResponseMixin
+
 # Create your views here.
 
 class create_evaluacion_view(CreateView):
@@ -269,3 +273,16 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 		self.model_res.usado = True
 		self.model_res.save()
 		return super().form_valid(form)
+
+#reportes
+class ins_report_eva_view(ListView):
+	model = evaluacion
+	template_name = 'reportes/reporte_eva.html'
+	def get_queryset(self):
+		print(self.kwargs['pk'])
+		return get_object_or_404(self.model, id=self.kwargs['pk'])
+
+class report_eva_view(WeasyTemplateResponseMixin, ins_report_eva_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]

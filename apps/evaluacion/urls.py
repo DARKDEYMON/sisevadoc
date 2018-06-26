@@ -38,4 +38,7 @@ urlpatterns = [
 
     path('sendmailevadire/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_evadirec_view.as_view())), name='sendmailevadire'),
     path('createcdcarerra/<uidb64>/<token>/',create_cuestionario_dcarrera_token_view.as_view(), name='dcarreratoken'),
+
+    #reportes
+    path('reporteeva/<int:pk>/', permission_required('usuarios.conf_evaluaion')(login_required(report_eva_view.as_view())), name='reporteeva'),
 ]
