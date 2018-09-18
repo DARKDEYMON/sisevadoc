@@ -32,7 +32,7 @@ urlpatterns = [
     path('createcuestionarioaeval/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_aevaluacion_view.as_view())), name='createautoeval'),
 
     path('sendmailaevadoc/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(send_mail_aevaluacion_view.as_view())), name='sendmailaevadoc'),
-    path('createaevadoc/<uidb64>/<token>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_aevaluacion_token_view.as_view())), name='aevaldoctoken'),
+    path('createaevadoc/<uidb64>/<token>/',create_cuestionario_aevaluacion_token_view.as_view(), name='aevaldoctoken'),
     #dcarrera
     path('createcuestinariodcarrera/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(cuestionario_dcarrera_view.as_view())), name='createvadcarrera'),
 

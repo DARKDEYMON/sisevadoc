@@ -296,133 +296,133 @@ class cuestionario_alumno(models.Model):
 	pregunta_1 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente cumple con el horario de clases establecido?',
 		choices=choices
 	)
 	pregunta_2 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente presenta el Plan de asignatura a los estudiantes al inicio de la actividad académica?',
 		choices=choices
 	)
 	pregunta_3 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente concluye los contenidos temáticos y/o actividades propuestos en el Plan de asignatura?',
 		choices=choices
 	)
 	pregunta_4 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente promueve el análisis crítico, la creatividad y el aprendizaje independiente en los estudiantes?',
 		choices=choices
 	)
 	pregunta_5 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente se relaciona con los estudiantes sin discriminación de raza, género, clase social, posición económica, credo religioso o ideología-política.?',
 		choices=choices
 	)
 	pregunta_6 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente motiva a los alumnos para la participación activa del mismo en clases?',
 		choices=choices
 	)
 	pregunta_7 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente presta atención individual o colectiva a los alumnos que solicitan consulta fuera de horarios de clases?',
 		choices=choices
 	)
 	pregunta_8 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente utiliza medios educativos de apoyo al aprendizaje, tales como Pizarra, retroproyector  u otros?',
 		choices=choices
 	)
 	pregunta_9 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente facilita texto guía, apuntes, guías de ejercicios prácticos u otros materiales preparados por él?',
 		choices=choices
 	)
 	pregunta_10 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente proporciona la Bibliografía básica contenida en el Plan de asignatura?',
 		choices=choices
 	)
 	pregunta_11 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente valora los conocimientos previos de los estudiantes, respecto a  las asignaturas precedentes?',
 		choices=choices
 	)
 	pregunta_12 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente implementa procedimientos adecuados para la evaluación del aprendizaje?',
 		choices=choices
 	)
 	pregunta_13 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente elabora las preguntas de examen en correspondencia con los temas avanzados en la asignatura?',
 		choices=choices
 	)
 	pregunta_14 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente asigna al estudiante el tiempo suficiente y necesario para la resolución del examen aplicado?',
 		choices=choices
 	)
 	pregunta_15 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente informa a los estudiantes sobre los resultados y debilidades identificadas en la evaluación, en un plazo no mayor a los 10 días?',
 		choices=choices
 	)
 	pregunta_16 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente domina los temas de la asignatura?',
 		choices=choices
 	)
 	pregunta_17 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente aclara las preguntas efectuadas por los alumnos sobre los temas avanzados?',
 		choices=choices
 	)
 	pregunta_18 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente tiene claridad expositiva en el desarrollo de los temas?',
 		choices=choices
 	)
 	pregunta_19 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente desarrolla los temas en una secuencia lógica?',
 		choices=choices
 	)
@@ -452,6 +452,10 @@ class token_aevaluacion(models.Model):
 		null=False,
 		auto_now=True
 	)
+	def id_encode(self):
+		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+	def token_code(self):
+		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def __str__(self):
 		return str(self.evaluacion)
 
@@ -461,133 +465,133 @@ class cuestionario_aevaluacion(models.Model):
 	pregunta_1 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente cumple con el horario de clases establecido?',
 		choices=choices
 	)
 	pregunta_2 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente presenta el Plan de asignatura a los estudiantes al inicio de la actividad académica?',
 		choices=choices
 	)
 	pregunta_3 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente concluye los contenidos temáticos y/o actividades propuestos en el Plan de asignatura?',
 		choices=choices
 	)
 	pregunta_4 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente promueve el análisis crítico, la creatividad y el aprendizaje independiente en los estudiantes?',
 		choices=choices
 	)
 	pregunta_5 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente se relaciona con los estudiantes sin discriminación de raza, género, clase social, posición económica, credo religioso o ideología-política.?',
 		choices=choices
 	)
 	pregunta_6 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente motiva a los alumnos para la participación activa del mismo en clases?',
 		choices=choices
 	)
 	pregunta_7 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente presta atención individual o colectiva a los alumnos que solicitan consulta fuera de horarios de clases?',
 		choices=choices
 	)
 	pregunta_8 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente utiliza medios educativos de apoyo al aprendizaje, tales como Pizarra, retroproyector  u otros?',
 		choices=choices
 	)
 	pregunta_9 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente facilita texto guía, apuntes, guías de ejercicios prácticos u otros materiales preparados por él?',
 		choices=choices
 	)
 	pregunta_10 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente proporciona la Bibliografía básica contenida en el Plan de asignatura?',
 		choices=choices
 	)
 	pregunta_11 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente valora los conocimientos previos de los estudiantes, respecto a  las asignaturas precedentes?',
 		choices=choices
 	)
 	pregunta_12 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente implementa procedimientos adecuados para la evaluación del aprendizaje?',
 		choices=choices
 	)
 	pregunta_13 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente elabora las preguntas de examen en correspondencia con los temas avanzados en la asignatura?',
 		choices=choices
 	)
 	pregunta_14 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente asigna al estudiante el tiempo suficiente y necesario para la resolución del examen aplicado?',
 		choices=choices
 	)
 	pregunta_15 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente informa a los estudiantes sobre los resultados y debilidades identificadas en la evaluación, en un plazo no mayor a los 10 días?',
 		choices=choices
 	)
 	pregunta_16 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente domina los temas de la asignatura?',
 		choices=choices
 	)
 	pregunta_17 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente aclara las preguntas efectuadas por los alumnos sobre los temas avanzados?',
 		choices=choices
 	)
 	pregunta_18 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente tiene claridad expositiva en el desarrollo de los temas?',
 		choices=choices
 	)
 	pregunta_19 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente desarrolla los temas en una secuencia lógica?',
 		choices=choices
 	)
@@ -623,6 +627,10 @@ class token_dcarrera(models.Model):
 		null=False,
 		auto_now=True
 	)
+	def id_encode(self):
+		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+	def token_code(self):
+		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def __str__(self):
 		return str(self.evaluacion)
 
@@ -632,42 +640,42 @@ class cuestionario_dcarrera(models.Model):
 	pregunta_1 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente cumple con el horario de clases establecido?',
 		choices=choices
 	)
 	pregunta_2 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente presenta el Plan de asignatura a los estudiantes al inicio de la actividad académica?',
 		choices=choices
 	)
 	pregunta_3 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente concluye los contenidos temáticos y/o actividades propuestos en el Plan de asignatura?',
 		choices=choices
 	)
 	pregunta_4 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente publica y entrega las calificaciones, en un plazo no mayor a los 10 días?',
 		choices=choices
 	)
 	pregunta_5 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente participa en forma efectiva en tutorías y tribunal de graduación?',
 		choices=choices
 	)
 	pregunta_6 = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=1,
+		#default=1,
 		verbose_name=u'¿El docente cumple en las tareas asignadas por el Director de Carrera?',
 		choices=choices
 	)

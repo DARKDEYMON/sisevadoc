@@ -290,13 +290,22 @@ class report_eva_view(WeasyTemplateResponseMixin, ins_report_eva_view):
 class ins_report_tokenalum_view(ListView):
 	model = evaluacion
 	template_name = 'reportes/reporte_tokenalum.html'
-	model_token = token_alumno
+	model_tokena = token_alumno
+	model_tokend = token_aevaluacion
+	model_tokendr = token_dcarrera
 	def get_queryset(self):
 		res = get_object_or_404(self.model, id=self.kwargs['pk'])
 		canf = res.numero_alumnos - len(res.token_alumno_set.all())
 		canf = 0 if canf < 0 else canf
 		for a in range(canf):
-			self.model_token.objects.create(user=self.request.user, evaluacion=res)
+			self.model_tokena.objects.create(user=self.request.user, evaluacion=res)
+		canau = len(res.token_aevaluacion_set.all())
+		if canau == 0:
+			self.model_tokend.objects.create(user=self.request.user,evaluacion=res)
+		candr = len(res.token_dcarrera_set.all())
+		if candr == 0:
+			self.model_tokendr.objects.create(user=self.request.user,evaluacion=res)
+		print(candr)
 		return res
 
 class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):

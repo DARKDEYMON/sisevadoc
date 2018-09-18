@@ -11,6 +11,10 @@
          font-style: bold;
       }
     }
+    table{
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
     .tabla table, th, td {
       border: 1px solid black;
     }
@@ -27,6 +31,7 @@
 </head>
 <body>
   <h1 style="text-align: center;">Claves de Evaluación</h1>
+  <b>1.- Datos del evaluado</b>
   <div class="tabla">
     <table style="margin-left:auto; margin-right:auto;">
       <thead>
@@ -45,7 +50,7 @@
       </thead>
     </table>
   </div>
-  <p></p>
+  <b>2.- Claves para los estudiantes</b>
   <div class="tabla">
     <table style="margin-left:auto; margin-right:auto;">
       <thead>
@@ -74,6 +79,63 @@
       </tbody>
     </table>
   </div>
-  
+  <b>3.- Clave del docente (autoevaluacion)</b>
+  <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Estado</th>
+          <th>Creado</th>
+        </tr>
+      </thead>
+      <tbody class="texprint">
+        {% for tok in object_list.token_aevaluacion_set.all %}
+          <tr>
+            <th>{{tok.id_encode}}</th>
+            <th>{{tok.token_code}}</th>
+            <th>
+            {% if tok.usado %}
+              Usado            
+            {% else %}
+              Activo
+            {% endif %}
+            </th>
+            <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <b>4.- Clave del director de carrera</b>
+  <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Estado</th>
+          <th>Creado</th>
+        </tr>
+      </thead>
+      <tbody class="texprint">
+        {% for tok in object_list.token_dcarrera_set.all %}
+          <tr>
+            <th>{{tok.id_encode}}</th>
+            <th>{{tok.token_code}}</th>
+            <th>
+            {% if tok.usado %}
+              Usado            
+            {% else %}
+              Activo
+            {% endif %}
+            </th>
+            <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

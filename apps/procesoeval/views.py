@@ -13,8 +13,9 @@ from apps.evaluacion.views import (send_mail_evalum_view,
 									cuestionario_aevaluacion_view,
 									send_mail_aevaluacion_view,
 									cuestionario_dcarrera_view,
-									send_mail_evadirec_view)
-
+									send_mail_evadirec_view,
+									ins_report_tokenalum_view)
+from django_weasyprint import WeasyTemplateResponseMixin
 # Create your views here.
 
 class asignar_evaluacion_view(CreateView):
@@ -155,3 +156,27 @@ class send_mail_evadirec_pro_view(send_mail_evadirec_view):
 		except:
 			raise Http404
 		return super(send_mail_evadirec_pro_view, self).dispatch(request, *args, **kwargs)
+
+#creacion de evaluacion por usuario
+class create_evaluacion_user_form(CreateView):
+	form_class = create_evaluacion_user_form
+	template_name = 'evaluacion/nuevo_evaluacion.html'
+	success_url = reverse_lazy('procesoeval:listevaluser')
+	def get_form_kwargs(self):
+		kwargs = super(create_evaluacion_user_form, self).get_form_kwargs()
+		kwargs.update({'user': self.request.user})
+		return kwargs
+
+#reportes
+class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(id=kwargs['pk'], carrera__asignacion_evaluacion__usuario=request.user)
+		except Exception as e:
+			raise Http404
+		return super(ins_report_tokenalum_pro_view, self).dispatch(request, *args, **kwargs)
+
+class report_tokenalum_pro_view(WeasyTemplateResponseMixin,ins_report_tokenalum_pro_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]

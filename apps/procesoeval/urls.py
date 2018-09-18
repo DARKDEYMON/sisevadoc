@@ -22,17 +22,23 @@ urlpatterns = [
     path('createasig/<int:pk>/',permission_required('usuarios.usuarios')(login_required(asignar_evaluacion_view.as_view())), name='createasig'),
     path('listaevaluseradmin/<int:pk>/',permission_required('usuarios.usuarios')(login_required(lista_evaluacion_usuario_admin_view.as_view())), name='listevaluseradmin'),
     path('deleteasignacion/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(delete_asignacion_view.as_view())), name='deletedesignacion'),
-    path('listevaluser/',permission_required('usuarios.evaluacion')(login_required(lista_evaluacion_usuario_view.as_view())), name='listevaluser'),
+    #crear evaluacion usuario
+    path('createeval/',(login_required(create_evaluacion_user_form.as_view())), name='createeval'),
+    #lista
+    path('listevaluser/',(login_required(lista_evaluacion_usuario_view.as_view())), name='listevaluser'),
     #alum
-    path('createcuestionarioalumno/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(create_cuestionario_alum_pro_view.as_view())), name='createalumproeval'),
+    #path('createcuestionarioalumno/<int:pk>/',(login_required(create_cuestionario_alum_pro_view.as_view())), name='createalumproeval'),
 
-    path('sendmailevalum/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(send_mail_alum_pro_view.as_view())), name='sendmailalumproeval'),
+    #path('sendmailevalum/<int:pk>/',(login_required(send_mail_alum_pro_view.as_view())), name='sendmailalumproeval'),
     #aevaluacion
-    path('createcuestionarioaeval/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(create_cuestionario_aeval_pro_view.as_view())), name='createproaeval'),
+    #path('createcuestionarioaeval/<int:pk>/',(login_required(create_cuestionario_aeval_pro_view.as_view())), name='createproaeval'),
 
-    path('sendmailaevadoc/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(send_mail_aeval_pro_view.as_view())), name='sendmailproaeval'),
+    #path('sendmailaevadoc/<int:pk>/',(login_required(send_mail_aeval_pro_view.as_view())), name='sendmailproaeval'),
     #eval director carrera
-    path('createcuestinariodcarrera/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(cuestionario_dcarrera_pro_view.as_view())), name='createprodcarreraeval'),
+    #path('createcuestinariodcarrera/<int:pk>/',(login_required(cuestionario_dcarrera_pro_view.as_view())), name='createprodcarreraeval'),
 
-    path('sendmailevadire/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(send_mail_evadirec_pro_view.as_view())), name='sendmailprodcarrera'),
+    #path('sendmailevadire/<int:pk>/',(login_required(send_mail_evadirec_pro_view.as_view())), name='sendmailprodcarrera'),
+    #reportes
+    path('codepdf/<int:pk>/',(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
+
 ]

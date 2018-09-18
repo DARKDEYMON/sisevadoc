@@ -67,23 +67,28 @@
 							    	Gestion de Evaluaciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
+									<!--
 								    <li>
-								    	<a href="{% url 'procesoeval:sendmailalumproeval' eva.pk %}">Enviar Email Evaluacion Estudiantil<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{# url 'procesoeval:sendmailalumproeval' eva.pk #}">Enviar Email Evaluacion Estudiantil<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'procesoeval:createalumproeval' eva.pk %}">Evaluacion Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
+								    	<a href="{# url 'procesoeval:createalumproeval' eva.pk #}">Evaluacion Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'procesoeval:sendmailproaeval' eva.pk %}">Enviar Email Autoevaluacion Docente<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{# url 'procesoeval:sendmailproaeval' eva.pk #}">Enviar Email Autoevaluacion Docente<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'procesoeval:createproaeval' eva.pk %}">Autoevaluacion Docente<span class="glyphicon glyphicon-question-sign"></span></a>
+								    	<a href="{# url 'procesoeval:createproaeval' eva.pk #}">Autoevaluacion Docente<span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'procesoeval:sendmailprodcarrera' eva.pk %}">Enviar Email Evaluacion Director Carrera<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{# url 'procesoeval:sendmailprodcarrera' eva.pk #}">Enviar Email Evaluacion Director Carrera<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'procesoeval:createprodcarreraeval' eva.pk %}">Evaluacion Director Carrera<span class="glyphicon glyphicon-question-sign"></span></a>
+								    	<a href="{# url 'procesoeval:createprodcarreraeval' eva.pk #}">Evaluacion Director Carrera<span class="glyphicon glyphicon-question-sign"></span></a>
+								    </li>
+									-->
+								    <li>
+								    	<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}">Imprimir Claves</a>
 								    </li>
 								</ul>
 							</div>
