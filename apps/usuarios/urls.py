@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.contrib.auth.views import login, logout_then_login, password_reset
+from django.contrib.auth.views import LoginView, logout_then_login, PasswordResetView
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
@@ -23,14 +23,12 @@ from .views import *
 
 urlpatterns = [
     path('login/',
- 		login,
-        {'template_name':'auth/login.html'}, 
+ 		LoginView.as_view(template_name='auth/login.html'),
         name='login'
     ),
     path(
     	'resetpass/',
-    	login_required(auth_views.password_change),
-        {'template_name':'auth/pass_reset.html','post_change_redirect' : '/'}, 
+    	login_required(auth_views.PasswordChangeView.as_view(template_name='auth/pass_reset.html',success_url='/')),
         name='reset_password'
     ),
     path('logout/',logout_then_login, name='logout'),

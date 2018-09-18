@@ -41,4 +41,8 @@ urlpatterns = [
 
     #reportes
     path('reporteeva/<int:pk>/', permission_required('usuarios.conf_evaluaion')(login_required(report_eva_view.as_view())), name='reporteeva'),
+    path('codepdf/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(report_toke_alum.as_view())), name="codepdf"),
+
+    #redireccion
+    path('redirect',redirect_token.as_view(), name='redirect'),
 ]

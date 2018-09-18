@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+
+  <style type="text/css">
+    @page { size: letter;
+      @bottom-left {
+         content: "Pagina " counter(page) " de " counter(pages);
+         font-style: bold;
+      }
+    }
+    .tabla table, th, td {
+      border: 1px solid black;
+    }
+    .tabla th,td{
+      padding: 10px;
+    }
+    .textsmall{
+      font-size: x-small;
+    }
+    .texprint{
+      font-size: medium;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Claves de Evaluación</h1>
+  <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>Carrera</th>
+          <td>{{object_list.carrera}}</td>
+          <th>Materia</th>
+          <td>{{object_list.materia}}</td>
+        </tr>
+        <tr>
+          <th>Docente</th>
+          <td>{{object_list.docente}}</td>
+          <th>Gestión</th>
+          <td>{{object_list.gestion}}</td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <p></p>
+  <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Estado</th>
+          <th>Creado</th>
+        </tr>
+      </thead>
+      <tbody class="texprint">
+        {% for tok in object_list.token_alumno_set.all %}
+          <tr>
+            <th>{{tok.id_encode}}</th>
+            <th>{{tok.token_code}}</th>
+            <th>
+            {% if tok.usado %}
+              Usado            
+            {% else %}
+              Activo
+            {% endif %}
+            </th>
+            <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+</body>
+</html>

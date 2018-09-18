@@ -96,3 +96,8 @@ class cuestionario_dcarrera_form(ModelForm):
 			'pregunta_5':forms.RadioSelect(),
 			'pregunta_6':forms.RadioSelect(),
 		}
+
+class redirect_token_form(forms.Form):
+	tipo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,"Alumno"),(2,"Docente"),(3,"Director")))
+	id = forms.CharField(required=True)
+	clave = forms.CharField(required=True)

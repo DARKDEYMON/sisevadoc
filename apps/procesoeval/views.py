@@ -120,7 +120,7 @@ class send_mail_alum_pro_view(send_mail_evalum_view):
 			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
 		except:
 			raise Http404
-		return super(send_mail_alum_con_view, self).dispatch(request, *args, **kwargs)
+		return super(send_mail_alum_pro_view, self).dispatch(request, *args, **kwargs)
 
 #autoevaluacion
 class create_cuestionario_aeval_pro_view(cuestionario_aevaluacion_view):

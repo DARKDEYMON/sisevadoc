@@ -4,6 +4,7 @@ from apps.academico.models import *
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 import random
 
@@ -13,6 +14,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from io import BytesIO
 import base64
+
+from .token_eva import *
+from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 
 # Create your models here.
 class evaluacion(models.Model):
@@ -44,6 +49,11 @@ class evaluacion(models.Model):
 				code = 'dato solo numerico'
 			)
 		]
+	)
+	numero_alumnos = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		validators=[MinValueValidator(1)]
 	)
 	creacion = models.DateTimeField(
 		blank=False,
@@ -273,6 +283,10 @@ class token_alumno(models.Model):
 		null=False,
 		auto_now=True
 	)
+	def id_encode(self):
+		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+	def token_code(self):
+		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def __str__(self):
 		return str(self.evaluacion)
 

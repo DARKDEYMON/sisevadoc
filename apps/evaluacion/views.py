@@ -286,3 +286,40 @@ class report_eva_view(WeasyTemplateResponseMixin, ins_report_eva_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+
+class ins_report_tokenalum_view(ListView):
+	model = evaluacion
+	template_name = 'reportes/reporte_tokenalum.html'
+	model_token = token_alumno
+	def get_queryset(self):
+		res = get_object_or_404(self.model, id=self.kwargs['pk'])
+		canf = res.numero_alumnos - len(res.token_alumno_set.all())
+		canf = 0 if canf < 0 else canf
+		for a in range(canf):
+			self.model_token.objects.create(user=self.request.user, evaluacion=res)
+		return res
+
+class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]
+
+class redirect_token(FormView):
+	success_url_alum = 'evaluacion:alumtoken'
+	success_url_doce = 'evaluacion:aevaldoctoken'
+	success_url_dire = 'evaluacion:dcarreratoken'
+	form_class = redirect_token_form
+	template_name = 'evaluacion/create_redirect.html'
+	def form_valid(self, form):
+		if form.is_valid():
+			self.tipo = form.cleaned_data['tipo']
+			self.id = form.cleaned_data['id']
+			self.clave = form.cleaned_data['clave']
+		return super().form_valid(form)
+	def get_success_url(self):
+		if int(self.tipo) == 1:
+			return reverse_lazy(self.success_url_alum, kwargs={'uidb64': self.id,'token':self.clave})
+		if int(self.tipo) == 2:
+			return reverse_lazy(self.success_url_doce, kwargs={'uidb64': self.id,'token':self.clave})
+		if int(self.tipo) == 3:
+			return reverse_lazy(self.success_url_dire, kwargs={'uidb64': self.id,'token':self.clave})
