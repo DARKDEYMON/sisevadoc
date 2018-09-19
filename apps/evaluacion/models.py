@@ -260,6 +260,19 @@ class evaluacion(models.Model):
 		plt.close()
 		figdata_png = base64.b64encode(figfile.getvalue())
 		return (figdata_png.decode('utf8'))
+	#solo si se lleno autoeva direct y estudiantes mas de 1
+	def esta_llenado(self):
+		if len(self.cuestionario_alumno_set.all())==0:
+			return False
+		try:
+			self.cuestionario_aevaluacion
+		except Exception as e:
+			return False
+		try:
+			self.cuestionario_dcarrera
+		except Exception as e:
+			return False
+		return True
 	def __str__(self):
 		return str(self.docente)
 	class Meta:

@@ -39,6 +39,7 @@ urlpatterns = [
 
     #path('sendmailevadire/<int:pk>/',(login_required(send_mail_evadirec_pro_view.as_view())), name='sendmailprodcarrera'),
     #reportes
+    path('reporteeva/<int:pk>/',(login_required(report_eva_pro_view.as_view())), name='reporteeva'),
     path('codepdf/<int:pk>/',(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
 
 ]

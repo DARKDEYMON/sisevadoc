@@ -90,8 +90,43 @@
 								    <li>
 								    	<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}">Imprimir Claves</a>
 								    </li>
+								    {% if eva.estado %}
+								  	<li>
+										<a href="" data-toggle="modal" data-target="#reportemodal{{eva.pk}}">
+										  Reporte Evaluación
+										</a>
+									</li>
+			    	    			{% else %}
+										<a href="{% url 'procesoeval:reporteeva' eva.pk %}" target="_blank" type="button" class="btn btn-warning dropdown-toggle">
+											Reporte Evaluación
+										</a>
+			    	    			{% endif %}
 								</ul>
 							</div>
+
+							<div class="modal fade" id="reportemodal{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header modal-header-danger">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Atención!!!</h4>
+										</div>
+										<div class="modal-body">
+										Una vez generado el reporte se desactivara la evaluación si esta seguro presione aceptar.
+										{% if not eva.esta_llenado %}
+											<h3 style="color:red;">!!!Al Parecer aun no se a llenado la autoevaluacion o la evaluación del rector por favor revise esto, también es necesario que al menos una parte de los estudiantes hayan llenado la evaluación</h3>
+										{% endif %}
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											{% if eva.esta_llenado %}
+												<a target="_blank" href="{% url 'procesoeval:reporteeva' eva.pk %}" type="button" class="btn btn-primary" onclick="$('#reportemodal{{eva.pk}}').modal('hide')">Aceptar</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+							
 	    	    		</td>
 	    	    	</tr>
 	    	    {% endfor %}

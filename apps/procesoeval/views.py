@@ -14,7 +14,8 @@ from apps.evaluacion.views import (send_mail_evalum_view,
 									send_mail_aevaluacion_view,
 									cuestionario_dcarrera_view,
 									send_mail_evadirec_view,
-									ins_report_tokenalum_view)
+									ins_report_tokenalum_view,
+									ins_report_eva_view)
 from django_weasyprint import WeasyTemplateResponseMixin
 # Create your views here.
 
@@ -177,6 +178,21 @@ class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):
 		return super(ins_report_tokenalum_pro_view, self).dispatch(request, *args, **kwargs)
 
 class report_tokenalum_pro_view(WeasyTemplateResponseMixin,ins_report_tokenalum_pro_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]
+
+class ins_report_eva_pro_view(ins_report_eva_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			res = self.model.objects.get(id=kwargs['pk'],carrera__asignacion_evaluacion__usuario=request.user)
+			res.estado = False
+			res.save()
+		except Exception as e:
+			raise Http404
+		return super(ins_report_eva_pro_view, self).dispatch(request, *args, **kwargs)
+
+class report_eva_pro_view(WeasyTemplateResponseMixin, ins_report_eva_pro_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]

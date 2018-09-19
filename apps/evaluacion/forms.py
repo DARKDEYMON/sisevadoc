@@ -11,6 +11,11 @@ class create_evaluacion_form(ModelForm):
 		model = evaluacion
 		exclude = ['estado']
 
+class update_evaluacion_form(ModelForm):
+	class Meta:
+		model = evaluacion
+		exclude = ['']
+
 class create_evaluacion_estado_form(ModelForm):
 	class Meta:
 		model = evaluacion

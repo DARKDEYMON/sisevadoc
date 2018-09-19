@@ -22,7 +22,7 @@ class create_evaluacion_view(CreateView):
 
 class update_evaluacion_view(UpdateView):
 	model = evaluacion
-	form_class = create_evaluacion_form
+	form_class = update_evaluacion_form
 	template_name = 'evaluacion/update_evaluacion.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
 

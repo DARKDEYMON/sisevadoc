@@ -74,10 +74,10 @@
 								    	<a href="{% url 'evaluacion:estadoeval' eva.pk %}">Activar/Desactivar Evaluación<span class="glyphicon glyphicon-off"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'evaluacion:sendmailevalum' eva.pk %}">Enviar Email Evaluacion Estudiantil<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{% url 'evaluacion:sendmailevalum' eva.pk %}">Enviar Email Evaluación Estudiantil<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'evaluacion:createvadocen' eva.pk %}">Evaluacion Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
+								    	<a href="{% url 'evaluacion:createvadocen' eva.pk %}">Evaluación Estudiantil<span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 								    <li>
 								    	<a href="{% url 'evaluacion:sendmailaevadoc' eva.pk %}">Enviar Email Autoevaluacion Docente <span class="glyphicon glyphicon-send"></a>
@@ -86,19 +86,56 @@
 								    	<a href="{% url 'evaluacion:createautoeval' eva.pk %}">Autoevaluacion Docente<span class="glyphicon glyphicon-question-sign"></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'evaluacion:sendmailevadire' eva.pk %}">Enviar Email Evaluacion Director Carrera<span class="glyphicon glyphicon-send"></span></a>
+								    	<a href="{% url 'evaluacion:sendmailevadire' eva.pk %}">Enviar Email Evaluación Director Carrera<span class="glyphicon glyphicon-send"></span></a>
 								    </li>
 								    <li>
-								    	<a href="{% url 'evaluacion:createvadcarrera' eva.pk %}">Evaluacion Director Carrera <span class="glyphicon glyphicon-question-sign"></span></a>
+								    	<a href="{% url 'evaluacion:createvadcarrera' eva.pk %}">Evaluación Director Carrera <span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
+								    <!--
 								    <li>
-								    	<a target="_blank" href="{% url 'evaluacion:reporteeva' eva.pk %}">Reporte Evaluacion</a>
+								    	<a target="_blank" href="{% url 'evaluacion:reporteeva' eva.pk %}">Reporte Evaluación</a>
 								    </li>
+									-->
 								    <li>
 								    	<a target="_blank" href="{% url 'evaluacion:codepdf' eva.pk %}">Codigos</a>
 								    </li>
+								  	{% if eva.estado %}
+								  	<li>
+										<a href="" data-toggle="modal" data-target="#reportemodal{{eva.pk}}">
+										  Reporte Evaluación
+										</a>
+									</li>
+			    	    			{% else %}
+										<a href="{% url 'evaluacion:reporteeva' eva.pk %}" target="_blank" type="button" class="btn btn-warning dropdown-toggle">
+											Reporte Evaluación
+										</a>
+			    	    			{% endif %}
 								</ul>
 							</div>
+
+							<div class="modal fade" id="reportemodal{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header modal-header-danger">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Atención!!!</h4>
+										</div>
+										<div class="modal-body">
+										Presiones aceptar para generar el reporte.
+										{% if not eva.esta_llenado %}
+											<h3 style="color:red;">!!!Al Parecer aun no se a llenado la autoevaluacion o la evaluación del, también es necesario que al menos una parte de los estudiantes hayan llenado la evaluación</h3>
+										{% endif %}
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											{% if eva.esta_llenado %}
+												<a target="_blank" href="{% url 'evaluacion:reporteeva' eva.pk %}" type="button" class="btn btn-primary" onclick="$('#reportemodal{{eva.pk}}').modal('hide')">Aceptar</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
 	    	    		</td>
 	    	    	</tr>
 	    	    {% endfor %}
