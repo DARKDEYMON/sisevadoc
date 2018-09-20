@@ -96,8 +96,17 @@
 								    	<a target="_blank" href="{% url 'evaluacion:reporteeva' eva.pk %}">Reporte Evaluación</a>
 								    </li>
 									-->
+									<li>
+								    	<a href="{% url 'evaluacion:createcomicion' eva.pk %}">Añadir Participante de la Comisión</a>
+								    </li>
 								    <li>
-								    	<a target="_blank" href="{% url 'evaluacion:codepdf' eva.pk %}">Codigos</a>
+								    	<a href="{% url 'evaluacion:listcomicion' eva.pk %}">Lista de Participantes de la Comisión</a>
+								    </li>
+								    <li>
+								    	<a target="_blank" href="{% url 'evaluacion:codepdf' eva.pk %}">Códigos</a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'evaluacion:estobservacion' eva.pk %}">Llenar Observaciones</a>
 								    </li>
 								  	{% if eva.estado %}
 								  	<li>
@@ -106,9 +115,11 @@
 										</a>
 									</li>
 			    	    			{% else %}
-										<a href="{% url 'evaluacion:reporteeva' eva.pk %}" target="_blank" type="button" class="btn btn-warning dropdown-toggle">
+			    	    			<li>
+										<a href="{% url 'evaluacion:reporteeva' eva.pk %}" target="_blank">
 											Reporte Evaluación
 										</a>
+									</li>
 			    	    			{% endif %}
 								</ul>
 							</div>

@@ -9,12 +9,12 @@ from .models import *
 class create_evaluacion_form(ModelForm):
 	class Meta:
 		model = evaluacion
-		exclude = ['estado']
+		exclude = ['estado','observaciones']
 
-class update_evaluacion_form(ModelForm):
+class create_observacion_form(ModelForm):
 	class Meta:
 		model = evaluacion
-		exclude = ['']
+		fields = ['observaciones']
 
 class create_evaluacion_estado_form(ModelForm):
 	class Meta:
@@ -106,3 +106,17 @@ class redirect_token_form(forms.Form):
 	tipo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,"Alumno"),(2,"Docente"),(3,"Director")))
 	id = forms.CharField(required=True)
 	clave = forms.CharField(required=True)
+
+class create_comision_form(ModelForm):
+	class Meta:
+		model = comision
+		exclude = ['evaluacion']
+		widgets = {
+			'veedor':forms.RadioSelect(choices=[(True, 'Si'),(False, 'No')]),
+		}
+		labels = {
+			'apellidos':'Apellido(s)',
+			'nombres':'Nombre(s)',
+			'apellidos':'Apellido(s)',
+			'ci':'C.I.'
+		}

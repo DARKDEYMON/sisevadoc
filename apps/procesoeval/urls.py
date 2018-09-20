@@ -24,6 +24,7 @@ urlpatterns = [
     path('deleteasignacion/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(delete_asignacion_view.as_view())), name='deletedesignacion'),
     #crear evaluacion usuario
     path('createeval/',(login_required(create_evaluacion_user_form.as_view())), name='createeval'),
+    path('estobservacion/<int:pk>/',(login_required(update_evaluacion_activo_pro_view.as_view())), name='estobservacion'),
     #lista
     path('listevaluser/',(login_required(lista_evaluacion_usuario_view.as_view())), name='listevaluser'),
     #alum
@@ -41,5 +42,9 @@ urlpatterns = [
     #reportes
     path('reporteeva/<int:pk>/',(login_required(report_eva_pro_view.as_view())), name='reporteeva'),
     path('codepdf/<int:pk>/',(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
-
+    #comicion
+    path('createcomicion/<int:pk>/',(login_required(create_comision_pro_view.as_view())), name='createcomicion'),
+    path('listcomicion/<int:pk>/',(login_required(lista_comicion_pro_view.as_view())), name='listcomicion'),
+    path('updatecomicion/<int:pk>/',(login_required(update_comision_pro_view.as_view())), name='updatecomicion'),
+    path('deletecomicion/<int:pk>/',(login_required(delete_comision_pro_view.as_view())), name='deletecomicion'),
 ]

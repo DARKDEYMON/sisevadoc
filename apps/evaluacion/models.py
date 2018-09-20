@@ -65,6 +65,10 @@ class evaluacion(models.Model):
 		blank = False,
 		default = True
 	)
+	observaciones = models.TextField(
+		null=True,
+		blank=True
+	) 
 	def alum_p1(self):
 		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg']
 	def alum_prom_p1(self):
@@ -247,7 +251,7 @@ class evaluacion(models.Model):
 						self.cuestionario_dcarrera.pregunta_5,
 						self.cuestionario_dcarrera.pregunta_6,
 						],label='Director C.',marker='x')
-
+		ax.set(xlim=(0, 6), ylim=(0, 5), autoscale_on=False,title='Zoom window')
 		plt.xlabel('Areas')
 		plt.ylabel('Escala')
 
@@ -277,6 +281,31 @@ class evaluacion(models.Model):
 		return str(self.docente)
 	class Meta:
 		unique_together = (('docente', 'gestion','materia'),)
+
+class comision(models.Model):
+	evaluacion = models.ForeignKey(evaluacion, on_delete=models.CASCADE)
+	apellidos = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False
+	)
+	nombres = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False
+	)
+	ci = models.CharField(
+		max_length=10,
+		null=False,
+		blank=False
+	)
+	veedor = models.BooleanField(
+		null=False,
+		blank=False,
+		default=False
+	)
+	def __str__(self):
+		return self.ci
 
 class token_alumno(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

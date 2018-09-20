@@ -22,7 +22,7 @@ class create_evaluacion_view(CreateView):
 
 class update_evaluacion_view(UpdateView):
 	model = evaluacion
-	form_class = update_evaluacion_form
+	form_class = create_evaluacion_form
 	template_name = 'evaluacion/update_evaluacion.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
 
@@ -31,6 +31,12 @@ class update_evaluacion_activo_view(UpdateView):
 	form_class = create_evaluacion_estado_form
 	template_name = 'evaluacion/update_evaluacion_estado.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
+
+class update_observaciones_view(UpdateView):
+	model = evaluacion
+	form_class = create_observacion_form
+	template_name = 'evaluacion/update_observacion.html'
+	reverse_lazy('evaluacion:listaevaluacion')
 
 class lista_docentes_view(ListView):
 	model = evaluacion
@@ -125,11 +131,12 @@ class create_cuestionario_alumno_token_view(CreateView):
 		if self.model_res.usado:
 			self.valido = False
 		else:
-			self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+			if self.model_res.evaluacion.estado:
+				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+			else:
+				self.valido = False
 		return super(create_cuestionario_alumno_token_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
-		#aqui ponerlo en false
-		#obj = Product.objects.get(pk=pk)
 		form.instance.evaluacion = self.model_res.evaluacion
 		self.model_res.usado = True
 		self.model_res.save()
@@ -189,13 +196,16 @@ class create_cuestionario_aevaluacion_token_view(CreateView):
 		self.model_res = get_object_or_404(self.model_extra,id=id)
 		try:
 			#aqui se verifica si tiene o no ya una autoevaluacion esto para que no de dos
-			self.cuestionario_aevaluacion
+			self.model_res.evaluacion.cuestionario_aevaluacion
 			self.valido = False
 		except:
 			if self.model_res.usado:
 				self.valido = False
 			else:
-				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+				if self.model_res.evaluacion.estado:
+					self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+				else:
+					self.valido = False
 		return super(create_cuestionario_aevaluacion_token_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
 		#aqui ponerlo en false
@@ -258,13 +268,16 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 		id = urlsafe_base64_decode(kwargs['uidb64']).decode('utf-8')
 		self.model_res = get_object_or_404(self.model_extra,id=id)
 		try:
-			self.cuestionario_dcarrera
+			self.model_res.evaluacion.cuestionario_dcarrera
 			self.valido = False
 		except:
 			if self.model_res.usado:
 				self.valido = False
 			else:
-				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+				if self.model_res.evaluacion.estado:
+					self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
+				else:
+					self.valido = False
 		return super(create_cuestionario_dcarrera_token_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
 		#aqui ponerlo en false
@@ -273,6 +286,63 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 		self.model_res.usado = True
 		self.model_res.save()
 		return super().form_valid(form)
+
+#comicion
+class create_comision_view(CreateView):
+	model_extra = evaluacion
+	form_class = create_comision_form
+	template_name = 'evaluacion/nuevo_comision.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+	def form_valid(self, form):
+		form.instance.evaluacion = get_object_or_404(self.model_extra,id=self.kwargs['pk'])
+		return super().form_valid(form)
+
+class update_comision_view(UpdateView):
+	model = comision
+	form_class = create_comision_form
+	template_name = 'evaluacion/nuevo_comision.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+
+class delete_comision_view(DeleteView):
+	model = comision
+	template_name ='evaluacion/delete_comision.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
+
+class lista_comicion_view(ListView):
+	model = comision
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'evaluacion/comicion_list.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_comicion_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(id__icontains=search)|
+					Q(apellidos__icontains=search)|
+					Q(nombres__icontains=search)|
+					Q(ci__icontains=search)|
+					Q(veedor__icontains=search,
+					evaluacion__id=self.kwargs['pk'])
+				)
+		else:
+			return self.model.objects.filter(evaluacion__id=self.kwargs['pk'])
 
 #reportes
 class ins_report_eva_view(ListView):

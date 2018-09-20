@@ -11,7 +11,7 @@ class create_carrera_view(CreateView):
 
 class update_carrera_view(UpdateView):
 	model = carreras
-	form_class = create_carrera_form
+	form_class = update_carrera_form
 	template_name = 'academico/update_carrera.html'
 	success_url = reverse_lazy('academico:listcarrera')
 

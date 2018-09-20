@@ -8,14 +8,13 @@ from django.db.models import Q
 from apps.evaluacion.models import *
 from .models import *
 from .forms import *
-from apps.evaluacion.views import (send_mail_evalum_view,
-									create_cuestionario_alumno_view, 
-									cuestionario_aevaluacion_view,
-									send_mail_aevaluacion_view,
-									cuestionario_dcarrera_view,
-									send_mail_evadirec_view,
-									ins_report_tokenalum_view,
-									ins_report_eva_view)
+from apps.evaluacion.views import (send_mail_evalum_view, create_cuestionario_alumno_view, 
+									cuestionario_aevaluacion_view, send_mail_aevaluacion_view,
+									cuestionario_dcarrera_view, send_mail_evadirec_view,
+									ins_report_tokenalum_view, ins_report_eva_view,
+									update_observaciones_view, create_comision_view,
+									lista_comicion_view, update_comision_view,
+									delete_comision_view)
 from django_weasyprint import WeasyTemplateResponseMixin
 # Create your views here.
 
@@ -97,21 +96,23 @@ class lista_evaluacion_usuario_view(ListView):
 		if (search):
 			#verificar
 			return self.model.objects.filter(
-					Q(carrera__asignacion_evaluacion__usuario=self.request.user)&
-					Q(estado=True),
+					Q(carrera__asignacion_evaluacion__usuario=self.request.user),
+					#Q(estado=True),
 					Q(id__icontains=search)|
+					Q(gestion__icontains=search)|
 					Q(carrera__nombre__icontains=search)|
 					Q(materia__sigla__icontains=search)|
+					Q(materia__nombre__icontains=search)|
 					Q(docente__nombre__icontains=search)|
 					Q(gestion__icontains=search)
 				).order_by('gestion')
 		else:
-			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user, estado=True)
+			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user).order_by('gestion')#, estado=True)
 #alumno
 class create_cuestionario_alum_pro_view(create_cuestionario_alumno_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(create_cuestionario_alum_pro_view, self).dispatch(request, *args, **kwargs)
@@ -119,7 +120,7 @@ class create_cuestionario_alum_pro_view(create_cuestionario_alumno_view):
 class send_mail_alum_pro_view(send_mail_evalum_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(send_mail_alum_pro_view, self).dispatch(request, *args, **kwargs)
@@ -128,7 +129,7 @@ class send_mail_alum_pro_view(send_mail_evalum_view):
 class create_cuestionario_aeval_pro_view(cuestionario_aevaluacion_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(create_cuestionario_aeval_pro_view, self).dispatch(request, *args, **kwargs)
@@ -136,7 +137,7 @@ class create_cuestionario_aeval_pro_view(cuestionario_aevaluacion_view):
 class send_mail_aeval_pro_view(send_mail_aevaluacion_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(send_mail_aeval_pro_view, self).dispatch(request, *args, **kwargs)
@@ -145,7 +146,7 @@ class send_mail_aeval_pro_view(send_mail_aevaluacion_view):
 class cuestionario_dcarrera_pro_view(cuestionario_dcarrera_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(cuestionario_dcarrera_pro_view, self).dispatch(request, *args, **kwargs)
@@ -153,7 +154,7 @@ class cuestionario_dcarrera_pro_view(cuestionario_dcarrera_view):
 class send_mail_evadirec_pro_view(send_mail_evadirec_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'])
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except:
 			raise Http404
 		return super(send_mail_evadirec_pro_view, self).dispatch(request, *args, **kwargs)
@@ -167,6 +168,46 @@ class create_evaluacion_user_form(CreateView):
 		kwargs = super(create_evaluacion_user_form, self).get_form_kwargs()
 		kwargs.update({'user': self.request.user})
 		return kwargs
+
+#llenado de observaciones
+class update_evaluacion_activo_pro_view(update_observaciones_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
+		except Exception as e:
+			raise Http404
+		return super(update_evaluacion_activo_pro_view, self).dispatch(request, *args, **kwargs)
+
+#comicion
+class create_comision_pro_view(create_comision_view):
+	success_url = reverse_lazy('procesoeval:listevaluser')
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
+		except Exception as e:
+			raise Http404
+		return super(create_comision_pro_view, self).dispatch(request, *args, **kwargs)
+
+class update_comision_pro_view(update_comision_view):
+	success_url = reverse_lazy('procesoeval:listevaluser')
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(evaluacion__carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],evaluacion__estado=True)
+		except Exception as e:
+			raise Http404
+		return super(update_comision_pro_view, self).dispatch(request, *args, **kwargs)
+
+class delete_comision_pro_view(delete_comision_view):
+	success_url = reverse_lazy('procesoeval:listevaluser')
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(evaluacion__carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],evaluacion__estado=True)
+		except Exception as e:
+			raise Http404
+		return super(delete_comision_pro_view, self).dispatch(request, *args, **kwargs)
+
+class lista_comicion_pro_view(lista_comicion_view):
+	template_name = 'procesoeval/comicion_list.html'
 
 #reportes
 class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):

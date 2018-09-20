@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +6,7 @@
 
 
   <style type="text/css">
-    @page { size: A4 landscape;
+    @page { size: letter portrait;
     /*background: gray;
     border: solid 1pt blue;
     padding: 9pt;
@@ -34,6 +35,21 @@
             }
     */
     }
+
+    @page portrait {
+      size: letter portrait;
+    }
+    .portrait{
+      page: portrait;
+    }
+
+    @page landscape {
+      size: letter landscape;
+    }
+    .landscape{
+      page: landscape;
+    }
+
     .tabla table, th, td {
       border: 1px solid black;
     }
@@ -43,181 +59,220 @@
     .textsmall{
       font-size: x-small;
     }
+
+    .tablenoboder {
+      border: none;
+    }
   </style>
 </head>
 <body>
-  <h1 style="text-align: center;">Valoración Global del Desempeño Docente</h1>
-  <h3>Docente: {{ object_list.docente }}</h3>
-  <div class="tabla">
-  <table class="textsmall" style="margin-left:auto; margin-right:auto;">
-    <thead>
-      <tr>
-        <th>
-          
-        </th>
-        <th colspan="19">
-          Áreas
-        </th>
-        <th colspan="2">
-          Promedio
-        </th>
-      </tr>
-      <tr>
-        <th>
-          Categoría
-        </th>
-        <th>
-          1
-        </th>
-        <th>
-          2
-        </th>
-        <th>
-          3
-        </th>
-        <th>
-          4
-        </th>
-        <th>
-          5
-        </th>
-        <th>
-          6
-        </th>
-        <th>
-          7
-        </th>
-        <th>
-          8
-        </th>
-        <th>
-          9
-        </th>
-        <th>
-          10
-        </th>
-        <th>
-          11
-        </th>
-        <th>
-          12
-        </th>
-        <th>
-          13
-        </th>
-        <th>
-          14
-        </th>
-        <th>
-          15
-        </th>
-        <th>
-          16
-        </th>
-        <th>
-          17
-        </th>
-        <th>
-          18
-        </th>
-        <th>
-          19
-        </th>
-        <th>
-          
-        </th>
-        <th>
-          
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-       <tr>
-        <td>Autoevaluacion Docente</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_1 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_2 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_3 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_4 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_5 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_6 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_7 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_8 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_9 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_10 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_11 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_12 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_13 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_14 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_15 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_16 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_17 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_18 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.pregunta_19 }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva }}</td>
-        <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva_porcen }}%</td>
-      </tr>
-      <tr>
-        <td>Opinión Estudiantil</td>
-        <td>{{ object_list.alum_p1 }}</td>
-        <td>{{ object_list.alum_p2 }}</td>
-        <td>{{ object_list.alum_p3 }}</td>
-        <td>{{ object_list.alum_p4 }}</td>
-        <td>{{ object_list.alum_p5 }}</td>
-        <td>{{ object_list.alum_p6 }}</td>
-        <td>{{ object_list.alum_p7 }}</td>
-        <td>{{ object_list.alum_p8 }}</td>
-        <td>{{ object_list.alum_p9 }}</td>
-        <td>{{ object_list.alum_p10 }}</td>
-        <td>{{ object_list.alum_p11 }}</td>
-        <td>{{ object_list.alum_p12 }}</td>
-        <td>{{ object_list.alum_p13 }}</td>
-        <td>{{ object_list.alum_p14 }}</td>
-        <td>{{ object_list.alum_p15 }}</td>
-        <td>{{ object_list.alum_p16 }}</td>
-        <td>{{ object_list.alum_p17 }}</td>
-        <td>{{ object_list.alum_p18 }}</td>
-        <td>{{ object_list.alum_p19 }}</td>
-        <td>{{ object_list.prom_alum }}</td>
-        <td>{{ object_list.prom_alum_porcen }}%</td>
-      </tr>
-      <tr>
-        <td>Promedio</td>
-        <td>{{ object_list.alum_prom_p1 }}</td>
-        <td>{{ object_list.alum_prom_p2 }}</td>
-        <td>{{ object_list.alum_prom_p3 }}</td>
-        <td>{{ object_list.alum_prom_p4 }}</td>
-        <td>{{ object_list.alum_prom_p5 }}</td>
-        <td>{{ object_list.alum_prom_p6 }}</td>
-        <td>{{ object_list.alum_prom_p7 }}</td>
-        <td>{{ object_list.alum_prom_p8 }}</td>
-        <td>{{ object_list.alum_prom_p9 }}</td>
-        <td>{{ object_list.alum_prom_p10 }}</td>
-        <td>{{ object_list.alum_prom_p11 }}</td>
-        <td>{{ object_list.alum_prom_p12 }}</td>
-        <td>{{ object_list.alum_prom_p13 }}</td>
-        <td>{{ object_list.alum_prom_p14 }}</td>
-        <td>{{ object_list.alum_prom_p15 }}</td>
-        <td>{{ object_list.alum_prom_p16 }}</td>
-        <td>{{ object_list.alum_prom_p17 }}</td>
-        <td>{{ object_list.alum_prom_p18 }}</td>
-        <td>{{ object_list.alum_prom_p19 }}</td>
-        <td>{{ object_list.prom_alum_general }}</td>
-        <td>{{ object_list.prom_alum_general_porcentaje }}%</td>
-      </tr>
-    </tbody>
-  </table>
+
+    <h2 style="text-align: center;">Universidad Autónoma "Tomas Frías"</h2>
+    <h3 style="text-align: center;">Dirección de Evaluación y Acreditación Universitaria</h3>
+    <br>
+    <img src="{% static "logo.png" %}" style="display: block; margin-left:auto; margin-right:auto;">
+    <br>
+    <h3 style="text-align: center;">Seguimiento o Evaluación</h3>
+    <h3 style="text-align: center;">Programa Anual de Operaciones {{ object_list.gestion }}</h3>
+
+
+
+
+  <div class="landscape">
+    <h1 style="text-align: center;">Valoración Global del Desempeño Docente</h1>
+    <div style="border: none; border-style: none;">
+      <table style="margin-left:auto; margin-right:auto;">
+          <tr>
+            <td class="tablenoboder">Docente:</td>
+            <td class="tablenoboder">{{ object_list.docente }}</td>
+            <td class="tablenoboder">Carrera:</td>
+            <td class="tablenoboder">{{ object_list.carrera }}</td>
+            <td class="tablenoboder">Materia:</td>
+            <td class="tablenoboder">{{ object_list.materia.nombre }}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder">Sigla:</td>
+            <td class="tablenoboder">{{ object_list.materia }}</td>
+            <td class="tablenoboder">Numero de alumnos:</td>
+            <td class="tablenoboder">{{ object_list.numero_alumnos }}</td>
+            <td class="tablenoboder">Creación:</td>
+            <td class="tablenoboder">{{ object_list.creacion|date:'Y-m-d H:i' }}</td>
+          </tr>
+      </table>
+    </div>
+    
+    <div class="tabla">
+      <table class="textsmall" style="margin-left:auto; margin-right:auto;">
+        <thead>
+          <tr>
+            <th>
+              
+            </th>
+            <th colspan="19">
+              Áreas
+            </th>
+            <th colspan="2">
+              Promedio
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Categoría
+            </th>
+            <th>
+              1
+            </th>
+            <th>
+              2
+            </th>
+            <th>
+              3
+            </th>
+            <th>
+              4
+            </th>
+            <th>
+              5
+            </th>
+            <th>
+              6
+            </th>
+            <th>
+              7
+            </th>
+            <th>
+              8
+            </th>
+            <th>
+              9
+            </th>
+            <th>
+              10
+            </th>
+            <th>
+              11
+            </th>
+            <th>
+              12
+            </th>
+            <th>
+              13
+            </th>
+            <th>
+              14
+            </th>
+            <th>
+              15
+            </th>
+            <th>
+              16
+            </th>
+            <th>
+              17
+            </th>
+            <th>
+              18
+            </th>
+            <th>
+              19
+            </th>
+            <th>
+              
+            </th>
+            <th>
+              
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+           <tr>
+            <td>Autoevaluacion Docente</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_1 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_2 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_3 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_4 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_5 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_6 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_7 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_8 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_9 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_10 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_11 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_12 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_13 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_14 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_15 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_16 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_17 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_18 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.pregunta_19 }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva }}</td>
+            <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva_porcen }}%</td>
+          </tr>
+          <tr>
+            <td>Opinión Estudiantil</td>
+            <td>{{ object_list.alum_p1 }}</td>
+            <td>{{ object_list.alum_p2 }}</td>
+            <td>{{ object_list.alum_p3 }}</td>
+            <td>{{ object_list.alum_p4 }}</td>
+            <td>{{ object_list.alum_p5 }}</td>
+            <td>{{ object_list.alum_p6 }}</td>
+            <td>{{ object_list.alum_p7 }}</td>
+            <td>{{ object_list.alum_p8 }}</td>
+            <td>{{ object_list.alum_p9 }}</td>
+            <td>{{ object_list.alum_p10 }}</td>
+            <td>{{ object_list.alum_p11 }}</td>
+            <td>{{ object_list.alum_p12 }}</td>
+            <td>{{ object_list.alum_p13 }}</td>
+            <td>{{ object_list.alum_p14 }}</td>
+            <td>{{ object_list.alum_p15 }}</td>
+            <td>{{ object_list.alum_p16 }}</td>
+            <td>{{ object_list.alum_p17 }}</td>
+            <td>{{ object_list.alum_p18 }}</td>
+            <td>{{ object_list.alum_p19 }}</td>
+            <td>{{ object_list.prom_alum }}</td>
+            <td>{{ object_list.prom_alum_porcen }}%</td>
+          </tr>
+          <tr>
+            <td>Promedio</td>
+            <td>{{ object_list.alum_prom_p1 }}</td>
+            <td>{{ object_list.alum_prom_p2 }}</td>
+            <td>{{ object_list.alum_prom_p3 }}</td>
+            <td>{{ object_list.alum_prom_p4 }}</td>
+            <td>{{ object_list.alum_prom_p5 }}</td>
+            <td>{{ object_list.alum_prom_p6 }}</td>
+            <td>{{ object_list.alum_prom_p7 }}</td>
+            <td>{{ object_list.alum_prom_p8 }}</td>
+            <td>{{ object_list.alum_prom_p9 }}</td>
+            <td>{{ object_list.alum_prom_p10 }}</td>
+            <td>{{ object_list.alum_prom_p11 }}</td>
+            <td>{{ object_list.alum_prom_p12 }}</td>
+            <td>{{ object_list.alum_prom_p13 }}</td>
+            <td>{{ object_list.alum_prom_p14 }}</td>
+            <td>{{ object_list.alum_prom_p15 }}</td>
+            <td>{{ object_list.alum_prom_p16 }}</td>
+            <td>{{ object_list.alum_prom_p17 }}</td>
+            <td>{{ object_list.alum_prom_p18 }}</td>
+            <td>{{ object_list.alum_prom_p19 }}</td>
+            <td>{{ object_list.prom_alum_general }}</td>
+            <td>{{ object_list.prom_alum_general_porcentaje }}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <table style="margin-left:auto; margin-right:auto;">
+      <tbody>
+        <tr>
+          <td><img src="data:image/png;base64,{{ object_list.grafica_alum }}" style="height:310px;"></td>
+          <td><img src="data:image/png;base64,{{ object_list.grfica_direc }}" style="height:310px;"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <table style="margin-left:auto; margin-right:auto;">
-    <tbody>
-      <tr>
-        <td><img src="data:image/png;base64,{{ object_list.grafica_alum }}" style="height:310px;"></td>
-        <td><img src="data:image/png;base64,{{ object_list.grfica_direc }}" style="height:310px;"></td>
-      </tr>
-    </tbody>
-  </table>
-  
-
-</div>
+  <!--
+  <p style="page-break-before: always"></p>
+  <div class="portrait">
+  -->  
 </body>
 </html>

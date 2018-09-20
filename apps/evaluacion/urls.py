@@ -22,6 +22,7 @@ urlpatterns = [
     path('updateevaluacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_view.as_view())), name='updateevaluacion'),
     path('listaevaluacion/',permission_required('usuarios.conf_evaluaion')(login_required(lista_docentes_view.as_view())), name='listaevaluacion'),
     path('estadoeval/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_evaluacion_activo_view.as_view())), name='estadoeval'),
+    path('estobservacion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_observaciones_view.as_view())), name='estobservacion'),
     path('gracias/',thanks_view, name='thanks'),
     #alumno
     path('createcuestionarioalumno/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_cuestionario_alumno_view.as_view())),name='createvadocen'),
@@ -45,4 +46,10 @@ urlpatterns = [
 
     #redireccion
     path('redirect',redirect_token.as_view(), name='redirect'),
+
+    #comicion
+    path('createcomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_comision_view.as_view())), name='createcomicion'),
+    path('listcomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(lista_comicion_view.as_view())), name='listcomicion'),
+    path('updatecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_comision_view.as_view())), name='updatecomicion'),
+    path('deletecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(delete_comision_view.as_view())), name='deletecomicion'),
 ]

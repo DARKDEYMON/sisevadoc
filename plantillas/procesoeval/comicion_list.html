@@ -2,7 +2,8 @@
 
 	{% block listbody %}
 
-		<h2 style="text-align: center;">Lista de Carreras</h2>
+		<h2 style="text-align: center;">Lista de la Comisión</h2>
+		<h3>{{evaluacion}}</h3>
 		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 			{% load bootstrap3 %}
 			{% bootstrap_form form layout='inline' %}
@@ -15,41 +16,46 @@
 	    				#id
 	    			</th>
 	    			<th>
-	    				Nombre
+	    				Nombres y apellidos
 	    			</th>
 	    			<th>
-	    				Activado Crear
+	    				C.I.
 	    			</th>
-	    			<th>
-	    				Opciones
-	    			</th>
+	    			<th>Veedor?</th>
+	    			<th>Opciones</th>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
 	    	{% if object_list %}
-	    	    {% for carr in object_list %}
+	    	    {% for eva in object_list %}
 	    	    	<tr>
 	    	    		<td>
-	    	    			{{carr.id}}
+	    	    			{{eva.id}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{carr.nombre }}
+	    	    			{{eva.apellidos}} {{eva.nombres}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{% if carr.activado_crear %}
-	    	    				<span class="label label-success">Activado</span>
+	    	    			{{eva.ci}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{% if eva.veedor %}
+	    	    				<span class="label label-success">Si</span>
 	    	    			{% else %}
-	    	    				<span class="label label-warning">Desactivado</span>
+	    	    				<span class="label label-warning">No</span>
 	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestion de Carreras <span class="caret"></span>
+							    	Gestión de Evaluaciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'academico:updatecarrera' carr.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
+								    	<a href="{% url 'procesoeval:updatecomicion' eva.pk %}">Editar<span class="glyphicon glyphicon-edit"></a>
+								    </li>
+								    <li>
+								    	<a href="{% url 'procesoeval:deletecomicion' eva.pk %}">Eliminar</a>
 								    </li>
 								</ul>
 							</div>

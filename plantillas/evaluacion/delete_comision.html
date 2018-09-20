@@ -1,0 +1,20 @@
+{% extends "base/base_form.html" %}
+	{% block formbody %}
+	    {% load bootstrap3 %}
+	    <h2 style="text-align: center;">Borrar Participante</h2>
+
+	    <div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Error:</span>
+		  Esta seguro de borrar al participante "{{object.apellidos}} {{ object.nombres }}"? con C.I. "{{ object.ci }}"
+		</div>
+	    
+		<form action="" method="post">
+		    {% csrf_token %}
+		    {% buttons %}
+		        <button type="submit" class="btn btn-danger center-block">
+		            {% bootstrap_icon "send" %} Borrar
+		        </button>
+		    {% endbuttons %}
+		</form>
+	{% endblock formbody %}

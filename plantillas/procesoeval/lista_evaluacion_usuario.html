@@ -25,6 +25,9 @@
 	    				M. Sigla
 	    			</th>
 	    			<th>
+	    				Materia Nombre
+	    			</th>
+	    			<th>
 	    				Gestion
 	    			</th>
 	    			<th>
@@ -49,7 +52,10 @@
 	    	    			{{eva.docente}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.materia}}
+	    	    			{{eva.materia.sigla}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.materia.nombre}}
 	    	    		</td>
 	    	    		<td>
 	    	    			{{eva.gestion}}
@@ -91,15 +97,29 @@
 								    	<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}">Imprimir Claves</a>
 								    </li>
 								    {% if eva.estado %}
+								        <li>
+									    	<a href="{% url 'procesoeval:estobservacion' eva.pk %}">Llenado de Observaciones</a>
+									    </li>
+									    <li>
+									    	<a href="{% url 'procesoeval:createcomicion' eva.pk %}">Añadir Participante de la Comisión</a>
+									    </li>
+									    <li>
+									    	<a href="{% url 'procesoeval:listcomicion' eva.pk %}">Lista de Participantes de la Comisión</a>
+									    </li>
+								    {% endif %}
+								    
+								    {% if eva.estado %}
 								  	<li>
 										<a href="" data-toggle="modal" data-target="#reportemodal{{eva.pk}}">
 										  Reporte Evaluación
 										</a>
 									</li>
 			    	    			{% else %}
-										<a href="{% url 'procesoeval:reporteeva' eva.pk %}" target="_blank" type="button" class="btn btn-warning dropdown-toggle">
-											Reporte Evaluación
-										</a>
+				    	    			<li>
+											<a href="{% url 'procesoeval:reporteeva' eva.pk %}" target="_blank">
+												Reporte Evaluación
+											</a>
+										</li>
 			    	    			{% endif %}
 								</ul>
 							</div>

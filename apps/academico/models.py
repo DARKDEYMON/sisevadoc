@@ -16,6 +16,11 @@ class carreras(models.Model):
 			)
 		]
 	)
+	activado_crear = models.BooleanField(
+		null = False,
+		blank = False,
+		default = False
+	)
 	def __str__(self):
 		return str(self.nombre)
 
@@ -46,7 +51,7 @@ class materias(models.Model):
 		]
 	)
 	def __str__(self):
-		return str(self.sigla)
+		return str(self.sigla) + " " + self.nombre
 
 class docentes(models.Model):
 	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)

@@ -5,6 +5,11 @@ from .models import *
 class create_carrera_form(ModelForm):
 	class Meta:
 		model = carreras
+		exclude = ['activado_crear']
+
+class update_carrera_form(ModelForm):
+	class Meta:
+		model = carreras
 		exclude = ['']
 
 class create_materia_form(ModelForm):
