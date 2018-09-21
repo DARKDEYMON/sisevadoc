@@ -73,9 +73,28 @@
     <img src="{% static "logo.png" %}" style="display: block; margin-left:auto; margin-right:auto;">
     <br>
     <h3 style="text-align: center;">Seguimiento o Evaluación</h3>
-    <h3 style="text-align: center;">Programa Anual de Operaciones {{ object_list.gestion }}</h3>
+    <h3 style="text-align: center;">Evaluación al Despeño Docente {{ object_list.gestion }}</h3>
 
-
+    <br>
+    <table style="margin-left:auto; margin-right:auto;">
+          <tr>
+            <td style="min-width:200px" class="tablenoboder"><b>Carrera:</b></td>
+            <td class="tablenoboder">{{ object_list.carrera }}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder"><b>Docente:</b></td>
+            <td class="tablenoboder">{{ object_list.docente}}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder"><b>Materia:</b></td>
+            <td class="tablenoboder">{{ object_list.materia.nombre }}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder"><b>Sigla:</b></td>
+            <td class="tablenoboder">{{ object_list.materia.sigla }}</td>
+          </tr>
+    </table>
+    <img src="{% static "trevol.jpg" %}" style="width:100px;display: block; margin-left:auto; margin-right:auto;">
 
 
   <div class="landscape">
@@ -97,6 +116,12 @@
             <td class="tablenoboder">{{ object_list.numero_alumnos }}</td>
             <td class="tablenoboder">Creación:</td>
             <td class="tablenoboder">{{ object_list.creacion|date:'Y-m-d H:i' }}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder" colspan="2">Cuestionarios Llenados:</td>
+            <td class="tablenoboder">{{object_list.cuestionarios_llenados}}</td>
+            <td class="tablenoboder" colspan="2">Cuestionarios Vacíos:</td>
+            <td class="tablenoboder">{{object_list.cuestionarios_vacios}}</td>
           </tr>
       </table>
     </div>
@@ -273,6 +298,44 @@
   <!--
   <p style="page-break-before: always"></p>
   <div class="portrait">
-  -->  
-</body>
+  -->
+  <div class="portrait">
+    <b>2.- Observaciones</b>
+    {% if object_list.observaciones %}
+      <p>{{ object_list.observaciones }}</p>
+    {% else %}
+      <p>No existen Observaciones</p>
+    {% endif %}
+    <b>3.- Comisión Evaluadora </b>
+    <p></p>
+    <table class="tabla" style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>Apellidos/Nombres</th>
+          <th>C.I.</th>
+          <th>Veedor?</th>
+          <th style="min-width:200px" >Firma</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for com in object_list.comision_set.all %}
+          <tr>
+            <td>{{ com.apellidos }} {{ com.nombres }}</td>
+            <td>{{ com.ci }}</td>
+            <td>
+              {% if com.veedor %}
+                SI
+              {% else %}
+                NO
+              {% endif %}
+            </td>
+            <td>
+              
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>  
+  </div>
+</body>       
 </html>

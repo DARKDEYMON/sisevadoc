@@ -181,7 +181,7 @@ class evaluacion(models.Model):
 	def prom_alum_general(self):
 		return round((self.cuestionario_aevaluacion.prom_autoeva() + self.prom_alum())/2,2)
 	def prom_alum_general_porcentaje(self):
-		return round((self.cuestionario_aevaluacion.prom_autoeva_porcen() + self.prom_alum())/2,2)
+		return round((self.cuestionario_aevaluacion.prom_autoeva_porcen() + self.prom_alum_porcen())/2,2)
 	def estado_actual(self):
 		return 'Activo' if self.estado else 'Finalizado';
 	def grafica_alum(self):
@@ -277,6 +277,10 @@ class evaluacion(models.Model):
 		except Exception as e:
 			return False
 		return True
+	def cuestionarios_llenados(self):
+		return len(self.token_alumno_set.filter(usado=True))
+	def cuestionarios_vacios(self):
+		return len(self.token_alumno_set.filter(usado=False))
 	def __str__(self):
 		return str(self.docente)
 	class Meta:

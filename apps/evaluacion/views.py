@@ -36,7 +36,7 @@ class update_observaciones_view(UpdateView):
 	model = evaluacion
 	form_class = create_observacion_form
 	template_name = 'evaluacion/update_observacion.html'
-	reverse_lazy('evaluacion:listaevaluacion')
+	success_url = reverse_lazy('evaluacion:listaevaluacion')
 
 class lista_docentes_view(ListView):
 	model = evaluacion
