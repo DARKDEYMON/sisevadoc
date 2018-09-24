@@ -2,6 +2,11 @@
 	{% block formbody %}
 	    {% load bootstrap3 %}
 	    <h2 style="text-align: center;">Crear Evaluacion</h2>
+	    <div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Atención:</span>
+		  <b>Atención!!!</b> Sea cuidadoso a la hora de crear la evaluación esta no se pueden editar una vez creada
+		</div>
 		<form action="" method="post">
 		    {% csrf_token %}
 		    {% bootstrap_form form %}

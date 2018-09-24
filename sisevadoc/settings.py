@@ -26,7 +26,7 @@ SECRET_KEY = 'lfh&1sr*=t^x(s7+83(fhvj=vh4u*!t8z78gb(3!ppq3ab5#oh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -128,7 +128,8 @@ STATIC_URL = '/static/'
 #medios
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
-STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS=(os.path.join(BASE_DIR,"staticfiles"),)
 
 #login
 LOGIN_REDIRECT_URL = reverse_lazy('usuarios:main')

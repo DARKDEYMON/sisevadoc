@@ -171,6 +171,7 @@ class create_evaluacion_user_form(CreateView):
 
 #llenado de observaciones
 class update_evaluacion_activo_pro_view(update_observaciones_view):
+	success_url = reverse_lazy('procesoeval:listevaluser')
 	def dispatch(self, request, *args, **kwargs):
 		try:
 			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)

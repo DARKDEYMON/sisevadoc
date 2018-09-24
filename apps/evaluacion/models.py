@@ -266,6 +266,8 @@ class evaluacion(models.Model):
 		return (figdata_png.decode('utf8'))
 	#solo si se lleno autoeva direct y estudiantes mas de 1
 	def esta_llenado(self):
+		if len(self.comision_set.all())<4:
+			return False
 		if len(self.cuestionario_alumno_set.all())==0:
 			return False
 		try:

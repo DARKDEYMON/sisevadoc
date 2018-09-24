@@ -8,6 +8,7 @@
 		    <h2 style="text-align: center;">Evaluacion Director Carrera</h2>
 		    <h4>Docente: {{token_dcarrera.evaluacion.docente}} </h4>
 		    <h4>Materia: {{token_dcarrera.evaluacion.materia.nombre}}</h4>
+		    <h4>Sigla: {{token_aevaluacion.evaluacion.materia.sigla}}</h4>
 			<form action="" method="post">
 			    {% csrf_token %}
 			    {% bootstrap_form form %}
@@ -19,6 +20,6 @@
 			</form>
 		{% else %}
 			<h2>Error!!!</h2>
-			<p>El link que trata de utilizar caduco o ya fue usado o ya dio el cuestionario e intenta darlo otra vez</p>
+			<p>El código que trata de utilizar caduco ya fue usado, termino la evaluación o ya dio el cuestionario e intenta darlo otra vez</p>
 		{% endif %}
 	{% endblock formbody %}
