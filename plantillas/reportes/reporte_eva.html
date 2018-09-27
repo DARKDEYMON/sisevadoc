@@ -38,6 +38,9 @@
 
     @page portrait {
       size: letter portrait;
+      background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
     }
     .portrait{
       page: portrait;
@@ -45,6 +48,9 @@
 
     @page landscape {
       size: letter landscape;
+      background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
     }
     .landscape{
       page: landscape;
@@ -299,7 +305,66 @@
   <p style="page-break-before: always"></p>
   <div class="portrait">
   -->
+  
   <div class="portrait">
+    <b>2.- Detalle de la Evaluación Estudiantil</b>
+    <p></p>
+    <div class="tabla">
+    <table class="textsmall" style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th>Nª</th>
+          <th>P1</th>
+          <th>P2</th>
+          <th>P3</th>
+          <th>P4</th>
+          <th>P5</th>
+          <th>P6</th>
+          <th>P7</th>
+          <th>P8</th>
+          <th>P9</th>
+          <th>P10</th>
+          <th>P11</th>
+          <th>P12</th>
+          <th>P13</th>
+          <th>P14</th>
+          <th>P15</th>
+          <th>P16</th>
+          <th>P17</th>
+          <th>P18</th>
+          <th>P19</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cues in object_list.cuestionario_alumno_set.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ cues.pregunta_1 }}</td>
+            <td>{{ cues.pregunta_2 }}</td>
+            <td>{{ cues.pregunta_3 }}</td>
+            <td>{{ cues.pregunta_4 }}</td>
+            <td>{{ cues.pregunta_5 }}</td>
+            <td>{{ cues.pregunta_6 }}</td>
+            <td>{{ cues.pregunta_7 }}</td>
+            <td>{{ cues.pregunta_8 }}</td>
+            <td>{{ cues.pregunta_9 }}</td>
+            <td>{{ cues.pregunta_10 }}</td>
+            <td>{{ cues.pregunta_11 }}</td>
+            <td>{{ cues.pregunta_12 }}</td>
+            <td>{{ cues.pregunta_13 }}</td>
+            <td>{{ cues.pregunta_14 }}</td>
+            <td>{{ cues.pregunta_15 }}</td>
+            <td>{{ cues.pregunta_16 }}</td>
+            <td>{{ cues.pregunta_17 }}</td>
+            <td>{{ cues.pregunta_18 }}</td>
+            <td>{{ cues.pregunta_19 }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p></p>
+
     <b>2.- Observaciones</b>
     {% if object_list.observaciones %}
       <p>{{ object_list.observaciones }}</p>
@@ -335,7 +400,7 @@
           </tr>
         {% endfor %}
       </tbody>
-    </table>  
+    </table>
   </div>
 </body>       
 </html>
