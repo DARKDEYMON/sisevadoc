@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 
 class carreras(models.Model):
 	nombre = models.CharField(
-		max_length=50,
+		max_length=250,
 		null=False,
 		blank=False,
 		validators=[
@@ -27,7 +27,7 @@ class carreras(models.Model):
 class materias(models.Model):
 	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
 	nombre = models.CharField(
-		max_length=25,
+		max_length=250,
 		null=False,	
 		blank=False,
 		validators=[
