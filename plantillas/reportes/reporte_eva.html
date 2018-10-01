@@ -65,7 +65,9 @@
     .textsmall{
       font-size: x-small;
     }
-
+    .text1{
+      font-size: small;
+    }
     .tablenoboder {
       border: none;
     }
@@ -106,7 +108,7 @@
   <div class="landscape">
     <h1 style="text-align: center;">Valoración Global del Desempeño Docente</h1>
     <div style="border: none; border-style: none;">
-      <table style="margin-left:auto; margin-right:auto;">
+      <table class="text1" style="margin-left:auto; margin-right:auto;">
           <tr>
             <td class="tablenoboder">Docente:</td>
             <td class="tablenoboder">{{ object_list.docente }}</td>
@@ -117,7 +119,7 @@
           </tr>
           <tr>
             <td class="tablenoboder">Sigla:</td>
-            <td class="tablenoboder">{{ object_list.materia }}</td>
+            <td class="tablenoboder">{{ object_list.materia.sigla }}</td>
             <td class="tablenoboder">Numero de alumnos:</td>
             <td class="tablenoboder">{{ object_list.numero_alumnos }}</td>
             <td class="tablenoboder">Creación:</td>

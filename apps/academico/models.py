@@ -35,7 +35,7 @@ class materias(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,})))+$',
+				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{1,} )|(([a-zA-ZÑÁÉÍÓÚáéíóú]{1,})))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras',
 				code = 'dato solo alfabetico'
 			)

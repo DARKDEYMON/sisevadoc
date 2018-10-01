@@ -19,6 +19,9 @@ from .token_eva import *
 from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
+def random_token():
+	return random.randint(1,10**10)
+
 # Create your models here.
 class evaluacion(models.Model):
 	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
@@ -70,97 +73,97 @@ class evaluacion(models.Model):
 		blank=True
 	)
 	def alum_p1(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg'],1)
 	def alum_prom_p1(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_1)/2,2)
 	def alum_p2(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_2'))['pregunta_2__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_2'))['pregunta_2__avg'],1)
 	def alum_prom_p2(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_2'))['pregunta_2__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_2)/2,2)
 	def alum_p3(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_3'))['pregunta_3__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_3'))['pregunta_3__avg'],1)
 	def alum_prom_p3(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_3'))['pregunta_3__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_3)/2,2)
 	def alum_p4(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_4'))['pregunta_4__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_4'))['pregunta_4__avg'],1)
 	def alum_prom_p4(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_4'))['pregunta_4__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_4)/2,2)
 	def alum_p5(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_5'))['pregunta_5__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_5'))['pregunta_5__avg'],1)
 	def alum_prom_p5(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_5'))['pregunta_5__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_5)/2,2)
 	def alum_p6(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_6'))['pregunta_6__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_6'))['pregunta_6__avg'],1)
 	def alum_prom_p6(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_6'))['pregunta_6__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_6)/2,2)
 	def alum_p7(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_7'))['pregunta_7__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_7'))['pregunta_7__avg'],1)
 	def alum_prom_p7(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_7'))['pregunta_7__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_7)/2,2)
 	def alum_p8(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_8'))['pregunta_8__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_8'))['pregunta_8__avg'],1)
 	def alum_prom_p8(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_8'))['pregunta_8__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_8)/2,2)
 	def alum_p9(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_9'))['pregunta_9__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_9'))['pregunta_9__avg'],1)
 	def alum_prom_p9(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_9'))['pregunta_9__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_9)/2,2)
 	def alum_p10(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_10'))['pregunta_10__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_10'))['pregunta_10__avg'],1)
 	def alum_prom_p10(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_10'))['pregunta_10__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_10)/2,2)
 	def alum_p11(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_11'))['pregunta_11__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_11'))['pregunta_11__avg'],1)
 	def alum_prom_p11(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_11'))['pregunta_11__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_11)/2,2)
 	def alum_p12(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_12'))['pregunta_12__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_12'))['pregunta_12__avg'],1)
 	def alum_prom_p12(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_12'))['pregunta_12__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_12)/2,2)
 	def alum_p13(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_13'))['pregunta_13__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_13'))['pregunta_13__avg'],1)
 	def alum_prom_p13(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_13'))['pregunta_13__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_13)/2,2)
 	def alum_p14(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_14'))['pregunta_14__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_14'))['pregunta_14__avg'],1)
 	def alum_prom_p14(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_14'))['pregunta_14__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_14)/2,2)
 	def alum_p15(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_15'))['pregunta_15__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_15'))['pregunta_15__avg'],1)
 	def alum_prom_p15(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_15'))['pregunta_15__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_15)/2,2)
 	def alum_p16(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_16'))['pregunta_16__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_16'))['pregunta_16__avg'],1)
 	def alum_prom_p16(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_16'))['pregunta_16__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_16)/2,2)
 	def alum_p17(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_17'))['pregunta_17__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_17'))['pregunta_17__avg'],1)
 	def alum_prom_p17(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_17'))['pregunta_17__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_17)/2,2)
 	def alum_p18(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_18'))['pregunta_18__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_18'))['pregunta_18__avg'],1)
 	def alum_prom_p18(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_18'))['pregunta_18__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_18)/2,2)
 	def alum_p19(self):
-		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_19'))['pregunta_19__avg']
+		return round(self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_19'))['pregunta_19__avg'],1)
 	def alum_prom_p19(self):
 		return round((self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_19'))['pregunta_19__avg'] + 
 					self.cuestionario_aevaluacion.pregunta_19)/2,2)
@@ -319,7 +322,7 @@ class token_alumno(models.Model):
 	numero_ran = models.BigIntegerField(
 		blank=False,
 		null=False,
-		default=random.randint(1,10**10)
+		default=random_token
 	)
 	usado = models.BooleanField(
 		blank=False,
@@ -488,7 +491,7 @@ class token_aevaluacion(models.Model):
 	numero_ran = models.BigIntegerField(
 		blank=False,
 		null=False,
-		default=random.randint(1,10**10)
+		default=random_token
 	)
 	usado = models.BooleanField(
 		blank=False,
@@ -663,7 +666,7 @@ class token_dcarrera(models.Model):
 	numero_ran = models.BigIntegerField(
 		blank=False,
 		null=False,
-		default=random.randint(1,10**10)
+		default=random_token
 	)
 	usado = models.BooleanField(
 		blank=False,
