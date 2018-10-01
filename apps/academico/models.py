@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
-
+from django.utils import timezone
 # Create your models here.
 
 class carreras(models.Model):
@@ -16,11 +16,14 @@ class carreras(models.Model):
 			)
 		]
 	)
-	activado_crear = models.BooleanField(
-		null = False,
-		blank = False,
-		default = False
+	tiempo_activo = models.DateTimeField(
+		blank=False,
+		null=False,
+		#auto_now=True,
+		default=timezone.localtime
 	)
+	def isactivado_crear(self):
+		return True if self.tiempo_activo > timezone.localtime() else False
 	def __str__(self):
 		return str(self.nombre)
 

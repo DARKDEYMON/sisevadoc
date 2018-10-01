@@ -68,7 +68,7 @@ class evaluacion(models.Model):
 	observaciones = models.TextField(
 		null=True,
 		blank=True
-	) 
+	)
 	def alum_p1(self):
 		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg']
 	def alum_prom_p1(self):

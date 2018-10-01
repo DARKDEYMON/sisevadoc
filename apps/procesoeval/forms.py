@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import *
 from apps.evaluacion.models import *
+from django.utils import timezone
 
 class asignar_evaluacion_form(ModelForm):
 	class Meta:
@@ -14,8 +15,8 @@ class search_form(forms.Form):
 class create_evaluacion_user_form(ModelForm):
 	def __init__(self,*args,**kwargs):
 		user = kwargs.pop('user')
-		super (create_evaluacion_user_form,self ).__init__(*args,**kwargs) # populates the post
-		self.fields['carrera'].queryset = carreras.objects.filter(asignacion_evaluacion__usuario=user, activado_crear=True)	
+		super (create_evaluacion_user_form,self ).__init__(*args,**kwargs)
+		self.fields['carrera'].queryset = carreras.objects.filter(asignacion_evaluacion__usuario=user, tiempo_activo__gte=timezone.localtime())	
 	class Meta:
 		model = evaluacion
 		exclude = ['estado','observaciones']

@@ -5,7 +5,7 @@ from .models import *
 class create_carrera_form(ModelForm):
 	class Meta:
 		model = carreras
-		exclude = ['activado_crear']
+		exclude = ['tiempo_activo']
 
 class update_carrera_form(ModelForm):
 	class Meta:
