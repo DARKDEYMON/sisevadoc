@@ -4,6 +4,50 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from .forms import *
 # Create your views here.
+
+class create_facultad_view(CreateView):
+	form_class = create_facultad_form
+	template_name = 'academico/nuevo_facultad.html'
+	success_url = reverse_lazy('academico:listafacultad')
+
+class update_facultad_view(UpdateView):
+	model = facultad
+	form_class = create_facultad_form
+	template_name = 'academico/update_facultad.html'
+	success_url = reverse_lazy('academico:listafacultad')
+
+class lista_facultades_view(ListView):
+	model = facultad
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'academico/lista_facultad.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_facultades_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(id__icontains=search)|
+					Q(nombre__icontains=search)
+				)
+		else:
+			return self.model.objects.all().order_by('id')
+
 class create_carrera_view(CreateView):
 	form_class = create_carrera_form
 	template_name = 'academico/nuevo_carrera.html'

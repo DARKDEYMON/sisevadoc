@@ -26,8 +26,10 @@
       {% if perms.usuarios.academico %}
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Academico <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Académico <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
+              <li><a href="{% url 'academico:createfacultad' %}">Crear Facultad</a></li>
+              <li><a href="{% url 'academico:listafacultad' %}">Lista de Facultades</a></li>
               <li><a href="{% url 'academico:createcarrera' %}">Crear carrera</a></li>
               <li><a href="{% url 'academico:listcarrera' %}">Lista de carreras</a></li>
               <li><a href="{% url 'academico:createmateria' %}">Crear Materia</a></li>
@@ -42,9 +44,9 @@
       {% if perms.usuarios.conf_evaluaion %}
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Evaluacion <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Evaluación <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{% url 'evaluacion:createevaluacion' %}">Crear Evaluacion</a></li>
+              <li><a href="{% url 'evaluacion:createevaluacion' %}">Crear Evaluación</a></li>
               <li><a href="{% url 'evaluacion:listaevaluacion' %}">Lista de Evaluaciones</a></li>
             </ul>
           </li>
@@ -53,7 +55,7 @@
 
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proceso de Evaluacion <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proceso de Evaluación <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url "procesoeval:createeval" %}">Crear Evaluación</a></li>
             <li><a href="{% url 'procesoeval:listevaluser' %}">Lista de Evaluaciones Activas</a></li>
@@ -70,8 +72,8 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url 'usuarios:reset_password' %}">Canbiar contraseña</a></li>
-            <li><a href="{% url 'usuarios:updateuser' %}">Actualisar información</a></li>
+            <li><a href="{% url 'usuarios:reset_password' %}">Cambiar contraseña</a></li>
+            <li><a href="{% url 'usuarios:updateuser' %}">Actualizar información</a></li>
             <!--<li><a href="#">Something else here</a></li>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>-->

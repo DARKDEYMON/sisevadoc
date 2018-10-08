@@ -3,7 +3,17 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 # Create your models here.
 
+class facultad(models.Model):
+	nombre = models.CharField(
+		max_length=250,
+		null=False,
+		blank=False
+	)
+	def __str__(self):
+		return self.nombre
+
 class carreras(models.Model):
+	facultad = models.ForeignKey(facultad, on_delete=models.CASCADE)
 	nombre = models.CharField(
 		max_length=250,
 		null=False,

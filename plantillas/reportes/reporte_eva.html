@@ -366,15 +366,41 @@
       </tbody>
     </table>
     </div>
-    <p></p>
 
-    <b>2.- Observaciones</b>
+    <br>
+    <b>3.- Resultados</b>
+    <br>
+    <div class="tabla">
+    <table class="textsmall" style="margin-left:auto; margin-right:auto;">
+      <tbody>
+          <tr>
+            <td>Estudiantil sobre el 50%</td>
+            <td>{{ object_list.prom_alum_porcen_50 }}%</td>
+          </tr>
+          <tr>
+            <td>Autoevaluacion sobre el 40 %</td>
+            <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva_porcen_40 }}%</td>
+          </tr>
+          <tr>
+            <td>Evaluacion del Director de Carrera sobre el 10%</td>
+            <td>{{ object_list.cuestionario_dcarrera.prom_evadirect_porcen_10}}%</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>{{ object_list.result_eval_porcen }}</td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <br>
+    <b>4.- Observaciones</b>
     {% if object_list.observaciones %}
       <p>{{ object_list.observaciones }}</p>
     {% else %}
       <p>No existen Observaciones</p>
     {% endif %}
-    <b>3.- Comisión Evaluadora </b>
+    <b>5.- Comisión Evaluadora </b>
     <p></p>
     <table class="tabla" style="margin-left:auto; margin-right:auto;">
       <thead>

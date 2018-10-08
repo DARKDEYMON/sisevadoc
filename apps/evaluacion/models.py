@@ -187,6 +187,10 @@ class evaluacion(models.Model):
 		return round((self.cuestionario_aevaluacion.prom_autoeva_porcen() + self.prom_alum_porcen())/2,2)
 	def estado_actual(self):
 		return 'Activo' if self.estado else 'Finalizado';
+	def prom_alum_porcen_50(self):
+		return self.prom_alum_porcen() * 0.5
+	def result_eval_porcen(self):
+		return self.prom_alum_porcen_50() + self.cuestionario_aevaluacion.prom_autoeva_porcen_40() + self.cuestionario_dcarrera.prom_evadirect_porcen_10()
 	def grafica_alum(self):
 		fig = plt.figure()
 		ax = fig.add_subplot(1, 1, 1)
@@ -657,6 +661,8 @@ class cuestionario_aevaluacion(models.Model):
 				self.pregunta_15+self.pregunta_16+self.pregunta_17+self.pregunta_18+self.pregunta_19)/19,2)
 	def prom_autoeva_porcen(self):
 		return round((self.prom_autoeva()/5)*100,2)
+	def prom_autoeva_porcen_40(self):
+		return self.prom_autoeva_porcen() * 0.4
 	def __str__(self):
 		return str(self.evaluacion)
 
@@ -735,5 +741,11 @@ class cuestionario_dcarrera(models.Model):
 		null=False,
 		auto_now=True
 	)
+	def prom_evadirect(self):
+		return round((self.pregunta_1+self.pregunta_2+self.pregunta_3+self.pregunta_4+self.pregunta_5+self.pregunta_6)/6,2)
+	def prom_evadirect_porcen(self):
+		return round((self.prom_evadirect()/5)*100,2)
+	def prom_evadirect_porcen_10(self):
+		return self.prom_evadirect_porcen()* 0.1
 	def __str__(self):
 		return str(self.evaluacion)

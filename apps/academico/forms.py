@@ -2,6 +2,11 @@ from django import forms
 from django.forms import ModelForm
 from .models import *
 
+class create_facultad_form(ModelForm):
+	class Meta:
+		model = facultad
+		exclude = ['']
+
 class create_carrera_form(ModelForm):
 	class Meta:
 		model = carreras

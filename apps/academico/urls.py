@@ -18,6 +18,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .views import *
 
 urlpatterns = [
+    path('createfacultad/',permission_required('usuarios.academico')(login_required(create_facultad_view.as_view())), name='createfacultad'),
+    path('updatefacultad/<int:pk>/',permission_required('usuarios.academico')(login_required(update_facultad_view.as_view())), name='updatefacultad'),
+    path('listafacultad/',permission_required('usuarios.academico')(login_required(lista_facultades_view.as_view())), name ='listafacultad'),
     path('createcarrera/',permission_required('usuarios.academico')(login_required(create_carrera_view.as_view())), name='createcarrera'),
     path('updatecarrera/<int:pk>/',permission_required('usuarios.academico')(login_required(update_carrera_view.as_view())), name='updatecarrera'),
     path('listacarrera/',permission_required('usuarios.academico')(login_required(lista_carreras_view.as_view())), name='listcarrera'),
