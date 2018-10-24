@@ -168,6 +168,16 @@ class create_evaluacion_user_form(CreateView):
 		kwargs = super(create_evaluacion_user_form, self).get_form_kwargs()
 		kwargs.update({'user': self.request.user})
 		return kwargs
+	def form_valid(self, form):
+		from django.db import IntegrityError
+		from django.core.exceptions import ValidationError
+		self.object = form.save(commit=False)
+		try:
+			self.object.full_clean()
+		except (ValidationError ,IntegrityError) as e:
+			form.add_error("__all__", "La gestion para el docente y materia ya existe contante con el administrador del sistema")
+			return self.form_invalid(form)
+		return super().form_valid(form)
 
 #llenado de observaciones
 class update_evaluacion_activo_pro_view(update_observaciones_view):

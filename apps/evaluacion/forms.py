@@ -6,6 +6,11 @@ from django.conf import settings
 from django.template import RequestContext
 from .models import *
 
+#from dynamic_setting.models import Setting
+from constance import config
+from .setting_dinamic import initial_gestion, initial_active_gestion
+import datetime
+
 class create_evaluacion_form(ModelForm):
 	class Meta:
 		model = evaluacion
@@ -120,3 +125,24 @@ class create_comision_form(ModelForm):
 			'apellidos':'Apellido(s)',
 			'ci':'C.I.'
 		}
+
+class gestion_setting_form(forms.Form):
+	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion)
+	activada_gestion_manual = forms.BooleanField(initial=initial_active_gestion,required=False)
+	def save(self):
+		ges = self.cleaned_data['gestion']
+		config.GESTION = ges
+		"""
+		setting = Setting.objects.setting('GESTION')
+		setting.data = ges
+		setting.save()
+		"""
+		activo = self.cleaned_data['activada_gestion_manual']
+		"""
+		setting_act = Setting.objects.setting('GESTION_ACTIVO')
+		print(activo)
+		setting_act.data = activo
+		setting_act.save()
+		"""
+		config.GESTION_ACTIVO = activo
+		return

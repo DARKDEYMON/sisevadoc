@@ -80,11 +80,13 @@
     <br>
     <img src="{% static "logo.png" %}" style="display: block; margin-left:auto; margin-right:auto;">
     <br>
-    <h3 style="text-align: center;">Seguimiento o Evaluación</h3>
     <h3 style="text-align: center;">Evaluación al Despeño Docente {{ object_list.gestion }}</h3>
-
     <br>
     <table style="margin-left:auto; margin-right:auto;">
+          <tr>
+            <td style="min-width:200px" class="tablenoboder"><b>Facultad:</b></td>
+            <td class="tablenoboder">{{ object_list.carrera.facultad }}</td>
+          </tr>
           <tr>
             <td style="min-width:200px" class="tablenoboder"><b>Carrera:</b></td>
             <td class="tablenoboder">{{ object_list.carrera }}</td>
@@ -316,7 +318,7 @@
     <table class="textsmall" style="margin-left:auto; margin-right:auto;">
       <thead>
         <tr>
-          <th>Nª</th>
+          <th>Nº <br> de Encuesta</th>
           <th>P1</th>
           <th>P2</th>
           <th>P3</th>
@@ -371,23 +373,35 @@
     <b>3.- Resultados</b>
     <br>
     <div class="tabla">
-    <table class="textsmall" style="margin-left:auto; margin-right:auto;">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <th>Formularios</th>
+        <th>Pesos</th>
+        <th>Resultado</th>
+      </thead>
       <tbody>
           <tr>
-            <td>Estudiantil sobre el 50%</td>
+            <th>Opinión Estudiantil </th>
+            <th>50%</th>
             <td>{{ object_list.prom_alum_porcen_50 }}%</td>
           </tr>
           <tr>
-            <td>Autoevaluacion sobre el 40 %</td>
+            <th>Autoevaluacion Docente</th>
+            <th> 40 %</th>
             <td>{{ object_list.cuestionario_aevaluacion.prom_autoeva_porcen_40 }}%</td>
           </tr>
           <tr>
-            <td>Evaluacion del Director de Carrera sobre el 10%</td>
+            <th>Informe Director de Carrera</th>
+            <th>10%</th>
             <td>{{ object_list.cuestionario_dcarrera.prom_evadirect_porcen_10}}%</td>
           </tr>
           <tr>
-            <td>Total</td>
+            <th colspan="2">Total</th>
             <td>{{ object_list.result_eval_porcen }}</td>
+          </tr>
+          <tr>
+            <th colspan="2">Total Literal</th>
+            <td>{{ object_list.resul_eval_literal }}</td>
           </tr>
       </tbody>
     </table>

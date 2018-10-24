@@ -7,6 +7,7 @@ from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 import random
+from .setting_dinamic import initial_default
 
 import matplotlib
 matplotlib.use('Agg')
@@ -44,7 +45,7 @@ class evaluacion(models.Model):
 	gestion = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default = datetime.datetime.now().year,
+		default = initial_default,#datetime.datetime.now().year,
 		validators = [
 			RegexValidator(
 				regex=r'^[0-9]{4}$',
@@ -188,9 +189,22 @@ class evaluacion(models.Model):
 	def estado_actual(self):
 		return 'Activo' if self.estado else 'Finalizado';
 	def prom_alum_porcen_50(self):
-		return self.prom_alum_porcen() * 0.5
+		return round(self.prom_alum_porcen() * 0.5,2)
 	def result_eval_porcen(self):
-		return self.prom_alum_porcen_50() + self.cuestionario_aevaluacion.prom_autoeva_porcen_40() + self.cuestionario_dcarrera.prom_evadirect_porcen_10()
+		return round(self.prom_alum_porcen_50() + self.cuestionario_aevaluacion.prom_autoeva_porcen_40() + self.cuestionario_dcarrera.prom_evadirect_porcen_10(),2)
+	def resul_eval_literal(self):
+		res = self.result_eval_porcen()
+		if res <= 51:
+			return "Desempeño Insuficiente"
+		if res <= 70:
+			return "Desempeño Regular"
+		if res <= 80:
+			return "Desempeño Bueno"
+		if res <= 90:
+			return "Desempeño Muy Bueno"
+		if res <= 100:
+			return "Desempeño Excelente"
+		return "ke jeso"
 	def grafica_alum(self):
 		fig = plt.figure()
 		ax = fig.add_subplot(1, 1, 1)
@@ -662,7 +676,7 @@ class cuestionario_aevaluacion(models.Model):
 	def prom_autoeva_porcen(self):
 		return round((self.prom_autoeva()/5)*100,2)
 	def prom_autoeva_porcen_40(self):
-		return self.prom_autoeva_porcen() * 0.4
+		return round(self.prom_autoeva_porcen() * 0.4,2)
 	def __str__(self):
 		return str(self.evaluacion)
 
@@ -746,6 +760,6 @@ class cuestionario_dcarrera(models.Model):
 	def prom_evadirect_porcen(self):
 		return round((self.prom_evadirect()/5)*100,2)
 	def prom_evadirect_porcen_10(self):
-		return self.prom_evadirect_porcen()* 0.1
+		return round(self.prom_evadirect_porcen()* 0.1,2)
 	def __str__(self):
 		return str(self.evaluacion)

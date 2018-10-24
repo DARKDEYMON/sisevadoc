@@ -52,4 +52,6 @@ urlpatterns = [
     path('listcomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(lista_comicion_view.as_view())), name='listcomicion'),
     path('updatecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_comision_view.as_view())), name='updatecomicion'),
     path('deletecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(delete_comision_view.as_view())), name='deletecomicion'),
+
+    path('gestionsetting',permission_required('usuarios.conf_evaluaion')(login_required(gestion_setting_view.as_view())), name='gestionsetting'),
 ]

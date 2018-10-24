@@ -13,6 +13,9 @@ from .models import *
 #reportes en prueba
 from django_weasyprint import WeasyTemplateResponseMixin
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache, cache_control
+
 # Create your views here.
 
 class create_evaluacion_view(CreateView):
@@ -114,6 +117,8 @@ class send_mail_evalum_view(FormView):
 		)
 		return super().form_valid(form)
 
+#@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
+@method_decorator(cache_control(max_age=0, no_cache=True, must_revalidate=True), name='dispatch')
 class create_cuestionario_alumno_token_view(CreateView):
 	model_extra = token_alumno
 	form_class = cuestionario_alumno_form
@@ -137,9 +142,12 @@ class create_cuestionario_alumno_token_view(CreateView):
 				self.valido = False
 		return super(create_cuestionario_alumno_token_view, self).dispatch(request, *args, **kwargs)
 	def form_valid(self, form):
-		form.instance.evaluacion = self.model_res.evaluacion
-		self.model_res.usado = True
-		self.model_res.save()
+		if self.valido:
+			form.instance.evaluacion = self.model_res.evaluacion
+			self.model_res.usado = True
+			self.model_res.save()
+		else:
+			return self.form_invalid(form)
 		return super().form_valid(form)
 
 #en pruebas autoevaluacion
@@ -210,9 +218,12 @@ class create_cuestionario_aevaluacion_token_view(CreateView):
 	def form_valid(self, form):
 		#aqui ponerlo en false
 		#obj = Product.objects.get(pk=pk)
-		form.instance.evaluacion = self.model_res.evaluacion
-		self.model_res.usado = True
-		self.model_res.save()
+		if self.valido:
+			form.instance.evaluacion = self.model_res.evaluacion
+			self.model_res.usado = True
+			self.model_res.save()
+		else:
+			return self.form_invalid(form)
 		return super().form_valid(form)
 
 #en pruebas cuestionario dcarrera
@@ -252,7 +263,6 @@ class send_mail_evadirec_view(FormView):
 			evaluacion_token_generator.make_token(self.model_res_token)
 		)
 		return super().form_valid(form)
-
 class create_cuestionario_dcarrera_token_view(CreateView):
 	model_extra = token_dcarrera
 	form_class = cuestionario_dcarrera_form
@@ -282,9 +292,12 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 	def form_valid(self, form):
 		#aqui ponerlo en false
 		#obj = Product.objects.get(pk=pk)
-		form.instance.evaluacion = self.model_res.evaluacion
-		self.model_res.usado = True
-		self.model_res.save()
+		if self.valido:
+			form.instance.evaluacion = self.model_res.evaluacion
+			self.model_res.usado = True
+			self.model_res.save()
+		else:
+			return self.form_invalid(form)
 		return super().form_valid(form)
 
 #comicion
@@ -402,3 +415,11 @@ class redirect_token(FormView):
 			return reverse_lazy(self.success_url_doce, kwargs={'uidb64': self.id,'token':self.clave})
 		if int(self.tipo) == 3:
 			return reverse_lazy(self.success_url_dire, kwargs={'uidb64': self.id,'token':self.clave})
+
+class gestion_setting_view(FormView):
+	form_class = gestion_setting_form
+	template_name = 'evaluacion/gestion_setting.html'
+	success_url = '/'
+	def form_valid(self, form):
+		form.save()
+		return super().form_valid(form)

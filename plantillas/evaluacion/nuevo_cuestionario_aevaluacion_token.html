@@ -18,6 +18,11 @@
 			        </button>
 			    {% endbuttons %}
 			</form>
+			<style type="text/css" media="screen">
+				.radio label[for*="_0"] {
+    				visibility: hidden;
+				}
+			</style>
 		{% else %}
 			<h2>Error!!!</h2>
 			<p>El código que trata de utilizar caduco ya fue usado, termino la evaluación o ya dio el cuestionario e intenta darlo otra vez</p>

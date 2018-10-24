@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'apps.procesoeval',
     'bootstrap3',
     'smart_selects',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,11 @@ EMAIL_PORT = 587
 
 #USE_DJANGO_JQUERY = True
 #JQUERY_URL = True
+
+#configuracion dinamica 
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'GESTION_ACTIVO': (False, 'Determina eleccion manual de gestion',bool),
+    'GESTION': (2018, 'Valor de la gestion manual',int),
+}
+CONSTANCE_SUPERUSER_ONLY = False

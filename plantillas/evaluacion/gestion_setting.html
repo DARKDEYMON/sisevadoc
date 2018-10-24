@@ -1,7 +1,7 @@
 {% extends "base/base_form.html" %}
 	{% block formbody %}
 	    {% load bootstrap3 %}
-	    <h2 style="text-align: center;">Evaluacion Docente - Director de Carrera</h2>
+	    <h2 style="text-align: center;">Gestión de Habilitación</h2>
 		<form action="" method="post">
 		    {% csrf_token %}
 		    {% bootstrap_form form %}
@@ -11,9 +11,4 @@
 		        </button>
 		    {% endbuttons %}
 		</form>
-		<style type="text/css" media="screen">
-			.radio label[for*="_0"] {
-				visibility: hidden;
-			}
-		</style>
 	{% endblock formbody %}
