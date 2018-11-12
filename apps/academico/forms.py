@@ -8,16 +8,25 @@ class create_facultad_form(ModelForm):
 		exclude = ['']
 
 class create_carrera_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (create_carrera_form,self ).__init__(*args,**kwargs)
+		self.fields['facultad'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = carreras
 		exclude = ['tiempo_activo']
 
 class update_carrera_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (update_carrera_form,self ).__init__(*args,**kwargs)
+		self.fields['facultad'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = carreras
 		exclude = ['']
 
 class create_materia_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (create_materia_form,self ).__init__(*args,**kwargs)
+		self.fields['carrera'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = materias
 		exclude = ['']
