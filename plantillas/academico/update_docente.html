@@ -1,7 +1,7 @@
 {% extends "base/base_form.html" %}
 	{% block formbody %}
 	    {% load bootstrap3 %}
-	    <h2 style="text-align: center;">Atualizar Docente</h2>
+	    <h2 style="text-align: center;">Actualizar Docente</h2>
 	    <h4 style="text-align: center;">Nombre Completo: {{docentes.nombre}} {{docentes.apellidos}}</h4>
 		<form action="" method="post" class="form" id="form-docente">
 		    {% csrf_token %}

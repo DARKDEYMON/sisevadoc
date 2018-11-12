@@ -15,6 +15,8 @@
 	<title>Sistema de Evaluación Docente</title>
 	<link rel="stylesheet" href="{% static "gloval.css" %}">
 	<link rel="icon" href="{% static 'favicon.ico' %}">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
 </head>
 <body>
 	{% block body %}
@@ -27,10 +29,10 @@
 		   	<div class="container">
 		   		
 				<h2>Dirección de Evaluación y Acreditación</h2>
-				<p>Sistema de Evaluacion Docente</p>
+				<p>Sistema de Evaluación Docente</p>
 				{% if perms.usuarios.conf_evaluaion %}
 					{% load evaluacion_tags %}
-					<p><span class="label label-danger">Gestion de Creacion Activa: {%initial_default_date%}</span></p>
+					<p><span class="label label-danger">Gestión de Creación Activa: {%initial_default_periodo_tag%}/{%initial_default_gestion_tag%}</span></p>
 				{% endif %}
 				<img src="{% static "logo.png" %}" alt="" class="img-responsive center-block" />
 			</div>
@@ -45,6 +47,13 @@
     <!--<script src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
     <script src="{% static 'smart-selects/admin/js/chainedm2m.js' %}"></script>-->
     <script src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+		    $('.js-example-basic-single').select2({
+		    	theme: "bootstrap"
+		    });
+		});
+    </script>
 </body>
 </html>

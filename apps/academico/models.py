@@ -74,7 +74,7 @@ class docentes(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóú]{2,}))+$',
+				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,}))+$',
 				message='El apellido solo debe contener letras y contener mínimo 4 letras ',
 				code='dato solo alfabetico'
 			)
@@ -86,11 +86,11 @@ class docentes(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóú]{2,}))+$',
+				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,}))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras',
 				code='dato solo alfabetico'
 			)
 		]
 	)
 	def __str__(self):
-		return str(self.apellidos + " " + self.nombre)
+		return str(self.apellidos + " " + self.nombre).title()

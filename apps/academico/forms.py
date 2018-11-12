@@ -23,6 +23,9 @@ class create_materia_form(ModelForm):
 		exclude = ['']
 
 class create_docente_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (create_docente_form,self ).__init__(*args,**kwargs)
+		self.fields['carrera'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = docentes
 		exclude = ['']

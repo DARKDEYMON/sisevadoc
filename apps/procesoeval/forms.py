@@ -14,15 +14,27 @@ class search_form(forms.Form):
 
 class create_evaluacion_user_form(ModelForm):
 	def __init__(self,*args,**kwargs):
-		user = kwargs.pop('user')
+		self.user = kwargs.pop('user')
 		super (create_evaluacion_user_form,self ).__init__(*args,**kwargs)
-		self.fields['carrera'].queryset = carreras.objects.filter(asignacion_evaluacion__usuario=user, tiempo_activo__gte=timezone.localtime())	
+		self.fields['carrera'].queryset = carreras.objects.filter(asignacion_evaluacion__usuario=self.user, tiempo_activo__gte=timezone.localtime())
+		self.fields['materia'].widget.attrs = {'class':'js-example-basic-single'}
+		self.fields['docente'].widget.attrs = {'class':'js-example-basic-single'}
 	def clean(self):
 		cleaned_data=super(create_evaluacion_user_form, self).clean()
 		carr = cleaned_data.get("carrera")
 		if(not(carr.tiempo_activo>=timezone.localtime())):
 			raise forms.ValidationError("El tiempo de creación culmino")
+		try:
+			carreras.objects.get(id=carr.id,asignacion_evaluacion__usuario=self.user)
+		except Exception as e:
+			raise forms.ValidationError("Esta carrera no te pertenece prro")
 		return cleaned_data
 	class Meta:
 		model = evaluacion
-		exclude = ['estado','observaciones','gestion']
+		exclude = ['estado','observaciones','gestion','token_generate','periodo']
+		"""
+		widgets = {
+			'materia':forms.Select(attrs={'class':'js-example-basic-single'}),
+			'docente':forms.Select(attrs={'class':'js-example-basic-single'})
+		}
+		"""

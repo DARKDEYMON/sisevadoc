@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'constance',
     'constance.backends.database',
+    'auditlog',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
 ]
 
 ROOT_URLCONF = 'sisevadoc.urls'
@@ -145,6 +147,8 @@ EMAIL_HOST_USER = 'reynaldo.pereira.heredia@gmail.com'
 EMAIL_HOST_PASSWORD = 'nosdurno1988'
 EMAIL_PORT = 587
 
+#PASSWORD_RESET_TIMEOUT_DAYS = 1
+
 #USE_DJANGO_JQUERY = True
 #JQUERY_URL = True
 
@@ -153,5 +157,6 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'GESTION_ACTIVO': (False, 'Determina eleccion manual de gestion',bool),
     'GESTION': (2018, 'Valor de la gestion manual',int),
+    'PERIODO': (2018, 'Valor de la gestion manual',int),
 }
 CONSTANCE_SUPERUSER_ONLY = False

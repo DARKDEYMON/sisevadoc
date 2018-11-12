@@ -15,6 +15,9 @@
          font-style: bold;
       }
     }
+    *{
+      font-family: Arial;
+    }
     table{
       margin-top: 30px;
       margin-bottom: 30px;
@@ -60,9 +63,10 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Código</th>
+          <th>Clave</th>
           <th>Estado</th>
           <th>Creado</th>
+          <th>Url</th>
         </tr>
       </thead>
       <tbody class="texprint">
@@ -78,20 +82,25 @@
             {% endif %}
             </th>
             <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+            <td><a href="https://bit.ly/2qIOEEh">https://bit.ly/2qIOEEh</a></td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+
+  <div style="page-break-before: always">
+  
   <b>3.- Clave del docente (autoevaluacion)</b>
   <div class="tabla">
     <table style="margin-left:auto; margin-right:auto;">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Código</th>
+          <th>Clave</th>
           <th>Estado</th>
           <th>Creado</th>
+          <th>Url</th>
         </tr>
       </thead>
       <tbody class="texprint">
@@ -107,6 +116,7 @@
             {% endif %}
             </th>
             <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+            <td><a href="https://bit.ly/2qIOEEh">https://bit.ly/2qIOEEh</a></td>
           </tr>
         {% endfor %}
       </tbody>
@@ -118,9 +128,10 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Código</th>
+          <th>Clave</th>
           <th>Estado</th>
           <th>Creado</th>
+          <th>Url</th>
         </tr>
       </thead>
       <tbody class="texprint">
@@ -136,6 +147,7 @@
             {% endif %}
             </th>
             <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+            <td><a href="https://bit.ly/2qIOEEh">https://bit.ly/2qIOEEh</a></td>
           </tr>
         {% endfor %}
       </tbody>

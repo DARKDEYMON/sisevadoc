@@ -7,33 +7,33 @@
 
   <style type="text/css">
     @page { size: letter portrait;
-    /*background: gray;
-    border: solid 1pt blue;
-    padding: 9pt;
-    margin: 18pt 18pt 18pt 18pt;
-    font-family: "Helvetica Narrow";
-    @top-left {
-       content: 'PrivateCopy';
-       color: red;
-       font-style: bolditalic;
+      /*background: gray;
+      border: solid 1pt blue;
+      padding: 9pt;
+      margin: 18pt 18pt 18pt 18pt;
+      font-family: "Helvetica Narrow";
+      @top-left {
+         content: 'PrivateCopy';
+         color: red;
+         font-style: bolditalic;
+                }
+      @top {
+         content: string(doctitle);
+           }
+      @bottom-left {
+         content: 'My Super-Duper Manual';
+         font-style: bold;
+                    }
+      */
+      @bottom-left {
+         content: "Pagina " counter(page) " de " counter(pages);
+         font-style: bold;
+      }
+      /*
+      @bottom {
+         content: string(paratitle);
               }
-    @top {
-       content: string(doctitle);
-         }
-    @bottom-left {
-       content: 'My Super-Duper Manual';
-       font-style: bold;
-                  }
-    */
-    @bottom-left {
-       content: "Pagina " counter(page) " de " counter(pages);
-       font-style: bold;
-    }
-    /*
-    @bottom {
-       content: string(paratitle);
-            }
-    */
+      */
     }
 
     @page portrait {
@@ -41,6 +41,24 @@
       background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
       background-attachment: fixed;
       background-position: center center;
+      @top-right{
+        font-style: italic;
+        font-weight: bold;
+        content: "Gestion {{ object_list.gestion }}";
+      }
+      @top-center {
+        background: #fbc847;
+        content: '';
+        display: block;
+        height: .05cm;
+        opacity: .5;
+        width: 100%;
+      }
+      @top-left{
+        font-style: italic;
+        font-weight: bold;
+        content: "{% now 'd-m-Y H:i' %}";
+      }
     }
     .portrait{
       page: portrait;
@@ -51,6 +69,24 @@
       background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
       background-attachment: fixed;
       background-position: center center;
+      @top-right{
+        font-style: italic;
+        font-weight: bold;
+        content: "Gestion {{ object_list.gestion }}";
+      }
+      @top-center {
+        background: #fbc847;
+        content: '';
+        display: block;
+        height: .05cm;
+        opacity: .5;
+        width: 100%;
+      }
+      @top-left{
+        font-style: italic;
+        font-weight: bold;
+        content: "{% now 'd-m-Y H:i' %}";
+      }
     }
     .landscape{
       page: landscape;
@@ -311,6 +347,46 @@
   -->
   
   <div class="portrait">
+    <br>
+    <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
+      <thead>
+        <tr>
+          <th></th>
+          <th colspan="6">Áreas</th>
+          <th colspan="2">Promedio</th>
+        </tr>
+        <tr>
+          <th>
+            Categoría
+          </th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Director de Carrera</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_1 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_2 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_3 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_4 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_5 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.pregunta_6 }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.prom_evadirect }}</td>
+          <td>{{ object_list.cuestionario_dcarrera.prom_evadirect_porcen }}%</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br>
+
     <b>2.- Detalle de la Evaluación Estudiantil</b>
 
     <p>El siguiente cuadro es un detalle de evaluación realizada por los estudiantes y las ponderaciones dadas en cada una de ellas que van del 1-5</p>
@@ -368,9 +444,508 @@
       </tbody>
     </table>
     </div>
+    
+    {% load evaluacion_tags %}
 
     <br>
-    <b>3.- Resultados</b>
+    <b>3.- Valoración Final</b>
+    <br>
+
+    <div class="tabla text1">
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="6" style="text-align: center;">Valoración Docente Estudiantil</th>
+        </tr>
+        <tr>
+          <th>Nº</th>
+          <th>Pregunta</th>
+          <th>Promedio Docente</th>
+          <th>Resultado Docente</th>
+          <th>Promedio Estudiante</th>
+          <th>Resultado Estudiante</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_1' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_1 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_1 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p1|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p1 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_2' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_2 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_2 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p2|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p2 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_3' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_3 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_3 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p3|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p3 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_4' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_4 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_4 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p4|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p4 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_5' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_5 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_5 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p5|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p5 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_6' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_6 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_6 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p6|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p6 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_7' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_7 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_7 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p7|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p7 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_8' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_8 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_8 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p8|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p8 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_9' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_9 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_9 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p9|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p9 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_10' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_10 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_10 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p10|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p10 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_11' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_11 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_11 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p11|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p11 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_12' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_12 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_12 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p12|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p12 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_13' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_13 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_13 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p13|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p13 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_14' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_14 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_14 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p14|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p14 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_15' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_15 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_15 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p15|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p15 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_16' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_16 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_16 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p16|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p16 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_17' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_17 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_17 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p17|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p17 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_18' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_18 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_18 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p18|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p18 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td>{% verbose_name_tag object_list.cuestionario_aevaluacion 'pregunta_19' %}</td>
+          <td>{{ object_list.cuestionario_aevaluacion.pregunta_19 }}</td>
+          <td>
+            {% if object_list.cuestionario_aevaluacion.pregunta_19 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+          <td>{{ object_list.alum_p19|floatformat:1 }}</td>
+          <td>
+            {% if object_list.alum_p19 < 3 %}
+              <p style="color:red;">Debilidad</p>
+            {% else %}
+              Fortaleza
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+    </div>
+    
+    <br>
+
+    <div class="tabla text1">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4" style="text-align: center;">Valoración del Director de Carrera</th>
+          </tr>
+          <tr>
+            <th>Nº</th>
+            <th>Pregunta</th>
+            <th>Promedio</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_1' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_1 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_1 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_2' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_2 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_2 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_3' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_3 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_3 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_4' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_4 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_4 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_5' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_5 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_5 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>{% verbose_name_tag object_list.cuestionario_dcarrera 'pregunta_6' %}</td>
+            <td>{{ object_list.cuestionario_dcarrera.pregunta_6 }}</td>
+            <td>
+              {% if object_list.cuestionario_dcarrera.pregunta_6 < 3 %}
+                <p style="color:red;">Debilidad</p>
+              {% else %}
+                Fortaleza
+              {% endif %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <b>4.- Resultados</b>
     <br>
     <div class="tabla">
     <table style="margin-left:auto; margin-right:auto;">
@@ -408,15 +983,16 @@
     </div>
 
     <br>
-    <b>4.- Observaciones</b>
+    <b>5.- Observaciones</b>
     {% if object_list.observaciones %}
       <p>{{ object_list.observaciones }}</p>
     {% else %}
       <p>No existen Observaciones</p>
     {% endif %}
-    <b>5.- Comisión Evaluadora </b>
+    <b>6.- Comisión Evaluadora </b>
     <p></p>
-    <table class="tabla" style="margin-left:auto; margin-right:auto;">
+    <div class="tabla">
+    <table style="margin-left:auto; margin-right:auto;">
       <thead>
         <tr>
           <th>Apellidos/Nombres</th>
@@ -444,6 +1020,7 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
   </div>
 </body>       
 </html>

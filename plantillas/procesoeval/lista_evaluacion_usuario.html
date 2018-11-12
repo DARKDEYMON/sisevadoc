@@ -28,10 +28,13 @@
 	    				Materia Nombre
 	    			</th>
 	    			<th>
-	    				Gestion
+	    				Gestión
 	    			</th>
 	    			<th>
 	    				Estado
+	    			</th>
+	    			<th>
+	    				Claves
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -58,7 +61,7 @@
 	    	    			{{eva.materia.nombre}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.gestion}}
+	    	    			{{eva.periodo}}/{{eva.gestion}}
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if eva.estado %}
@@ -68,9 +71,16 @@
 	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
+	    	    			{% if not eva.token_generate %}
+	    	    				<span class="label label-success">No Generado</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">Generado</span>
+	    	    			{% endif %}
+	    	    		</td>
+	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestion de Evaluaciones <span class="caret"></span>
+							    	Opciones de Eval. <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 									<!--
@@ -93,9 +103,17 @@
 								    	<a href="{# url 'procesoeval:createprodcarreraeval' eva.pk #}">Evaluacion Director Carrera<span class="glyphicon glyphicon-question-sign"></span></a>
 								    </li>
 									-->
-								    <li>
-								    	<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}">Imprimir Claves</a>
-								    </li>
+									{% if not eva.token_generate %}
+										<!--
+									    <li>
+									    	<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}">Imprimir Claves</a>
+									    </li>
+										-->
+										<li>
+									    	<a href="" data-toggle="modal" data-target="#reportetokenmodal{{eva.pk}}">Imprimir Claves</a>
+									    </li>
+									{% endif %}
+								    
 								    {% if eva.estado %}
 								        <li>
 									    	<a href="{% url 'procesoeval:estobservacion' eva.pk %}">Llenado de Observaciones</a>
@@ -123,7 +141,7 @@
 			    	    			{% endif %}
 								</ul>
 							</div>
-
+							<!--para reporte-->
 							<div class="modal fade" id="reportemodal{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -140,13 +158,36 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											{% if eva.esta_llenado %}
-												<a target="_blank" href="{% url 'procesoeval:reporteeva' eva.pk %}" type="button" class="btn btn-primary" onclick="$('#reportemodal{{eva.pk}}').modal('hide')">Aceptar</a>
+												<a target="_blank" href="{% url 'procesoeval:reporteeva' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+												<!-- $('#reportemodal{{eva.pk}}').modal('hide') -->
 											{% endif %}
 										</div>
 									</div>
 								</div>
 							</div>
-							
+
+
+							<!--para reportetoken-->
+							<div class="modal fade" id="reportetokenmodal{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header modal-header-danger">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Atención!!!</h4>
+										</div>
+										<div class="modal-body">
+										
+										<h3 style="color:red;">!!!Una ves generado al precionar aceptar Guarde el pdf de las contraseñas no podra volver a verlas mas adelante.</h3>
+										
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<a target="_blank" href="{% url 'procesoeval:codepdf' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
 	    	    		</td>
 	    	    	</tr>
 	    	    {% endfor %}

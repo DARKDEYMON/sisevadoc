@@ -105,9 +105,9 @@ class lista_evaluacion_usuario_view(ListView):
 					Q(materia__nombre__icontains=search)|
 					Q(docente__nombre__icontains=search)|
 					Q(gestion__icontains=search)
-				).order_by('gestion')
+				).order_by('-creacion','-gestion')
 		else:
-			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user).order_by('gestion')#, estado=True)
+			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user).order_by('-creacion','-gestion')#, estado=True)
 #alumno
 class create_cuestionario_alum_pro_view(create_cuestionario_alumno_view):
 	def dispatch(self, request, *args, **kwargs):
@@ -224,7 +224,8 @@ class lista_comicion_pro_view(lista_comicion_view):
 class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model.objects.get(id=kwargs['pk'], carrera__asignacion_evaluacion__usuario=request.user)
+			#aqui se verifica estramente si los tokens se generaron
+			self.model.objects.get(id=kwargs['pk'], carrera__asignacion_evaluacion__usuario=request.user,token_generate=False)
 		except Exception as e:
 			raise Http404
 		return super(ins_report_tokenalum_pro_view, self).dispatch(request, *args, **kwargs)

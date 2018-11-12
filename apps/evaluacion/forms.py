@@ -8,13 +8,18 @@ from .models import *
 
 #from dynamic_setting.models import Setting
 from constance import config
-from .setting_dinamic import initial_gestion, initial_active_gestion
+from .setting_dinamic import initial_gestion, initial_active_gestion, initial_periodo
 import datetime
 
 class create_evaluacion_form(ModelForm):
 	class Meta:
 		model = evaluacion
-		exclude = ['estado','observaciones']
+		exclude = ['estado','observaciones','token_generate']
+
+class update_evaluacion_form(ModelForm):
+	class Meta:
+		model = evaluacion
+		exclude = ['observaciones']
 
 class create_observacion_form(ModelForm):
 	class Meta:
@@ -109,8 +114,8 @@ class cuestionario_dcarrera_form(ModelForm):
 
 class redirect_token_form(forms.Form):
 	tipo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,"Alumno"),(2,"Docente"),(3,"Director")))
-	id = forms.CharField(required=True)
-	clave = forms.CharField(required=True)
+	id = forms.CharField(required=True,widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+	clave = forms.CharField(required=True,widget=forms.TextInput(attrs={'autocomplete': 'off'}))
 
 class create_comision_form(ModelForm):
 	class Meta:
@@ -128,6 +133,7 @@ class create_comision_form(ModelForm):
 
 class gestion_setting_form(forms.Form):
 	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion)
+	periodo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo)
 	activada_gestion_manual = forms.BooleanField(initial=initial_active_gestion,required=False)
 	def save(self):
 		ges = self.cleaned_data['gestion']
@@ -145,4 +151,7 @@ class gestion_setting_form(forms.Form):
 		setting_act.save()
 		"""
 		config.GESTION_ACTIVO = activo
+
+		peri = int(self.cleaned_data['periodo'])
+		config.PERIODO = peri
 		return

@@ -25,7 +25,7 @@ class create_evaluacion_view(CreateView):
 
 class update_evaluacion_view(UpdateView):
 	model = evaluacion
-	form_class = create_evaluacion_form
+	form_class = update_evaluacion_form
 	template_name = 'evaluacion/update_evaluacion.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
 
@@ -118,7 +118,8 @@ class send_mail_evalum_view(FormView):
 		return super().form_valid(form)
 
 #@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
-@method_decorator(cache_control(max_age=0, no_cache=True, must_revalidate=True), name='dispatch')
+@method_decorator(never_cache, name='dispatch')
+#@method_decorator(cache_control(max_age=0, no_cache=True, must_revalidate=True), name='dispatch')
 class create_cuestionario_alumno_token_view(CreateView):
 	model_extra = token_alumno
 	form_class = cuestionario_alumno_form
@@ -136,6 +137,7 @@ class create_cuestionario_alumno_token_view(CreateView):
 		if self.model_res.usado:
 			self.valido = False
 		else:
+			#esto verifica si la evaluacion esta activa
 			if self.model_res.evaluacion.estado:
 				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
 			else:
@@ -369,6 +371,10 @@ class report_eva_view(WeasyTemplateResponseMixin, ins_report_eva_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+	pdf_attachment = False
+	def get_pdf_filename(self):
+		res =get_object_or_404(self.model, id=self.kwargs['pk'])
+		return str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" reporte.pdf")
 
 class ins_report_tokenalum_view(ListView):
 	model = evaluacion
@@ -388,14 +394,21 @@ class ins_report_tokenalum_view(ListView):
 		candr = len(res.token_dcarrera_set.all())
 		if candr == 0:
 			self.model_tokendr.objects.create(user=self.request.user,evaluacion=res)
-		print(candr)
+		#print(candr)
+		#aqui se indica que ya se genero los tokens y por tanto deve desavilitarse
+		res.token_generate = True
+		res.save()
 		return res
 
 class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
-
+	pdf_attachment = False
+	def get_pdf_filename(self):
+		res =get_object_or_404(self.model, id=self.kwargs['pk'])
+		return str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" claves.pdf")
+	
 class redirect_token(FormView):
 	success_url_alum = 'evaluacion:alumtoken'
 	success_url_doce = 'evaluacion:aevaldoctoken'

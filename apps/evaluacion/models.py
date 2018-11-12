@@ -7,7 +7,7 @@ from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 import random
-from .setting_dinamic import initial_default
+from .setting_dinamic import initial_default_gestion, initial_default_periodo
 
 import matplotlib
 matplotlib.use('Agg')
@@ -19,6 +19,9 @@ import base64
 from .token_eva import *
 from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+
+from auditlog.registry import auditlog
+from auditlog.models import AuditlogHistoryField
 
 def random_token():
 	return random.randint(1,10**10)
@@ -45,7 +48,7 @@ class evaluacion(models.Model):
 	gestion = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default = initial_default,#datetime.datetime.now().year,
+		default = initial_default_gestion,#datetime.datetime.now().year,
 		validators = [
 			RegexValidator(
 				regex=r'^[0-9]{4}$',
@@ -53,6 +56,12 @@ class evaluacion(models.Model):
 				code = 'dato solo numerico'
 			)
 		]
+	)
+	periodo = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=initial_default_periodo,
+		choices=((1,1),(2,2),(3,3))
 	)
 	numero_alumnos = models.PositiveIntegerField(
 		blank=False,
@@ -62,7 +71,7 @@ class evaluacion(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	estado = models.BooleanField(
 		null = False,
@@ -73,6 +82,12 @@ class evaluacion(models.Model):
 		null=True,
 		blank=True
 	)
+	token_generate = models.BooleanField(
+		null=False,
+		blank=False,
+		default=False
+	)
+	historial = AuditlogHistoryField()
 	def alum_p1(self):
 		return self.cuestionario_alumno_set.all().aggregate(Avg('pregunta_1'))['pregunta_1__avg']
 	def alum_prom_p1(self):
@@ -307,7 +322,9 @@ class evaluacion(models.Model):
 	def __str__(self):
 		return str(self.docente)
 	class Meta:
-		unique_together = (('docente', 'gestion','materia'),)
+		unique_together = (('docente', 'gestion','materia'),('docente', 'gestion'))
+
+auditlog.register(evaluacion)
 
 class comision(models.Model):
 	evaluacion = models.ForeignKey(evaluacion, on_delete=models.CASCADE)
@@ -350,7 +367,7 @@ class token_alumno(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def id_encode(self):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
@@ -498,7 +515,7 @@ class cuestionario_alumno(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def __str__(self):
 		return str(self.evaluacion)
@@ -667,7 +684,7 @@ class cuestionario_aevaluacion(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def prom_autoeva(self):
 		return round((self.pregunta_1+self.pregunta_2+self.pregunta_3+self.pregunta_4+self.pregunta_5+self.pregunta_6+self.pregunta_7+
@@ -696,7 +713,7 @@ class token_dcarrera(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def id_encode(self):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
@@ -753,7 +770,7 @@ class cuestionario_dcarrera(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def prom_evadirect(self):
 		return round((self.pregunta_1+self.pregunta_2+self.pregunta_3+self.pregunta_4+self.pregunta_5+self.pregunta_6)/6,2)
