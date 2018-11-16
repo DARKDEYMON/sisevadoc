@@ -12,6 +12,11 @@ from .setting_dinamic import initial_gestion, initial_active_gestion, initial_pe
 import datetime
 
 class create_evaluacion_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (create_evaluacion_form,self ).__init__(*args,**kwargs)
+		self.fields['carrera'].widget.attrs = {'class':'js-example-basic-single'}
+		self.fields['materia'].widget.attrs = {'class':'js-example-basic-single'}
+		self.fields['docente'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = evaluacion
 		exclude = ['estado','observaciones','token_generate']
