@@ -57,11 +57,15 @@ class materias(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[A-Z]{3}-[0-9]{3}$',
+				regex=r'^([A-Z]{3}-[0-9]{3})|[A-Z]{3}[0-9]{3}$',
 				message='La sigla contiene tres letras seguidas de un guion y tres números Ej: SIS-130 en mayusculas',
 				code = 'dato solo alfabetico'
 			)
 		]
+	)
+	nivel = models.IntegerField(
+		null=False,
+		blank=False
 	)
 	def __str__(self):
 		return str(self.sigla) + " " + self.nombre
@@ -88,6 +92,18 @@ class docentes(models.Model):
 			RegexValidator(
 				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóúñ]{2,}))+$',
 				message='El nombre solo debe contener letras y contener mínimo 4 letras',
+				code='dato solo alfabetico'
+			)
+		]
+	)
+	ci = models.CharField(
+		max_length=100,
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[a-zA-Z0-9-]{6,10}$',
+				message='El Ci consta de 10 digitos como maximo',
 				code='dato solo alfabetico'
 			)
 		]

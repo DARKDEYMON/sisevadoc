@@ -8,4 +8,5 @@ class permisos(models.Model):
 			("academico", "Permiso al modulo academico"),
 			("conf_evaluaion", "Permiso al modulo de inilisacion de evaluacion"),
 			("evaluacion", "Permiso al modulo de evaluacion"),
+			("dcarrera","Permiso al modulo de director de carrera")
 		)
