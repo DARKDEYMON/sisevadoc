@@ -116,9 +116,9 @@
     <br>
     <img src="{% static "logo.png" %}" style="display: block; margin-left:auto; margin-right:auto;">
     <br>
-    <h3 style="text-align: center;">Evaluación al Despeño Docente {{ object_list.gestion }}</h3>
+    <h3 style="text-align: center;">Evaluación al Despeño Docente {{object_list.periodo}}/{{ object_list.gestion }}</h3>
     <br>
-    <table style="margin-left:auto; margin-right:auto;">
+    <table class="text1" style="margin-left:auto; margin-right:auto;">
           <tr>
             <td style="min-width:200px" class="tablenoboder"><b>Facultad:</b></td>
             <td class="tablenoboder">{{ object_list.carrera.facultad }}</td>
@@ -130,6 +130,10 @@
           <tr>
             <td class="tablenoboder"><b>Docente:</b></td>
             <td class="tablenoboder">{{ object_list.docente}}</td>
+          </tr>
+          <tr>
+            <td class="tablenoboder"><b>C.I.:</b></td>
+            <td class="tablenoboder">{{ object_list.docente.ci}}</td>
           </tr>
           <tr>
             <td class="tablenoboder"><b>Materia:</b></td>
@@ -144,7 +148,7 @@
 
 
   <div class="landscape">
-    <h1 style="text-align: center;">Valoración Global del Desempeño Docente</h1>
+    <h2 style="text-align: center;">Valoración Global del Desempeño Docente</h2>
     <div style="border: none; border-style: none;">
       <table class="text1" style="margin-left:auto; margin-right:auto;">
           <tr>
