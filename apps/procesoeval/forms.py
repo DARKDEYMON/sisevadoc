@@ -5,6 +5,9 @@ from apps.evaluacion.models import *
 from django.utils import timezone
 
 class asignar_evaluacion_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (asignar_evaluacion_form,self ).__init__(*args,**kwargs)
+		self.fields['carrera'].widget.attrs = {'class':'js-example-basic-single'}
 	class Meta:
 		model = asignacion_evaluacion
 		exclude = ['usuario']
