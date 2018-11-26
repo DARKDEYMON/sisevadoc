@@ -130,13 +130,16 @@ class create_cuestionario_alumno_token_view(CreateView):
 		if 'evaluacion' or 'valido' not in context:
 			context['token_alumno'] = self.model_res
 			context['valido'] = self.valido
+			context['usado'] = self.usado #aumento de prueba 
 		return context
 	def dispatch(self, request, *args, **kwargs):
 		id = urlsafe_base64_decode(kwargs['uidb64']).decode('utf-8')
 		self.model_res = get_object_or_404(self.model_extra,id=id)
 		if self.model_res.usado:
 			self.valido = False
+			self.usado = True #aumento de prueba 
 		else:
+			self.usado = False #aumento de prueba 
 			#esto verifica si la evaluacion esta activa
 			if self.model_res.evaluacion.estado:
 				self.valido = evaluacion_token_generator.check_token(self.model_res,kwargs['token'])
@@ -200,10 +203,18 @@ class create_cuestionario_aevaluacion_token_view(CreateView):
 		if 'evaluacion' or 'valido' not in context:
 			context['token_aevaluacion'] = self.model_res
 			context['valido'] = self.valido
+			context['usado'] = self.usado #aumento de prueba
 		return context
 	def dispatch(self, request, *args, **kwargs):
 		id = urlsafe_base64_decode(kwargs['uidb64']).decode('utf-8')
 		self.model_res = get_object_or_404(self.model_extra,id=id)
+
+		#if aumento de prueba
+		if self.model_res.usado:
+			self.usado = True
+		else:
+			self.usado = False
+
 		try:
 			#aqui se verifica si tiene o no ya una autoevaluacion esto para que no de dos
 			self.model_res.evaluacion.cuestionario_aevaluacion
@@ -275,10 +286,18 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 		if 'evaluacion' or 'valido' not in context:
 			context['token_dcarrera'] = self.model_res
 			context['valido'] = self.valido
+			context['usado'] = self.usado #aumento de prueba
 		return context
 	def dispatch(self, request, *args, **kwargs):
 		id = urlsafe_base64_decode(kwargs['uidb64']).decode('utf-8')
 		self.model_res = get_object_or_404(self.model_extra,id=id)
+
+		#if aumento de prueba
+		if self.model_res.usado:
+			self.usado = True
+		else:
+			self.usado = False
+
 		try:
 			self.model_res.evaluacion.cuestionario_dcarrera
 			self.valido = False

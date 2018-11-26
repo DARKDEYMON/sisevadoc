@@ -24,7 +24,12 @@
 				}
 			</style>
 		{% else %}
-			<h2>Error!!!</h2>
-			<p>El código que trata de utilizar caduco ya fue usado, termino la evaluación o ya dio el cuestionario e intenta darlo otra vez</p>
+			{% if usado %}
+			    <h2>Error!!!</h2>
+				<p>El código ya fue usado</p>
+			{% else %}
+				<h2>Error!!!</h2>
+				<p>El código que trata de utilizar caduco o termino la evaluación</p>
+			{% endif %}
 		{% endif %}
 	{% endblock formbody %}
