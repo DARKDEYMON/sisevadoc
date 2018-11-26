@@ -421,6 +421,7 @@ class ins_report_tokenalum_view(ListView):
 
 class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):
 	pdf_stylesheets = [
+		'https://fonts.googleapis.com/css?family=Inconsolata',
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
 	pdf_attachment = False
