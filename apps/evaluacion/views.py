@@ -393,7 +393,7 @@ class report_eva_view(WeasyTemplateResponseMixin, ins_report_eva_view):
 	pdf_attachment = False
 	def get_pdf_filename(self):
 		res =get_object_or_404(self.model, id=self.kwargs['pk'])
-		return str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" reporte.pdf").encode('utf-8')
+		return str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" reporte.pdf").decode('utf-8').encode("ascii","ignore")
 
 class ins_report_tokenalum_view(ListView):
 	model = evaluacion
