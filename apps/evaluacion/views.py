@@ -427,7 +427,8 @@ class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):
 	pdf_attachment = False
 	def get_pdf_filename(self):
 		res =get_object_or_404(self.model, id=self.kwargs['pk'])
-		return str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" claves.pdf")
+		decode = str(str(res.docente)+" "+str(res.materia)+" "+str(res.periodo)+"_"+str(res.gestion)+" claves.pdf").encode('utf-8')
+		return decode.decode("ascii","ignore")
 	
 class redirect_token(FormView):
 	success_url_alum = 'evaluacion:alumtoken'
