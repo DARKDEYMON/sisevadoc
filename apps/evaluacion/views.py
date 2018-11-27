@@ -419,10 +419,12 @@ class ins_report_tokenalum_view(ListView):
 		res.save()
 		return res
 
+from weasyprint import HTML, CSS
+from weasyprint.fonts import FontConfiguration
+font_config = FontConfiguration()
 class report_toke_alum(WeasyTemplateResponseMixin,ins_report_tokenalum_view):
 	pdf_stylesheets = [
-		'https://fonts.googleapis.com/css?family=Inconsolata',
-		#settings.STATIC_ROOT + 'css/app.css',
+		#'https://fonts.googleapis.com/css?family=Inconsolata',
 	]
 	pdf_attachment = False
 	def get_pdf_filename(self):
