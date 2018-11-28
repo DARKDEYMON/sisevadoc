@@ -45,7 +45,7 @@ class lista_docentes_view(ListView):
 	model = evaluacion
 	paginate_by = 10
 	form_class = search_form
-	template_name = 'evaluacion/lista_evaluacion.html'
+	template_name = 'evaluacion/evaluacion_list.html'
 	def get_context_data(self, **kwargs):
 		context = super(lista_docentes_view, self).get_context_data(**kwargs)
 		if 'form' not in context:
