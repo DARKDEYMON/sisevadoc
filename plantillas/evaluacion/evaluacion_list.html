@@ -188,28 +188,34 @@
 	    	</tbody>
 	    </table>
 
-			{% if is_paginated %}
-				<div class="text-center">
-				<ul class="pagination">
-				{% if page_obj.has_previous %}
-				    <li>
-				        <span><a href="?page={{ page_obj.previous_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Anterior</a></span>
-				    </li>
-				{% endif %}
-				    <li class="">
-				        <span>Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
-				    </li>
-				{% if page_obj.has_next %}
-				    <li>
-				        <span><a href="?page={{ page_obj.next_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Siguiente</a></span>
-				    </li>
-				{% endif %}
-				</ul>
-				</div>
-			{% else %}
-				<div class="text-center">
-					<!--<p>Sin Paginacion</p>-->
-				</div>
+		{% if is_paginated %}
+			<div class="text-center">
+			<ul class="pagination">
+			{% if page_obj.has_previous %}
+			    <li>
+			        <span><a href="?page={{ page_obj.previous_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Anterior</a></span>
+			    </li>
 			{% endif %}
+			    <li class="">
+			        <span>
+			        	Pagina 
+			        	<form role="form" method="get" style="display: inline-flex;">
+			        	<input autocomplete="off" style="width: 30px; height: 20px;" type="text" name="page" value="{{ page_obj.number }}">
+			        	</form>
+			        	 de {{ page_obj.paginator.num_pages }}.
+			        </span>
+			    </li>
+			{% if page_obj.has_next %}
+			    <li>
+			        <span><a href="?page={{ page_obj.next_page_number }}{% if searchdata %}&search={{searchdata}}{% endif %}">Siguiente</a></span>
+			    </li>
+			{% endif %}
+			</ul>
+			</div>
+		{% else %}
+			<div class="text-center">
+				<!--<p>Sin Paginacion</p>-->
+			</div>
+		{% endif %}
 
 	{% endblock listbody %}
