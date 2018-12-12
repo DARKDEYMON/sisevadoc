@@ -70,11 +70,12 @@ class lista_docentes_view(ListView):
 					Q(id__icontains=search)|
 					Q(carrera__nombre__icontains=search)|
 					Q(materia__sigla__icontains=search)|
+					Q(materia__nombre__icontains=search)|
 					Q(docente__nombre__icontains=search)|
 					Q(gestion__icontains=search)
-				).order_by('gestion')
+				).order_by('gestion','creacion','id')
 		else:
-			return self.model.objects.all().order_by('gestion')
+			return self.model.objects.all().order_by('gestion','creacion','id')
 
 def thanks_view(request):
 	return render(request,'evaluacion/thanks.html',{})

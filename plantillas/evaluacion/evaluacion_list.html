@@ -25,6 +25,9 @@
 	    				M. Sigla
 	    			</th>
 	    			<th>
+	    				Creado
+	    			</th>
+	    			<th>
 	    				Gestion
 	    			</th>
 	    			<th>
@@ -58,7 +61,10 @@
 	    	    			{{eva.materia}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.periodo}}/{{eva.gestion}}
+	    	    			{{eva.creacion|date:'d/m/Y H:i'}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.periodo}}/{{eva.gestion}}<br>
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if eva.cuestionario_aevaluacion %}
@@ -90,7 +96,7 @@
 	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestión de Evaluaciones <span class="caret"></span>
+							    	Opciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
