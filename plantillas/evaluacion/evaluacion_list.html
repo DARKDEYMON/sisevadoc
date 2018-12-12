@@ -28,6 +28,9 @@
 	    				Gestion
 	    			</th>
 	    			<th>
+	    				Estados(D/A)
+	    			</th>
+	    			<th>
 	    				Estado
 	    			</th>
 	    			<th>
@@ -56,6 +59,19 @@
 	    	    		</td>
 	    	    		<td>
 	    	    			{{eva.periodo}}/{{eva.gestion}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{% if eva.cuestionario_aevaluacion %}
+	    	    				<span class="label label-success">Autoeva</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">Autoeva</span>
+	    	    			{% endif %}
+	    	    			<br>
+	    	    			{% if eva.cuestionario_dcarrera %}
+	    	    				<span class="label label-success">Dcarrera</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">Dcarrera</span>
+	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if eva.estado %}
