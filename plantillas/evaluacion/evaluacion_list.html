@@ -72,12 +72,12 @@
 	    	    			{% else %}
 	    	    				<span class="label label-warning">Autoeva</span>
 	    	    			{% endif %}
-	    	    			<br>
+	    	    			
 	    	    			{% if eva.cuestionario_dcarrera %}
 	    	    				<span class="label label-success">Dcarrera</span>
 	    	    			{% else %}
 	    	    				<span class="label label-warning">Dcarrera</span>
-	    	    			{% endif %}
+	    	    			{% endif %}		
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if eva.estado %}
@@ -85,6 +85,7 @@
 	    	    			{% else %}
 	    	    				<span class="label label-warning">{{eva.estado_actual}}</span>
 	    	    			{% endif %}
+	    	    			<span class="label label-warning">C.Alum({{eva.cuestionarios_llenados}})</span>
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if not eva.token_generate %}
