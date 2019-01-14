@@ -21,7 +21,7 @@
 	    			<th>
 	    				Docente
 	    			</th>
-	    			<th>
+	    			<th style="min-width: 80px;">
 	    				M. Sigla
 	    			</th>
 	    			<th>
@@ -29,6 +29,9 @@
 	    			</th>
 	    			<th>
 	    				Gestión
+	    			</th>
+	    			<th>
+	    				Estado(D/A)
 	    			</th>
 	    			<th>
 	    				Estado
@@ -62,6 +65,19 @@
 	    	    		</td>
 	    	    		<td>
 	    	    			{{eva.periodo}}/{{eva.gestion}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{% if eva.cuestionario_aevaluacion %}
+	    	    				<span class="label label-success">Autoeva</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">Autoeva</span>
+	    	    			{% endif %}
+	    	    			
+	    	    			{% if eva.cuestionario_dcarrera %}
+	    	    				<span class="label label-success">Dcarrera</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">Dcarrera</span>
+	    	    			{% endif %}		
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if eva.estado %}
