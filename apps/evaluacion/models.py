@@ -536,7 +536,7 @@ class token_aevaluacion(models.Model):
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,
-		auto_now=True
+		auto_now_add=True
 	)
 	def id_encode(self):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
