@@ -75,12 +75,44 @@
 								    		<a href="{% url 'plmejoras:creaupdaplnmejoras' eva.pk %}">Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
 								    	{% endif %}
 								    	
-								    	{% if eva.plan_mejoras %}
-								    		<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>
-								    	{% endif %}
+								    	
+							    		{% if eva.plan_mejoras.activo or not eva.plan_mejoras %}
+							    			<a href="" data-toggle="modal" data-target="#planmejora{{eva.pk}}">
+									  			Reporte Plan de Mejoras
+											</a>
+							    		{% else %}
+							    			<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>
+							    		{% endif %}
+								    	
 								    </li>
 								</ul>
 							</div>
+
+
+							<div class="modal fade" id="planmejora{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header modal-header-danger">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Atención!!!</h4>
+										</div>
+										<div class="modal-body">
+										
+										<h3 style="color:red;">!!!Una vez generado su plan de mejora ya no podrá editarlo!!!.</h3>
+										{% if not eva.plan_mejoras %}
+											<h3 style="color:red;"> No ha llenado aun su plan de mejoras</h3>
+										{% endif %}
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											{% if eva.plan_mejoras %}
+												<a target="_blank" href="{% url 'plmejoras:reportplmejoras' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
 	    	    		</td>
 	    	    	</tr>
 	    		{% endfor %}
