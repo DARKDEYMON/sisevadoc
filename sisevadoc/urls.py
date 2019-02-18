@@ -28,6 +28,7 @@ urlpatterns = [
     path('academico/', include(('apps.academico.urls','academico'), namespace='academico')),
     path('evaluacion/', include(('apps.evaluacion.urls','evaluacion'), namespace='evaluacion')),
     path('procesoeval/', include(('apps.procesoeval.urls','procesoeval'), namespace='procesoeval')),
+    path('plmejoras/', include(('apps.plmejoras.urls','plmejoras'), namespace='plmejoras')),
     path('', RedirectView.as_view(url=reverse_lazy('usuarios:main')), name='home'),
     path('chaining/', include('smart_selects.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -27,11 +27,15 @@
 	    				Email
 	    			</th>
 	    			<th>
+	    				Docente
+	    			</th>
+	    			<th>
 	    				Opciones
 	    			</th>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
+	    	{%load usuarios_tags%}
 	    	{% if object_list %}
 	    	    {% for user in object_list %}
 	    	    	<tr>
@@ -49,6 +53,13 @@
 	    	    		</td>
 	    	    		<td>
 	    	    			{{user.email}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{% if user|check_permission:'docente' %}
+	    	    				<span class="label label-info">Si</span>
+	    	    			{% else %}
+	    	    				<span class="label label-warning">no</span>
+	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">

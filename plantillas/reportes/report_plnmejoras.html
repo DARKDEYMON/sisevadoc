@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		@page{
+			size:letter;
+			@bottom-left {
+				content: "Pagina " counter(page) " de " counter(pages);
+				font-style: bold;
+			}
+		}
+		@page cuerpo {
+			size: letter portrait;
+			background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+			background-attachment: fixed;
+			background-position: center center;
+			@top-right{
+				font-style: italic;
+				font-weight: bold;
+				content: "Gestion {{ object_list.evaluacion.gestion }}/{{ object_list.evaluacion.periodo }}";
+			}
+			@top-center {
+				background: #fbc847;
+				content: '';
+				display: block;
+				height: .05cm;
+				opacity: .5;
+				width: 100%;
+			}
+			@top-left{
+				font-style: italic;
+				font-weight: bold;
+				content: "{% now 'd-m-Y H:i' %}";
+			}
+	    }
+	    .cuerpo{
+			page: cuerpo;
+		}
+	</style>
+</head>
+<body>
+
+	<h2 style="text-align: center;">Universidad Autónoma "Tomas Frías"</h2>
+	<h3 style="text-align: center;">Dirección de Evaluación y Acreditación Universitaria</h3>
+	<br>
+	<img src="{% static "logo.png" %}" style="display: block; margin-left:auto; margin-right:auto;">
+	<br>
+	<h3 style="text-align: center;">Plan de Mejoras {{object_list.evaluacion.periodo}}/{{ object_list.evaluacion.gestion }}</h3>
+	<br>
+	<table class="textsmall" style="margin-left:auto; margin-right:auto;">
+	      <tr>
+	        <td style="min-width:200px" class="tablenoboder"><b>Facultad:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.carrera.facultad }}</td>
+	      </tr>
+	      <tr>
+	        <td style="min-width:200px" class="tablenoboder"><b>Carrera:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.carrera }}</td>
+	      </tr>
+	      <tr>
+	        <td class="tablenoboder"><b>Docente:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.docente}}</td>
+	      </tr>
+	      <tr>
+	        <td class="tablenoboder"><b>C.I.:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.docente.ci}}</td>
+	      </tr>
+	      <tr>
+	        <td class="tablenoboder"><b>Materia:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.materia.nombre }}</td>
+	      </tr>
+	      <tr>
+	        <td class="tablenoboder"><b>Sigla:</b></td>
+	        <td class="tablenoboder">{{ object_list.evaluacion.materia.sigla }}</td>
+	      </tr>
+	</table>
+	<img src="{% static "trevol.jpg" %}" style="width:100px;display: block; margin-left:auto; margin-right:auto;">
+
+	<div class="cuerpo">
+		
+	
+	{% load evaluacion_tags %}
+	{% if object_list.pregunta_1 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_1' %}</p></b>
+		<p>{{ object_list.pregunta_1 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_2 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_2' %}</p></b>
+		<p>{{ object_list.pregunta_2 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_3 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_3' %}</p></b>
+		<p>{{ object_list.pregunta_3 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_4 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_4' %}</p></b>
+		<p>{{ object_list.pregunta_4 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_5 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_5' %}</p></b>
+		<p>{{ object_list.pregunta_5 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_6 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_6' %}</p></b>
+		<p>{{ object_list.pregunta_6 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_7 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_7' %}</p></b>
+		<p>{{ object_list.pregunta_7 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_8 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_8' %}</p></b>
+		<p>{{ object_list.pregunta_8 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_9 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_9' %}</p></b>
+		<p>{{ object_list.pregunta_9 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_10 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_10' %}</p></b>
+		<p>{{ object_list.pregunta_10 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_11 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_11' %}</p></b>
+		<p>{{ object_list.pregunta_11 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_12 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_12' %}</p></b>
+		<p>{{ object_list.pregunta_12 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_13 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_13' %}</p></b>
+		<p>{{ object_list.pregunta_13 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_14 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_14' %}</p></b>
+		<p>{{ object_list.pregunta_14 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_15 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_15' %}</p></b>
+		<p>{{ object_list.pregunta_15 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_16 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_16' %}</p></b>
+		<p>{{ object_list.pregunta_16 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_17 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_17' %}</p></b>
+		<p>{{ object_list.pregunta_17 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_18 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_18' %}</p></b>
+		<p>{{ object_list.pregunta_18 }}</p>
+	{% endif %}
+
+	{% if object_list.pregunta_19 %}
+		<b><p>{% verbose_name_tag object_list 'pregunta_19' %}</p></b>
+		<p>{{ object_list.pregunta_19 }}</p>
+	{% endif %}
+
+	{% if object_list.preguntad_4 %}
+		<b><p>{% verbose_name_tag object_list 'preguntad_4' %}</p></b>
+		<p>{{ object_list.preguntad_4 }}</p>
+	{% endif %}
+
+	{% if object_list.preguntad_5 %}
+		<b><p>{% verbose_name_tag object_list 'preguntad_5' %}</p></b>
+		<p>{{ object_list.preguntad_5 }}</p>
+	{% endif %}
+
+	{% if object_list.preguntad_6 %}
+		<b><p>{% verbose_name_tag object_list 'preguntad_6' %}</p></b>
+		<p>{{ object_list.preguntad_6 }}</p>
+	{% endif %}
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table style="margin-left:auto; margin-right:auto;">
+		<thead>
+			<tr style="border-bottom: 1px solid black;">
+				<th style="border-bottom: 1px solid black;"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{ object_list.evaluacion.docente }}</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">C.I. {{ object_list.evaluacion.docente.ci }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	</div>	
+</body>
+</body>
+</body>
+</html>

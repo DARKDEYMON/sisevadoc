@@ -175,6 +175,8 @@ class lista_docentes_view(ListView):
 			return self.model.objects.filter(
 					Q(id__icontains=search)|
 					Q(nombre__icontains=search)|
+					Q(apellidos__icontains=search)|
+					Q(ci__icontains=search)|
 					Q(carrera__nombre__icontains=search)
 				)
 		else:

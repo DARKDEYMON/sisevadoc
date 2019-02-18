@@ -100,6 +100,7 @@ class docentes(models.Model):
 		max_length=100,
 		null=False,
 		blank=False,
+		unique=True,
 		validators=[
 			RegexValidator(
 				regex=r'^[a-zA-Z0-9-]{6,10}$',

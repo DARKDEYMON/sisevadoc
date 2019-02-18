@@ -44,4 +44,6 @@ urlpatterns = [
     path('permisos/<int:pk>/',permission_required('usuarios.usuarios')(login_required(permisos_view.as_view())), name='permisos'),
     path('altabaja/<int:pk>/',permission_required('usuarios.usuarios')(login_required(user_baja_alta_view.as_view())), name='altabaja'),
     path('actinfgen/<int:pk>/',permission_required('usuarios.usuarios')(login_required(update_user_gen_view.as_view())), name='updateusergen'),
+
+    path('createdocenuser/',crear_usuario_docente_view.as_view(),name='createdocenuser')
 ]

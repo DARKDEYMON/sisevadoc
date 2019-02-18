@@ -14,6 +14,8 @@ from django.shortcuts import redirect
 from .forms import *
 from .models import *
 
+from apps.academico.models import *
+
 # Create your views here.
 def main_mage(request):
 	return render(request,"base/main.html",{})
@@ -133,3 +135,44 @@ def handler404(request,exception):
 
 def handler500(request,exception):
 	return render(request,'errors/500.html',{})
+
+#comensando para la vista de docentes
+class crear_usuario_docente_view(CreateView):
+	form_class = crear_user_form
+	second_form_class  = crear_user_docente_form
+	modelper = permisos
+	template_name = 'auth/nuevo_user_docente.html'
+	success_url = '/'
+
+	def get_context_data(self, **kwargs):
+		context = super (crear_usuario_docente_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if 'form2' not in context:
+			context['form2'] = self.second_form_class()
+		return context
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		form2 = self.second_form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid() and form2.is_valid():
+			#print ("paso")
+			form2Save = form2.save(commit=False)
+			try:
+				docentes.objects.get(ci=form2Save.ci)
+
+				userc = form.save()
+				form2Save.user = userc
+				form2Save.save()
+
+				content_type = ContentType.objects.get_for_model(self.modelper)
+				permission = Permission.objects.get(content_type=content_type, codename='docente')
+				userc.user_permissions.add(permission)
+
+				return  HttpResponseRedirect(self.success_url)
+			except Exception as e:
+				form2.add_error("ci", "Error el C.I. de docente no existe")
+
+		return self.render_to_response(self.get_context_data(form=form, form2=form2))

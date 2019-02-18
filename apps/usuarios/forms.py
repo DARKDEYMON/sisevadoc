@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import *
 
 class crear_user_form(UserCreationForm):
 	#password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -22,6 +23,14 @@ class crear_user_form(UserCreationForm):
 		self.fields['email'].required = True
 		self.fields['first_name'].required = True
 		self.fields['last_name'].required = True
+
+class crear_user_docente_form(ModelForm):
+	class Meta:
+		model = user_docente
+		exclude = ['user']
+		labels = {
+			'ci':'C.I.'
+		}
 
 class update_user_form(ModelForm):
 	class Meta:

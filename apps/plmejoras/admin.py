@@ -3,4 +3,4 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(user_docente)
+admin.site.register(plan_mejoras)

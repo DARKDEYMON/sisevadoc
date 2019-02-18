@@ -1,0 +1,23 @@
+{% extends "base/base_form.html" %}
+	{% block formbody %}
+	    {% load bootstrap3 %}
+	    <h2 style="text-align: center;">Plan de Mejoras</h2>
+	    <div class="alert alert-info" role="alert">
+			<strong>Las Respuestas del plan de mejora corresponden!</strong>
+			<br>
+			● <strong>AD:</strong> Auto Evaluación Docente
+			<br>
+			● <strong>EE:</strong> Evaluación Estudiantil
+			<br>
+			● <strong>ED:</strong> Evaluación del Director de Carrera
+		</div>
+		<form action="" method="post">
+		    {% csrf_token %}
+		    {% bootstrap_form form %}
+		    {% buttons %}
+		        <button type="submit" class="btn btn-primary center-block">
+		            {% bootstrap_icon "send" %} Enviar
+		        </button>
+		    {% endbuttons %}
+		</form>
+	{% endblock formbody %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.academico',
     'apps.evaluacion',
     'apps.procesoeval',
+    'apps.plmejoras',
     'bootstrap3',
     'smart_selects',
     'constance',
