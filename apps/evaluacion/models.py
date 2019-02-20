@@ -326,6 +326,47 @@ class evaluacion(models.Model):
 
 auditlog.register(evaluacion)
 
+class comisiong(models.Model):
+	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
+	apellidos = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False
+	)
+	nombres = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False
+	)
+	ci = models.CharField(
+		max_length=10,
+		null=False,
+		blank=False
+	)
+	gestion = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default = initial_default_gestion,#datetime.datetime.now().year,
+		validators = [
+			RegexValidator(
+				regex=r'^[0-9]{4}$',
+				message='El año solo contiene cuatro digitos numericos',
+				code = 'dato solo numerico'
+			)
+		]
+	)
+	periodo = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=initial_default_periodo,
+		choices=((1,1),(2,2),(3,3))
+	)
+	class Meta:
+		ordering = ['id']
+		unique_together =(("carrera","ci","gestion","periodo"))
+	def __str__(self):
+		return self.ci
+
 class comision(models.Model):
 	evaluacion = models.ForeignKey(evaluacion, on_delete=models.CASCADE)
 	apellidos = models.CharField(

@@ -136,6 +136,17 @@ class create_comision_form(ModelForm):
 			'ci':'C.I.'
 		}
 
+class create_comisiong_form(ModelForm):
+	class Meta:
+		model = comisiong
+		exclude = ['carrera']
+		labels = {
+			'apellidos':'Apellido(s)',
+			'nombres':'Nombre(s)',
+			'apellidos':'Apellido(s)',
+			'ci':'C.I.'
+		}
+
 class gestion_setting_form(forms.Form):
 	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion)
 	periodo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo)

@@ -9,7 +9,8 @@ from django.db.models import Q
 from .forms import *
 from .token_eva import *
 from .models import *
-
+from apps.academico.models import carreras
+from apps.academico.views import lista_carreras_view
 #reportes en prueba
 from django_weasyprint import WeasyTemplateResponseMixin
 
@@ -373,11 +374,64 @@ class lista_comicion_view(ListView):
 					Q(apellidos__icontains=search)|
 					Q(nombres__icontains=search)|
 					Q(ci__icontains=search)|
-					Q(veedor__icontains=search,
-					evaluacion__id=self.kwargs['pk'])
+					Q(veedor__icontains=search),
+					evaluacion__id=self.kwargs['pk']
 				)
 		else:
 			return self.model.objects.filter(evaluacion__id=self.kwargs['pk'])
+
+#comiciong create_comisiong_form
+class lista_carrera_comiciong_view(lista_carreras_view):
+	template_name = 'evaluacion/comicion_carrera_list.html'
+
+class lista_comiciong_view(ListView):
+	model = comisiong
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'evaluacion/comicion_carreragp_list.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_comiciong_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if 'pk' not in context:
+			context['pk'] = self.kwargs['pk']
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(id__icontains=search)|
+					Q(apellidos__icontains=search)|
+					Q(nombres__icontains=search)|
+					Q(ci__icontains=search)|
+					Q(veedor__icontains=search),
+					carrera__id=self.kwargs['pk']
+				)
+		else:
+			return self.model.objects.filter(carrera__id=self.kwargs['pk'])
+
+class create_comisiong_view(CreateView):
+	model_extra = carreras
+	form_class = create_comisiong_form
+	template_name = 'evaluacion/nuevo_comision.html'
+	success_url = 'evaluacion:listcomicioncarr'
+	def form_valid(self, form):
+		form.instance.carrera = get_object_or_404(self.model_extra,id=self.kwargs['pk'])
+		return super().form_valid(form)
+	def get_success_url(self):
+		return reverse_lazy(self.success_url, kwargs={'pk': self.kwargs['pk']})
 
 #reportes
 class ins_report_eva_view(ListView):

@@ -19,3 +19,4 @@ class ItemEva(admin.ModelAdmin):
 
 admin.site.register(evaluacion,ItemEva)
 admin.site.register(comision)
+admin.site.register(comisiong)
