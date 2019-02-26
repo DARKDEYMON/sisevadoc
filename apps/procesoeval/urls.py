@@ -42,12 +42,7 @@ urlpatterns = [
     #reportes
     path('reporteeva/<int:pk>/',(login_required(report_eva_pro_view.as_view())), name='reporteeva'),
     path('codepdf/<int:pk>/',(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
-    #comicion
-    path('createcomicion/<int:pk>/',(login_required(create_comision_pro_view.as_view())), name='createcomicion'),
-    path('listcomicion/<int:pk>/',(login_required(lista_comicion_pro_view.as_view())), name='listcomicion'),
-    path('updatecomicion/<int:pk>/',(login_required(update_comision_pro_view.as_view())), name='updatecomicion'),
-    path('deletecomicion/<int:pk>/',(login_required(delete_comision_pro_view.as_view())), name='deletecomicion'),
-
+    
     #comisiong
     path('listcarrcomision/',(login_required(lista_carrera_comision_view.as_view())), name='listcarrcomision'),
     path('listcomisionedit/<int:pk>/',(login_required(lista_carrera_comisionedit_view.as_view())), name='listcomisionedit'),

@@ -323,63 +323,6 @@ class create_cuestionario_dcarrera_token_view(CreateView):
 			return self.form_invalid(form)
 		return super().form_valid(form)
 
-#comicion
-class create_comision_view(CreateView):
-	model_extra = evaluacion
-	form_class = create_comision_form
-	template_name = 'evaluacion/nuevo_comision.html'
-	success_url = reverse_lazy('evaluacion:listaevaluacion')
-	def form_valid(self, form):
-		form.instance.evaluacion = get_object_or_404(self.model_extra,id=self.kwargs['pk'])
-		return super().form_valid(form)
-
-class update_comision_view(UpdateView):
-	model = comision
-	form_class = create_comision_form
-	template_name = 'evaluacion/nuevo_comision.html'
-	success_url = reverse_lazy('evaluacion:listaevaluacion')
-
-class delete_comision_view(DeleteView):
-	model = comision
-	template_name ='evaluacion/delete_comision.html'
-	success_url = reverse_lazy('evaluacion:listaevaluacion')
-
-class lista_comicion_view(ListView):
-	model = comision
-	paginate_by = 10
-	form_class = search_form
-	template_name = 'evaluacion/comicion_list.html'
-	def get_context_data(self, **kwargs):
-		context = super(lista_comicion_view, self).get_context_data(**kwargs)
-		if 'form' not in context:
-			context['form'] = self.form_class()
-		if self.request.GET:
-			context['form'] = self.form_class(self.request.GET)
-			form = self.form_class(self.request.GET)
-			if form.is_valid():
-				if form.cleaned_data['search']=='':
-					context['searchdata'] = None
-				else:
-					context['searchdata'] = form.cleaned_data['search']
-		return context
-	def get_queryset(self):
-		search = None
-		if self.request.method == "GET":
-			form = self.form_class(self.request.GET)
-			if form.is_valid():
-				search = form.cleaned_data['search']
-		if (search):
-			return self.model.objects.filter(
-					Q(id__icontains=search)|
-					Q(apellidos__icontains=search)|
-					Q(nombres__icontains=search)|
-					Q(ci__icontains=search)|
-					Q(veedor__icontains=search),
-					evaluacion__id=self.kwargs['pk']
-				)
-		else:
-			return self.model.objects.filter(evaluacion__id=self.kwargs['pk'])
-
 #comiciong create_comisiong_form
 class lista_carrera_comiciong_view(lista_carreras_view):
 	template_name = 'evaluacion/comicion_carrera_list.html'

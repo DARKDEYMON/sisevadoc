@@ -12,9 +12,7 @@ from apps.evaluacion.views import (send_mail_evalum_view, create_cuestionario_al
 									cuestionario_aevaluacion_view, send_mail_aevaluacion_view,
 									cuestionario_dcarrera_view, send_mail_evadirec_view,
 									ins_report_tokenalum_view, ins_report_eva_view,
-									update_observaciones_view, create_comision_view,
-									lista_comicion_view, update_comision_view,
-									delete_comision_view, create_comisiong_view,
+									update_observaciones_view, create_comisiong_view,
 									update_comisiong_view,delete_comisiong_view)
 from django_weasyprint import WeasyTemplateResponseMixin
 from django.utils import timezone
@@ -192,37 +190,6 @@ class update_evaluacion_activo_pro_view(update_observaciones_view):
 		except Exception as e:
 			raise Http404
 		return super(update_evaluacion_activo_pro_view, self).dispatch(request, *args, **kwargs)
-
-#comicion
-class create_comision_pro_view(create_comision_view):
-	success_url = reverse_lazy('procesoeval:listevaluser')
-	def dispatch(self, request, *args, **kwargs):
-		try:
-			self.model_extra.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
-		except Exception as e:
-			raise Http404
-		return super(create_comision_pro_view, self).dispatch(request, *args, **kwargs)
-
-class update_comision_pro_view(update_comision_view):
-	success_url = reverse_lazy('procesoeval:listevaluser')
-	def dispatch(self, request, *args, **kwargs):
-		try:
-			self.model.objects.get(evaluacion__carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],evaluacion__estado=True)
-		except Exception as e:
-			raise Http404
-		return super(update_comision_pro_view, self).dispatch(request, *args, **kwargs)
-
-class delete_comision_pro_view(delete_comision_view):
-	success_url = reverse_lazy('procesoeval:listevaluser')
-	def dispatch(self, request, *args, **kwargs):
-		try:
-			self.model.objects.get(evaluacion__carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],evaluacion__estado=True)
-		except Exception as e:
-			raise Http404
-		return super(delete_comision_pro_view, self).dispatch(request, *args, **kwargs)
-
-class lista_comicion_pro_view(lista_comicion_view):
-	template_name = 'procesoeval/comicion_list.html'
 
 #reportes
 class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):

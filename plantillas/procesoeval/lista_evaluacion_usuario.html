@@ -134,12 +134,6 @@
 								        <li>
 									    	<a href="{% url 'procesoeval:estobservacion' eva.pk %}">Llenado de Observaciones</a>
 									    </li>
-									    <li>
-									    	<a href="{% url 'procesoeval:createcomicion' eva.pk %}">Añadir Participante de la Comisión</a>
-									    </li>
-									    <li>
-									    	<a href="{% url 'procesoeval:listcomicion' eva.pk %}">Lista de Participantes de la Comisión</a>
-									    </li>
 								    {% endif %}
 								    
 								    {% if eva.estado %}

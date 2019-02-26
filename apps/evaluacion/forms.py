@@ -122,20 +122,6 @@ class redirect_token_form(forms.Form):
 	id = forms.CharField(required=True,widget=forms.TextInput(attrs={'autocomplete': 'off'}))
 	clave = forms.CharField(required=True,widget=forms.TextInput(attrs={'autocomplete': 'off'}))
 
-class create_comision_form(ModelForm):
-	class Meta:
-		model = comision
-		exclude = ['evaluacion']
-		widgets = {
-			'veedor':forms.RadioSelect(choices=[(True, 'Si'),(False, 'No')]),
-		}
-		labels = {
-			'apellidos':'Apellido(s)',
-			'nombres':'Nombre(s)',
-			'apellidos':'Apellido(s)',
-			'ci':'C.I.'
-		}
-
 class create_comisiong_form(ModelForm):
 	class Meta:
 		model = comisiong

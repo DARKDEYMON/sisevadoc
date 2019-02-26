@@ -47,12 +47,6 @@ urlpatterns = [
     #redireccion
     path('redirect',redirect_token.as_view(), name='redirect'),
 
-    #comicion
-    path('createcomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_comision_view.as_view())), name='createcomicion'),
-    path('listcomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(lista_comicion_view.as_view())), name='listcomicion'),
-    path('updatecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_comision_view.as_view())), name='updatecomicion'),
-    path('deletecomicion/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(delete_comision_view.as_view())), name='deletecomicion'),
-
     #comicion2
     path('listcarreraasig/',permission_required('usuarios.conf_evaluaion')(login_required(lista_carrera_comiciong_view.as_view())), name='listcarreraasig'),
     path('listcomicioncarr/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(lista_comiciong_view.as_view())), name='listcomicioncarr'),

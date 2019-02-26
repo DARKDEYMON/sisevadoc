@@ -18,5 +18,4 @@ class ItemEva(admin.ModelAdmin):
 		js = ("/static/chainedfk.js",)
 
 admin.site.register(evaluacion,ItemEva)
-admin.site.register(comision)
 admin.site.register(comisiong)
