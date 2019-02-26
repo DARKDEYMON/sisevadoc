@@ -2,12 +2,11 @@
 
 	{% block listbody %}
 
-		<h2 style="text-align: center;">Comisiones por Carrera Gestión/Periodo</h2>
+		<h2 style="text-align: center;">Lista de Carreras</h2>
 		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 			{% load bootstrap3 %}
 			{% bootstrap_form form layout='inline' %}
 			<button class="btn btn-default" type="submit" style="visibility: hidden;">Buscar</button>
-			<a class="btn btn-primary" href="{% url 'evaluacion:createcomiciong' pk %}">Crear Miembro</a>
 		</form>
 	    <table class="table table-striped table-hover ">
 	    	<thead>
@@ -16,22 +15,10 @@
 	    				#id
 	    			</th>
 	    			<th>
-	    				Carrera
+	    				Facultad
 	    			</th>
 	    			<th>
-	    				Apellidos
-	    			</th>
-	    			<th>
-	    				Nombres
-	    			</th>
-	    			<th>
-	    				C.I.
-	    			</th>
-	    			<th>
-	    				Periodo
-	    			</th>
-	    			<th>
-	    				Gestión
+	    				Nombre
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -40,38 +27,26 @@
 	    	</thead>
 	    	<tbody>
 	    	{% if object_list %}
-	    	    {% for com in object_list %}
+	    	    {% for carr in object_list %}
 	    	    	<tr>
 	    	    		<td>
-	    	    			{{com.id}}
+	    	    			{{carr.id}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{com.carrera}}
+	    	    			{{carr.facultad}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{com.apellidos}}
-	    	    		</td>
-	    	    		<td>
-	    	    			{{com.nombres}}
-	    	    		</td>
-	    	    		<td>
-	    	    			{{com.ci}}
-	    	    		</td>
-	    	    		<td>
-	    	    			{{com.gestion}}
-	    	    		</td>
-	    	    		<td>
-	    	    			{{com.periodo}}
+	    	    			{{carr.nombre }}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    	Gestión Comisiones <span class="caret"></span>
+							    	Comisiones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'evaluacion:updatecomiciong' com.pk %}">Editar</a>
-								    	<a href="{% url 'evaluacion:deletecomiciong' com.pk %}">Eliminar</a>
+								    	<a href="{% url 'procesoeval:createcomiciong' carr.id %}">Crear Participante<span class="glyphicon glyphicon-edit"></a>
+								    	<a href="{% url 'procesoeval:listcomisionedit' carr.id %}">Lista de Participantes<span class="glyphicon glyphicon-edit"></a>
 								    </li>
 								</ul>
 							</div>

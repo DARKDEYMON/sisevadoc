@@ -57,7 +57,9 @@ urlpatterns = [
     path('listcarreraasig/',permission_required('usuarios.conf_evaluaion')(login_required(lista_carrera_comiciong_view.as_view())), name='listcarreraasig'),
     path('listcomicioncarr/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(lista_comiciong_view.as_view())), name='listcomicioncarr'),
     path('createcomiciong/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(create_comisiong_view.as_view())), name='createcomiciong'),
-
+    path('updatecomiciong/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(update_comisiong_view.as_view())), name='updatecomiciong'),
+    path('deletecomiciong/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(delete_comisiong_view.as_view())), name='deletecomiciong'),
+    
     #setting para gestion y periodo
     path('gestionsetting',permission_required('usuarios.conf_evaluaion')(login_required(gestion_setting_view.as_view())), name='gestionsetting'),
 ]

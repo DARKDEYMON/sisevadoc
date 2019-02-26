@@ -14,8 +14,12 @@ from apps.evaluacion.views import (send_mail_evalum_view, create_cuestionario_al
 									ins_report_tokenalum_view, ins_report_eva_view,
 									update_observaciones_view, create_comision_view,
 									lista_comicion_view, update_comision_view,
-									delete_comision_view)
+									delete_comision_view, create_comisiong_view,
+									update_comisiong_view,delete_comisiong_view)
 from django_weasyprint import WeasyTemplateResponseMixin
+from django.utils import timezone
+
+from apps.evaluacion.setting_dinamic import initial_default_gestion, initial_default_periodo
 # Create your views here.
 
 class asignar_evaluacion_view(CreateView):
@@ -249,3 +253,112 @@ class report_eva_pro_view(WeasyTemplateResponseMixin, ins_report_eva_pro_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+
+#comision
+class lista_carrera_comision_view(ListView):
+	model = carreras
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'procesoeval/lista_carrera_comisiong.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_carrera_comision_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		pk = self.kwargs.get('pk',0)
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(usuario=pk)|
+					Q(id__icontains=search)|
+					Q(carrera__nombre__icontains=search),
+					asignacion_evaluacion__usuario=self.request.user,
+					tiempo_activo__gte=timezone.localtime()
+				).order_by('usuario')
+		else:
+			return self.model.objects.filter(asignacion_evaluacion__usuario=self.request.user, tiempo_activo__gte=timezone.localtime())
+
+class lista_carrera_comisionedit_view(ListView):
+	model = comisiong
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'procesoeval/lista_comisiong.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_carrera_comisionedit_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		pk = self.kwargs.get('pk',0)
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(usuario=pk)|
+					Q(id__icontains=search)|
+					Q(carrera__nombre__icontains=search),
+					carrera__asignacion_evaluacion__usuario=self.request.user,
+					carrera__tiempo_activo__gte=timezone.localtime(),
+					gestion=initial_default_gestion,
+					periodo=initial_default_periodo
+				).order_by('usuario')
+		else:
+			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user, carrera__tiempo_activo__gte=timezone.localtime(),gestion=initial_default_gestion(),periodo=initial_default_periodo())
+
+class create_comisiong_pro_view(create_comisiong_view):
+	form_class = create_comisiongpe_form
+	success_url = reverse_lazy('procesoeval:listcarrcomision')
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model_extra.objects.get(id=self.kwargs['pk'],asignacion_evaluacion__usuario=self.request.user, tiempo_activo__gte=timezone.localtime())
+		except Exception as e:
+			raise Http404
+		return super(create_comisiong_pro_view, self).dispatch(request, *args, **kwargs)
+	def get_success_url(self):
+		return self.success_url
+
+class update_comisiong_pro_view(update_comisiong_view):
+	form_class = create_comisiongpe_form
+	success_url = reverse_lazy('procesoeval:listcarrcomision')
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(id=self.kwargs['pk'],carrera__asignacion_evaluacion__usuario=self.request.user, carrera__tiempo_activo__gte=timezone.localtime())
+		except Exception as e:
+			raise Http404
+		return super(update_comisiong_pro_view, self).dispatch(request, *args, **kwargs)
+	def get_success_url(self):
+		return self.success_url
+
+class delete_comisiong_pro_view(delete_comisiong_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(id=self.kwargs['pk'],carrera__asignacion_evaluacion__usuario=self.request.user, carrera__tiempo_activo__gte=timezone.localtime())
+		except Exception as e:
+			raise Http404
+		return super(delete_comisiong_pro_view, self).dispatch(request, *args, **kwargs)
+	def get_success_url(self):
+		return self.success_url

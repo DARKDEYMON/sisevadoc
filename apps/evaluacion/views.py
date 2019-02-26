@@ -433,6 +433,21 @@ class create_comisiong_view(CreateView):
 	def get_success_url(self):
 		return reverse_lazy(self.success_url, kwargs={'pk': self.kwargs['pk']})
 
+class update_comisiong_view(UpdateView):
+	model = comisiong
+	form_class = create_comisiong_form
+	template_name = 'evaluacion/nuevo_comision.html'
+	success_url = 'evaluacion:listcomicioncarr'
+	def get_success_url(self):
+		return reverse_lazy(self.success_url, kwargs={'pk': self.object.carrera.id})
+
+class delete_comisiong_view(DeleteView):
+	model = comisiong
+	template_name ='evaluacion/delete_comision.html'
+	success_url = 'evaluacion:listcomicioncarr'
+	def get_success_url(self):
+		return reverse_lazy(self.success_url, kwargs={'pk': self.object.carrera.id})
+
 #reportes
 class ins_report_eva_view(ListView):
 	model = evaluacion

@@ -41,3 +41,15 @@ class create_evaluacion_user_form(ModelForm):
 			'docente':forms.Select(attrs={'class':'js-example-basic-single'})
 		}
 		"""
+
+#comision
+class create_comisiongpe_form(ModelForm):
+	class Meta:
+		model = comisiong
+		exclude = ['carrera','gestion','periodo']
+		labels = {
+			'apellidos':'Apellido(s)',
+			'nombres':'Nombre(s)',
+			'apellidos':'Apellido(s)',
+			'ci':'C.I.'
+		}

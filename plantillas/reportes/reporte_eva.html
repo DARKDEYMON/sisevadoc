@@ -1000,22 +1000,14 @@
         <tr>
           <th>Apellidos/Nombres</th>
           <th>C.I.</th>
-          <th>Veedor?</th>
           <th style="min-width:200px" >Firma</th>
         </tr>
       </thead>
       <tbody>
-        {% for com in object_list.comision_set.all %}
+        {% for com in object_list.comision_query %}
           <tr>
             <td>{{ com.apellidos }} {{ com.nombres }}</td>
             <td>{{ com.ci }}</td>
-            <td>
-              {% if com.veedor %}
-                SI
-              {% else %}
-                NO
-              {% endif %}
-            </td>
             <td>
               
             </td>

@@ -47,4 +47,11 @@ urlpatterns = [
     path('listcomicion/<int:pk>/',(login_required(lista_comicion_pro_view.as_view())), name='listcomicion'),
     path('updatecomicion/<int:pk>/',(login_required(update_comision_pro_view.as_view())), name='updatecomicion'),
     path('deletecomicion/<int:pk>/',(login_required(delete_comision_pro_view.as_view())), name='deletecomicion'),
+
+    #comisiong
+    path('listcarrcomision/',(login_required(lista_carrera_comision_view.as_view())), name='listcarrcomision'),
+    path('listcomisionedit/<int:pk>/',(login_required(lista_carrera_comisionedit_view.as_view())), name='listcomisionedit'),
+    path('createcomiciong/<int:pk>/',(login_required(create_comisiong_pro_view.as_view())), name='createcomiciong'),
+    path('updatecomiciong/<int:pk>/',(login_required(update_comisiong_pro_view.as_view())), name='updatecomiciong'),
+    path('deletecomisiong/<int:pk>/',(login_required(delete_comisiong_pro_view.as_view())), name='deletecomisiong'),
 ]

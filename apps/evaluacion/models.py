@@ -300,9 +300,11 @@ class evaluacion(models.Model):
 		plt.close()
 		figdata_png = base64.b64encode(figfile.getvalue())
 		return (figdata_png.decode('utf8'))
+	def comision_query(self):
+		return comisiong.objects.filter(carrera=self.carrera,gestion=self.gestion,periodo=self.periodo)
 	#solo si se lleno autoeva direct y estudiantes mas de 1
 	def esta_llenado(self):
-		if len(self.comision_set.all())<2:
+		if len(self.comision_query())<2:
 			return False
 		if len(self.cuestionario_alumno_set.all())==0:
 			return False
