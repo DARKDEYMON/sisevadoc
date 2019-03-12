@@ -15,3 +15,12 @@ def initial_default_gestion():
 
 def initial_default_periodo():
 	return config.PERIODO if initial_active_gestion() else ( 1 if datetime.datetime.now().month<=6 else 2)
+
+def initial_gestion_plnm():
+	return config.GESTION_PLNM
+
+def initial_periodo_plnm():
+	return config.PERIODO_PLNM
+
+def initial_plan_mejorasa():
+	return config.PLN_MEJORA

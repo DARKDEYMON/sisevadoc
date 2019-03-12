@@ -5,10 +5,14 @@ from django.shortcuts import get_object_or_404
 from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.db.models import Q
+from django.contrib.postgres.search import SearchVector
+from django.db.models.functions import Cast
 #import pdb
 from .forms import *
 from .token_eva import *
 from .models import *
+from django.db.models import CharField
+from apps.plmejoras.models import plan_mejoras
 from apps.academico.models import carreras
 from apps.academico.views import lista_carreras_view
 #reportes en prueba
@@ -67,16 +71,21 @@ class lista_docentes_view(ListView):
 			if form.is_valid():
 				search = form.cleaned_data['search']
 		if (search):
-			return self.model.objects.filter(
-					Q(id__icontains=search)|
-					Q(carrera__nombre__icontains=search)|
-					Q(materia__sigla__icontains=search)|
-					Q(materia__nombre__icontains=search)|
-					Q(docente__nombre__icontains=search)|
-					Q(gestion__icontains=search)
-				).order_by('gestion','creacion','id')
+			return self.model.objects.annotate(
+					search=SearchVector(
+						Cast('id', CharField()),
+						'carrera__nombre',
+						'materia__sigla',
+						'materia__nombre',
+						'docente__nombre',
+						'docente__apellidos',
+						Cast('gestion', CharField())
+					)
+				).filter(
+					search=search
+				).order_by('-gestion','-creacion','id')
 		else:
-			return self.model.objects.all().order_by('gestion','creacion','id')
+			return self.model.objects.all().order_by('-gestion','-creacion','id')
 
 def thanks_view(request):
 	return render(request,'evaluacion/thanks.html',{})
@@ -470,3 +479,9 @@ class gestion_setting_view(FormView):
 	def form_valid(self, form):
 		form.save()
 		return super().form_valid(form)
+
+class plan_mejora_active_view(UpdateView):
+	model = plan_mejoras
+	form_class = plan_mejora_active_form
+	template_name = 'evaluacion/activar_planmejoras.html'
+	success_url = reverse_lazy('evaluacion:listaevaluacion')

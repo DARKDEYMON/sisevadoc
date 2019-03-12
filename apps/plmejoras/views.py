@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from apps.evaluacion.models import *
 from .forms import *
 from apps.evaluacion.views import report_eva_view
+from apps.evaluacion.setting_dinamic import *
 
 from django_weasyprint import WeasyTemplateResponseMixin
 
@@ -16,14 +17,17 @@ def rela(dat):
 		return dat.plan_mejoras.activo
 	except Exception as e:
 		return True
+
 class create_plnmejoras(CreateView):
 	model_extra = evaluacion
 	form_class = plnmejoras_form
 	template_name = 'plmejoras/nuevo_plnmejoras.html'
 	success_url = reverse_lazy('plmejoras:listplnmejoras')
 	def dispatch(self, request, *args, **kwargs):
+		if not initial_plan_mejorasa():
+			raise Http404
 		try:
-			self.evaluacion = self.model_extra.objects.get(id=kwargs['pk'],estado=False,docente__ci=self.request.user.user_docente.ci)
+			self.evaluacion = self.model_extra.objects.get(id=kwargs['pk'],estado=False,docente__ci=self.request.user.user_docente.ci, gestion=initial_gestion_plnm(), periodo=initial_periodo_plnm())
 		except:
 			raise Http404
 		
@@ -47,8 +51,10 @@ class update_plnmejoras_view(UpdateView):
 	template_name = 'plmejoras/nuevo_plnmejoras.html'
 	success_url = reverse_lazy('plmejoras:listplnmejoras')
 	def dispatch(self, request, *args, **kwargs):
+		if not initial_plan_mejorasa():
+			raise Http404
 		try:
-			self.evaluacion = self.model_extra.objects.get(id=kwargs['pk'],estado=False,docente__ci=self.request.user.user_docente.ci)
+			self.evaluacion = self.model_extra.objects.get(id=kwargs['pk'],estado=False,docente__ci=self.request.user.user_docente.ci, gestion=initial_gestion_plnm(), periodo=initial_periodo_plnm())
 			if (self.evaluacion.plan_mejoras.activo==False):
 				raise Http404
 		except:
@@ -61,7 +67,9 @@ class update_plnmejoras_view(UpdateView):
 
 def create_or_update_pln_view(request,pk):
 	try:
-		plan_mejoras.objects.get(evaluacion__id=pk)
+		if not initial_plan_mejorasa():
+			raise Http404
+		plan_mejoras.objects.get(evaluacion__id=pk, evaluacion__gestion=initial_gestion_plnm(), evaluacion__periodo=initial_periodo_plnm())
 		return HttpResponseRedirect(reverse_lazy('plmejoras:updplnmejoras',kwargs={'pk':pk}))
 	except Exception as e:
 		return HttpResponseRedirect(reverse_lazy('plmejoras:creplnmejoras',kwargs={'pk':pk}))

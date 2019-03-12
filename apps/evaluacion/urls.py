@@ -56,4 +56,7 @@ urlpatterns = [
     
     #setting para gestion y periodo
     path('gestionsetting',permission_required('usuarios.conf_evaluaion')(login_required(gestion_setting_view.as_view())), name='gestionsetting'),
+
+    #activar plan de mejoras si existe
+    path('activarplanmj/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(plan_mejora_active_view.as_view())), name='activarplanmj'),
 ]

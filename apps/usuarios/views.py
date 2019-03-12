@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from .forms import *
 from .models import *
+from apps.santiguo.models import docentea
 
 from apps.academico.models import *
 
@@ -94,7 +95,8 @@ class permisos_view(FormView):
 		form = self.form_class(initial={'mod_usuarios':user.has_perm('usuarios.usuarios'),
 										'mod_academico':user.has_perm('usuarios.academico'),
 										'mod_conf_evaluacion':user.has_perm('usuarios.conf_evaluaion'),
-										'mod_evaluacion':user.has_perm('usuarios.evaluacion')})
+										'mod_evaluacion':user.has_perm('usuarios.evaluacion'),
+										'mod_docente':user.has_perm('usuarios.docente')})
 		if 'form'not in context or 'user' not in context:
 			context['form'] = form
 			context['user'] = user
@@ -123,6 +125,11 @@ class permisos_view(FormView):
 				my_user.user_permissions.remove(permission)
 			permission = Permission.objects.get(content_type=content_type, codename='evaluacion')
 			if(form.cleaned_data['mod_evaluacion']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='docente')
+			if(form.cleaned_data['mod_docente']):
 				my_user.user_permissions.add(permission)
 			else:
 				my_user.user_permissions.remove(permission)
@@ -160,9 +167,23 @@ class crear_usuario_docente_view(CreateView):
 		if form.is_valid() and form2.is_valid():
 			#print ("paso")
 			form2Save = form2.save(commit=False)
+			no_existea = False
+			no_existem = False
+
+			#primer try del sistema antiguo
+			try:
+				docentea.objects.get(ci=form2Save.ci)
+			except Exception as e:
+				no_existea = True
+
 			try:
 				docentes.objects.get(ci=form2Save.ci)
+			except Exception as e:
+				no_existem = True
 
+			if no_existea and no_existem:
+				form2.add_error("ci", "Error el C.I. de docente no existe")
+			else:
 				userc = form.save()
 				form2Save.user = userc
 				form2Save.save()
@@ -172,7 +193,5 @@ class crear_usuario_docente_view(CreateView):
 				userc.user_permissions.add(permission)
 
 				return  HttpResponseRedirect(self.success_url)
-			except Exception as e:
-				form2.add_error("ci", "Error el C.I. de docente no existe")
 
 		return self.render_to_response(self.get_context_data(form=form, form2=form2))

@@ -27,7 +27,7 @@
 	    				Email
 	    			</th>
 	    			<th>
-	    				Docente
+	    				Permisos
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -54,11 +54,21 @@
 	    	    		<td>
 	    	    			{{user.email}}
 	    	    		</td>
-	    	    		<td>
+	    	    		<td style="max-width:150px;">
+	    	    			{% if user|check_permission:'usuarios' %}
+	    	    				<span class="label label-info">Usuarios</span><br>
+	    	    			{% endif %}
+	    	    			{% if user|check_permission:'conf_evaluaion' %}
+	    	    				<span class="label label-info">Académico</span><br>
+	    	    			{% endif %}
+	    	    			{% if user|check_permission:'evaluacion' %}
+	    	    				<span class="label label-info">P. Evaluación</span><br>
+	    	    			{% endif %}
 	    	    			{% if user|check_permission:'docente' %}
-	    	    				<span class="label label-info">Si</span>
-	    	    			{% else %}
-	    	    				<span class="label label-warning">no</span>
+	    	    				<span class="label label-info">Docente</span><br>
+	    	    			{% endif %}
+	    	    			{% if user|check_permission:'dcarrera' %}
+	    	    				<span class="label label-info">D. Carrera</span>
 	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>

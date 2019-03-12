@@ -7,7 +7,7 @@ from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 import random
-from .setting_dinamic import initial_default_gestion, initial_default_periodo
+from .setting_dinamic import *#initial_default_gestion, initial_default_periodo
 
 import matplotlib
 matplotlib.use('Agg')
@@ -321,6 +321,14 @@ class evaluacion(models.Model):
 		return len(self.token_alumno_set.filter(usado=True))
 	def cuestionarios_vacios(self):
 		return len(self.token_alumno_set.filter(usado=False))
+	def plandm_activo(self):
+		if self.gestion==initial_gestion_plnm() and self.periodo==initial_periodo_plnm() and initial_plan_mejorasa():
+			try:
+				return self.plan_mejoras.activo
+			except Exception as e:
+				return True
+		else:
+			return False
 	def __str__(self):
 		return str(self.docente)
 	class Meta:

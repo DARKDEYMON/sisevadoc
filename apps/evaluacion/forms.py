@@ -5,10 +5,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.template import RequestContext
 from .models import *
+from apps.plmejoras.models import plan_mejoras
 
 #from dynamic_setting.models import Setting
 from constance import config
-from .setting_dinamic import initial_gestion, initial_active_gestion, initial_periodo
+from .setting_dinamic import *#initial_gestion, initial_active_gestion, initial_periodo, plan_mejorasa
 import datetime
 
 class create_evaluacion_form(ModelForm):
@@ -134,26 +135,34 @@ class create_comisiong_form(ModelForm):
 		}
 
 class gestion_setting_form(forms.Form):
-	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion)
-	periodo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo)
-	activada_gestion_manual = forms.BooleanField(initial=initial_active_gestion,required=False)
+	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion,label='Gestión de activación manual para la evaluación')
+	periodo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo,label='Periodo de activación manual para la evaluación')
+	activada_gestion_manual = forms.BooleanField(initial=initial_active_gestion,required=False,label='Activar/desactivar Gestión/periodo manual para la evaluación')
+
+	gestion_pln = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion_plnm,label='Gestión de activación del plan de mejoras')
+	periodo_pln = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo_plnm,label='Periodo de activación del plan de mejoras')
+	plan_de_mejoras = forms.BooleanField(initial=initial_plan_mejorasa,required=False,label='Activar o desactivar llenado global del plan de mejoras')
 	def save(self):
 		ges = self.cleaned_data['gestion']
 		config.GESTION = ges
-		"""
-		setting = Setting.objects.setting('GESTION')
-		setting.data = ges
-		setting.save()
-		"""
-		activo = self.cleaned_data['activada_gestion_manual']
-		"""
-		setting_act = Setting.objects.setting('GESTION_ACTIVO')
-		print(activo)
-		setting_act.data = activo
-		setting_act.save()
-		"""
-		config.GESTION_ACTIVO = activo
 
 		peri = int(self.cleaned_data['periodo'])
 		config.PERIODO = peri
+
+		activo = self.cleaned_data['activada_gestion_manual']
+		config.GESTION_ACTIVO = activo
+
+		gesp = self.cleaned_data['gestion_pln']
+		config.GESTION_PLNM = gesp
+
+		perip = int(self.cleaned_data['periodo_pln'])
+		config.PERIODO_PLNM = perip
+
+		pln_mejoresa = self.cleaned_data['plan_de_mejoras']
+		config.PLN_MEJORA = pln_mejoresa
 		return
+
+class plan_mejora_active_form(ModelForm):
+	class Meta:
+		model = plan_mejoras
+		fields = ['activo']

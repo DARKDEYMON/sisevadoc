@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.evaluacion',
     'apps.procesoeval',
     'apps.plmejoras',
+    'apps.santiguo',
     'bootstrap3',
     'smart_selects',
     'constance',
@@ -166,6 +167,9 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'GESTION_ACTIVO': (False, 'Determina eleccion manual de gestion',bool),
     'GESTION': (2018, 'Valor de la gestion manual',int),
-    'PERIODO': (2018, 'Valor de la gestion manual',int),
+    'PERIODO': (1, 'Valor de la gestion manual',int),
+    'PLN_MEJORA': (False, 'Activar y desactivar plan de mejoras',bool),
+    'GESTION_PLNM': (2018, 'Valor de la gestion de activacion del plan de mejoras',int),
+    'PERIODO_PLNM': (1, 'Valor del periodo de activacion del plan de mejoras',int),
 }
 CONSTANCE_SUPERUSER_ONLY = False

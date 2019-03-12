@@ -13,14 +13,21 @@
 	    	<thead>
 	    		<tr>
 	    			<th>
+	    				
+	    			</th>
+	    		</tr>
+	    		<tr>
+	    			<th>
 	    				#id
 	    			</th>
 	    			<th>
 	    				Carrera
 	    			</th>
+	    			<!--
 	    			<th>
 	    				Docente
 	    			</th>
+	    			-->
 	    			<th>
 	    				M. Sigla
 	    			</th>
@@ -31,7 +38,16 @@
 	    				Gestion
 	    			</th>
 	    			<th>
-	    				Creado
+	    				N. Docente
+	    			</th>
+	    			<th>
+	    				N. D. Carrera
+	    			</th>
+	    			<th>
+	    				N. Estudiante
+	    			</th>
+	    			<th>
+	    				N. Total
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -48,20 +64,31 @@
 	    	    		<td>
 	    	    			{{eva.carrera}}
 	    	    		</td>
+	    	    		<!--
 	    	    		<td>
-	    	    			{{eva.docente}}
+	    	    			{{eva.docentea.nombre}} {{eva.docentea.apellidop}} {{eva.docentea.apellidom}}
+	    	    		</td>
+	    	    		-->
+	    	    		<td>
+	    	    			{{eva.sigla}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.materia.sigla}}
+	    	    			{{eva.materia}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.materia.nombre}}
+	    	    			{{eva.gestion}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.periodo}}/{{eva.gestion}}<br>
+	    	    			{{eva.auto_eval_docente}}
 	    	    		</td>
 	    	    		<td>
-	    	    			{{eva.creacion|date:'d/m/Y H:i'}}
+	    	    			{{eva.inf_dir}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.opi_est}}
+	    	    		</td>
+	    	    		<td>
+	    	    			{{eva.nota_final}}
 	    	    		</td>
 	    	    		<td>
 	    	    			<div class="btn-group">
@@ -70,24 +97,23 @@
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">Reporte Final</a>
+								    	<!--<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">Reporte Final</a>-->
 
-								    	{% if eva.plandm_activo %}
-								    		<a href="{% url 'plmejoras:creaupdaplnmejoras' eva.pk %}">Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
+							    		{% if eva.plandm_activo %}
+								    		<a href="{% url 'santiguo:creaupdaplnmejorasa' eva.pk %}">Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
 								    	{% endif %}
 								    	
-							    		{% if eva.plan_mejoras.activo or not eva.plan_mejoras %}
+							    		{% if eva.plan_mejorasa.activo or not eva.plan_mejorasa %}
 							    			<a href="" data-toggle="modal" data-target="#planmejora{{eva.pk}}">
 									  			Reporte Plan de Mejoras
 											</a>
 							    		{% else %}
-							    			<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>
+							    			<a href="{% url 'santiguo:reportplmejorasa' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>
 							    		{% endif %}
 								    	
 								    </li>
 								</ul>
 							</div>
-
 
 							<div class="modal fade" id="planmejora{{eva.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
@@ -105,8 +131,8 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-											{% if eva.plan_mejoras %}
-												<a target="_blank" href="{% url 'plmejoras:reportplmejoras' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+											{% if eva.plan_mejorasa %}
+												<a target="_blank" href="{% url 'santiguo:reportplmejorasa' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
 											{% endif %}
 										</div>
 									</div>

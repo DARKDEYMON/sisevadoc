@@ -23,10 +23,10 @@ urlpatterns = [
     path('listaevaluseradmin/<int:pk>/',permission_required('usuarios.usuarios')(login_required(lista_evaluacion_usuario_admin_view.as_view())), name='listevaluseradmin'),
     path('deleteasignacion/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(delete_asignacion_view.as_view())), name='deletedesignacion'),
     #crear evaluacion usuario
-    path('createeval/',(login_required(create_evaluacion_user_form.as_view())), name='createeval'),
-    path('estobservacion/<int:pk>/',(login_required(update_evaluacion_activo_pro_view.as_view())), name='estobservacion'),
+    path('createeval/',(permission_required('usuarios.evaluacion'))(login_required(create_evaluacion_user_form.as_view())), name='createeval'),
+    path('estobservacion/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(update_evaluacion_activo_pro_view.as_view())), name='estobservacion'),
     #lista
-    path('listevaluser/',(login_required(lista_evaluacion_usuario_view.as_view())), name='listevaluser'),
+    path('listevaluser/',(permission_required('usuarios.evaluacion'))(login_required(lista_evaluacion_usuario_view.as_view())), name='listevaluser'),
     #alum
     #path('createcuestionarioalumno/<int:pk>/',(login_required(create_cuestionario_alum_pro_view.as_view())), name='createalumproeval'),
 
@@ -40,13 +40,13 @@ urlpatterns = [
 
     #path('sendmailevadire/<int:pk>/',(login_required(send_mail_evadirec_pro_view.as_view())), name='sendmailprodcarrera'),
     #reportes
-    path('reporteeva/<int:pk>/',(login_required(report_eva_pro_view.as_view())), name='reporteeva'),
-    path('codepdf/<int:pk>/',(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
+    path('reporteeva/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(report_eva_pro_view.as_view())), name='reporteeva'),
+    path('codepdf/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(report_tokenalum_pro_view.as_view())), name="codepdf"),
     
     #comisiong
-    path('listcarrcomision/',(login_required(lista_carrera_comision_view.as_view())), name='listcarrcomision'),
-    path('listcomisionedit/<int:pk>/',(login_required(lista_carrera_comisionedit_view.as_view())), name='listcomisionedit'),
-    path('createcomiciong/<int:pk>/',(login_required(create_comisiong_pro_view.as_view())), name='createcomiciong'),
-    path('updatecomiciong/<int:pk>/',(login_required(update_comisiong_pro_view.as_view())), name='updatecomiciong'),
-    path('deletecomisiong/<int:pk>/',(login_required(delete_comisiong_pro_view.as_view())), name='deletecomisiong'),
+    path('listcarrcomision/',(permission_required('usuarios.evaluacion'))(login_required(lista_carrera_comision_view.as_view())), name='listcarrcomision'),
+    path('listcomisionedit/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(lista_carrera_comisionedit_view.as_view())), name='listcomisionedit'),
+    path('createcomiciong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(create_comisiong_pro_view.as_view())), name='createcomiciong'),
+    path('updatecomiciong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(update_comisiong_pro_view.as_view())), name='updatecomiciong'),
+    path('deletecomisiong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(delete_comisiong_pro_view.as_view())), name='deletecomisiong'),
 ]

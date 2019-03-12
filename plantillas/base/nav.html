@@ -61,22 +61,25 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Evaluaciones Propias<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{% url 'plmejoras:listplnmejoras' %}">Lista de Evaluaciones Personales.</a></li>
+              <li><a href="{% url 'plmejoras:listplnmejoras' %}">Lista de Evaluaciones Digitales.</a></li>
+              <li><a href="{% url 'santiguo:listevalaantg' %}" title="">Lista de Evaluaciones del sistema Antiguo</a></li>
             </ul>
           </li>
         </ul>
       {% endif %}
-
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proceso de Evaluación <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url "procesoeval:createeval" %}">Crear Evaluación</a></li>
-            <li><a href="{% url 'procesoeval:listevaluser' %}">Lista de Evaluaciones Activas</a></li>
-            <li><a href="{% url 'procesoeval:listcarrcomision' %}">Adherir comisión (Carrera)</a></li>
-          </ul>
-        </li>
-      </ul>
+      
+      {% if perms.usuarios.evaluacion %}
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proceso de Evaluación <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{% url "procesoeval:createeval" %}">Crear Evaluación</a></li>
+              <li><a href="{% url 'procesoeval:listevaluser' %}">Lista de Evaluaciones Activas</a></li>
+              <li><a href="{% url 'procesoeval:listcarrcomision' %}">Adherir comisión (Carrera)</a></li>
+            </ul>
+          </li>
+        </ul>
+      {% endif %}
 
       <ul class="nav navbar-nav navbar-right">
        
