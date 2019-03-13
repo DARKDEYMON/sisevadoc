@@ -142,6 +142,8 @@ class gestion_setting_form(forms.Form):
 	gestion_pln = forms.IntegerField(required=True,min_value=1999,max_value=3000,initial=initial_gestion_plnm,label='Gestión de activación del plan de mejoras')
 	periodo_pln = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)), initial=initial_periodo_plnm,label='Periodo de activación del plan de mejoras')
 	plan_de_mejoras = forms.BooleanField(initial=initial_plan_mejorasa,required=False,label='Activar o desactivar llenado global del plan de mejoras')
+
+	crear_user = forms.BooleanField(initial=initial_crear_usuario,required=False,label='Activar o desactivar creacion de usuarios')
 	def save(self):
 		ges = self.cleaned_data['gestion']
 		config.GESTION = ges
@@ -160,6 +162,9 @@ class gestion_setting_form(forms.Form):
 
 		pln_mejoresa = self.cleaned_data['plan_de_mejoras']
 		config.PLN_MEJORA = pln_mejoresa
+
+		crear_user = self.cleaned_data['crear_user']
+		config.CREAR_USER = crear_user
 		return
 
 class plan_mejora_active_form(ModelForm):

@@ -24,3 +24,6 @@ def initial_periodo_plnm():
 
 def initial_plan_mejorasa():
 	return config.PLN_MEJORA
+
+def initial_crear_usuario():
+	return config.CREAR_USER

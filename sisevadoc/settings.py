@@ -171,5 +171,6 @@ CONSTANCE_CONFIG = {
     'PLN_MEJORA': (False, 'Activar y desactivar plan de mejoras',bool),
     'GESTION_PLNM': (2018, 'Valor de la gestion de activacion del plan de mejoras',int),
     'PERIODO_PLNM': (1, 'Valor del periodo de activacion del plan de mejoras',int),
+    'CREAR_USER':(False,'Indica si se puede crear usuario docente',bool),
 }
 CONSTANCE_SUPERUSER_ONLY = False

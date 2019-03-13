@@ -20,6 +20,10 @@ def plan_mejoras_act_bool():
 	return initial_plan_mejorasa()
 
 @register.simple_tag
+def create_user_active():
+	return initial_crear_usuario()
+
+@register.simple_tag
 def verbose_name_tag(obj, field_name):
-	print(obj)
+	#print(obj)
 	return obj._meta.get_field(field_name).verbose_name
