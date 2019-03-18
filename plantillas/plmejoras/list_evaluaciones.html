@@ -2,7 +2,7 @@
 
 	{% block listbody %}
 
-		<h2 style="text-align: center;">Lista de Evaluaciones</h2>
+		<h2 style="text-align: center;">Lista de Evaluaciones Digitales</h2>
 		<h3>{{evaluacion}}</h3>
 		<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 			{% load bootstrap3 %}
@@ -70,15 +70,15 @@
 								</button>
 								<ul class="dropdown-menu">
 								    <li>
-								    	<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">Reporte Final</a>
+								    	<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">1.- Reporte Final</a>
 
 								    	{% if eva.plandm_activo %}
-								    		<a href="{% url 'plmejoras:creaupdaplnmejoras' eva.pk %}">Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
+								    		<a href="{% url 'plmejoras:creaupdaplnmejoras' eva.pk %}">2.- Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
 								    	{% endif %}
 								    	
 							    		{% if eva.plan_mejoras.activo or not eva.plan_mejoras %}
 							    			<a href="" data-toggle="modal" data-target="#planmejora{{eva.pk}}">
-									  			Reporte Plan de Mejoras
+									  			3.- Reporte Plan de Mejoras
 											</a>
 							    		{% else %}
 							    			<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>

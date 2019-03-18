@@ -81,8 +81,9 @@
 	<img src="{% static "trevol.jpg" %}" style="width:100px;display: block; margin-left:auto; margin-right:auto;">
 
 	<div class="cuerpo">
-		
-	
+	<br>
+	<b>Objetivo.-</b>
+	<div>El objetivo del plan de mejora es fortalecer las debilidades detectadas de los docentes en la evaluación al desempeño docente para conseguir la calidad docente en el Proceso de enseñanza y aprendizaje.</div>
 	{% load evaluacion_tags %}
 	{% if object_list.pregunta_1 %}
 		<b><p>{% verbose_name_tag object_list 'pregunta_1' %}</p></b>
@@ -194,7 +195,8 @@
 		<p>{{ object_list.preguntad_6 }}</p>
 	{% endif %}
 
-
+	<b><p>Consideraciones.-</p></b>
+	<p>Cabe destacar que este plan de mejora se validará cuando se inicie la siguiente evaluación al desempeño docente</p>
 	<br>
 	<br>
 	<br>

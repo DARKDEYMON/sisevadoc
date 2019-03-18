@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'auditlog',
+    'qr_code',
 ]
 
 MIDDLEWARE = [

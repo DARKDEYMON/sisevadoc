@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 import datetime
 import random
 from .setting_dinamic import *#initial_default_gestion, initial_default_periodo
+from django.urls import reverse_lazy
 
 import matplotlib
 matplotlib.use('Agg')
@@ -402,6 +403,10 @@ class token_alumno(models.Model):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
+	def url_resolver(self):
+		res = None if self.usado else reverse_lazy('evaluacion:alumtoken', kwargs={'uidb64': self.id_encode(),'token':self.token_code()})
+		print(res)
+		return res
 	def __str__(self):
 		return str(self.evaluacion)
 

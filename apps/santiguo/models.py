@@ -1,6 +1,9 @@
 from django.db import models
 from apps.evaluacion.setting_dinamic import *
 
+from auditlog.registry import auditlog
+from auditlog.models import AuditlogHistoryField
+
 # Create your models here.
 
 class docentea(models.Model):
@@ -341,5 +344,8 @@ class plan_mejorasa(models.Model):
 		null=False,
 		auto_now_add=True
 	)
+	historial = AuditlogHistoryField()
 	def __str__(self):
 		return str(self.evaluaciona.docentea)
+
+auditlog.register(plan_mejorasa)

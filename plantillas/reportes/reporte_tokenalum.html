@@ -10,8 +10,8 @@
         font-family: 'Inconsolata', monospace;
         src: url(https://fonts.googleapis.com/css?family=Inconsolata);
     }
-    th { font-family: 'Inconsolata', monospace; }
-    a { font-family: 'Inconsolata', monospace; }
+    th { font-family: 'Inconsolata', monospace; line-height:10px;}
+    a { font-family: 'Inconsolata', monospace; line-height:10px;}
     
     @page {
       size:letter;
@@ -41,6 +41,9 @@
     }
     .texprint{
       font-size: medium;
+    }
+    .imgrq img{
+      display: block; margin-left:auto; margin-right:auto;
     }
   </style>
 </head>
@@ -78,6 +81,8 @@
         </tr>
       </thead>
       <tbody class="texprint">
+        {% load qr_code %}
+        {% load evaluacion_tags %}
         {% for tok in object_list.token_alumno_set.all %}
           <tr>
             <th>{{tok.id_encode}}</th>
@@ -92,6 +97,17 @@
             <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
             <td><a href="https://bit.ly/2qIOEEh">bit.ly/2qIOEEh</a></td>
           </tr>
+          {% if not tok.usado %}
+            <tr>
+              <th colspan="5">
+                {#request.META.HTTP_HOST#}{#tok.url_resolver#}
+                {% concat_string request.scheme '://' request.META.HTTP_HOST tok.url_resolver as res %}
+                <div class="imgqr">
+                  {% qr_from_text res size="T" image_format="png" %}
+                </div>
+              </th>
+            </tr>
+          {% endif %}
         {% endfor %}
       </tbody>
     </table>

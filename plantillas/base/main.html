@@ -34,6 +34,10 @@
 					{% load evaluacion_tags %}
 					<p><span class="label label-danger">Gestión de Creación Activa: {%initial_default_periodo_tag%}/{%initial_default_gestion_tag%}</span> <span class="label label-danger">Plan de Mejoras Activo?: {% plan_mejoras_act %}</span></p>
 				{% endif %}
+				{% if perms.usuarios.docente %}
+					{% load evaluacion_tags %}
+					<p><span class="label label-danger">Plan de Mejoras Activo?: {% plan_mejoras_act %}</span></p>
+				{% endif %}
 				<img src="{% static "logo.png" %}" alt="" class="img-responsive center-block" />
 			</div>
 		{% endblock contend %}
