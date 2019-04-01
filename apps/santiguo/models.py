@@ -76,7 +76,7 @@ class evaluaciona(models.Model):
 		else:
 			return False
 	def nota_final(self):
-		return self.auto_eval_docente*0.4 + self.inf_dir*0.1 + self.opi_est*0.5
+		return round(self.auto_eval_docente*0.4 + self.inf_dir*0.1 + self.opi_est*0.5,2)
 	class Meta:
 		unique_together =(("docentea","gestion","sigla"))
 	def __str__(self):

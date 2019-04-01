@@ -22,5 +22,8 @@ urlpatterns = [
     path('creplnmejorasa/<int:pk>/',permission_required('usuarios.docente')(login_required(create_plnmejorasa.as_view())), name='creplnmejorasa'),
     path('updplnmejorasa/<int:pk>/',permission_required('usuarios.docente')(login_required(update_plnmejorasa_view.as_view())), name='updplnmejorasa'),
     path('creaupdaplnmejorasa/<int:pk>/',permission_required('usuarios.docente')(login_required(create_or_update_plna_view)), name='creaupdaplnmejorasa'),
-    path('reportplmejorasa/<int:pk>/',permission_required('usuarios.docente')(login_required(report_plan_mejorasa_view.as_view())), name='reportplmejorasa')
+    path('reportplmejorasa/<int:pk>/',permission_required('usuarios.docente')(login_required(report_plan_mejorasa_view.as_view())), name='reportplmejorasa'),
+    #admin
+    path('listevalaantgadm',permission_required('usuarios.evaluacion')(login_required(list_evaluaciones_antiguos_adm.as_view())), name='listevalaantgadm'),
+    path('planmejorasact/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(plnmejorasa_active_view.as_view())), name='planmejorasact'),
 ]

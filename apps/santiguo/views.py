@@ -16,6 +16,54 @@ from django_weasyprint import WeasyTemplateResponseMixin
 
 # Create your views here.
 
+class list_evaluaciones_antiguos_adm(ListView):
+	model = evaluaciona
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'santiguo/list_evaluaciones_antiguosadm.html'
+	def get_context_data(self, **kwargs):
+		context = super(list_evaluaciones_antiguos_adm, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		#pk = self.kwargs.get('pk',0)
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.annotate(
+					search=SearchVector(
+						'docentea__nombre',
+						'docentea__apellidop',
+						'docentea__apellidom',
+						'sigla',
+						'carrera',
+						'materia',
+						Cast('gestion', CharField())
+					)
+				).filter(
+					search=search
+				).order_by('-gestion')
+		else:
+			return self.model.objects.filter().order_by('-gestion')
+
+class plnmejorasa_active_view(UpdateView):
+	model = plan_mejorasa
+	form_class = plnmejorasa_active_form
+	template_name = 'evaluacion/activar_planmejoras.html'
+	success_url = reverse_lazy('santiguo:listevalaantgadm')
+
 class list_evaluaciones_antiguos(ListView):
 	model = evaluaciona
 	paginate_by = 10

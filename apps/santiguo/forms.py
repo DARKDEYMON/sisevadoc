@@ -8,6 +8,11 @@ class search_form(forms.Form):
 class Html5DateInput(forms.DateInput):
 	input_type = 'date'
 
+class plnmejorasa_active_form(ModelForm):
+	class Meta:
+		model = plan_mejorasa
+		fields = ['activo']
+
 class plnmejorasa_form(ModelForm):
 	class Meta:
 		model = plan_mejorasa

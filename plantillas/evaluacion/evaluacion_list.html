@@ -37,7 +37,7 @@
 	    				Estado
 	    			</th>
 	    			<th>
-	    				Claves
+	    				Claves/P. Mejora
 	    			</th>
 	    			<th>
 	    				Opciones
@@ -92,6 +92,16 @@
 	    	    				<span class="label label-success">No Generado</span>
 	    	    			{% else %}
 	    	    				<span class="label label-warning">Generado</span>
+	    	    			{% endif %}
+	    	    			
+	    	    			{% if eva.plan_mejoras %}
+								{% if not eva.plan_mejoras.activo %}
+									<span class="label label-success">Llenado</span>
+								{% else %}
+									<span class="label label-primary">No Generado</span>
+								{% endif %}
+	    	    			{% else %}
+								<span class="label label-danger">No Llenado</span>
 	    	    			{% endif %}
 	    	    		</td>
 	    	    		<td>
