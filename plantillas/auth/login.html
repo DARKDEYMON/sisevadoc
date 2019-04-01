@@ -6,20 +6,20 @@
 		
 	
 	{% block legend %}
-		<legend class="text-center">Login</legend>
+		<legend class="text-center">Ingreso de Usuarios</legend>
 	{% endblock legend %}	
 			
 	{% block errores %}
 		{% if form.errors %}
-				<p>Tu nombre de usuario o password no se an encontrado. Intente de nuevo</p>
+				<p>Tu nombre de usuario o contraseña no se han encontrado. Intente de nuevo</p>
 		{% endif %}
 
 		{% if next %}
 			{% if user.is_authenticated %}
 			    <p>Tu cuenta no tiene acceso a esta página. Para continuar,
-			    logeese con una cuenta que cuente con los permisos necesarios.</p>
+			    ingresa con una cuenta registrada con los permisos necesarios.</p>
 			{% else %}
-			    <p>Por favor Logeate para ver esta página.</p>
+			    <p>Por favor ingresa los datos requeridos para para ver la pagina principal.</p>
 			{% endif %}
 		{% endif %}	
 	{% endblock errores %}		
@@ -30,16 +30,16 @@
 		<fieldset>
 			{% csrf_token %}
 			<div class="form-group">
-				    <label for="username" class="col-lg-2 control-label">Username</label>
+				    <label for="username" class="col-lg-2 control-label">Usuario</label>
 				    <div class="col-lg-10">
-				      <input type="text" class="form-control" placeholder="Username" name="username">
+				      <input type="text" class="form-control" placeholder="Usuario" name="username">
 				    </div>
 				  </div>
 
 			<div class="form-group">
-				    <label for="password" class="col-lg-2 control-label">Password</label>
+				    <label for="password" class="col-lg-2 control-label">Contraseña</label>
 				    <div class="col-lg-10">
-				      <input type="password" class="form-control" placeholder="password" name="password">
+				      <input type="password" class="form-control" placeholder="Contraseña" name="password">
 				    </div>
 				  </div>
 
@@ -48,7 +48,7 @@
 				  <div class="form-group text-center" >
 				   		<a href="{% url 'usuarios:password_reset' %}">Perdio su contraseña?</a>
 				      	<!--<button type="reset" class="btn btn-default">Reset</button>-->
-				      	<button type="submit" value="login" class="btn btn-primary">Login</button>
+				      	<button type="submit" value="login" class="btn btn-primary">Ingresar</button>
 				  </div>
 			<div class="form-group">
 				<div class="text-center" >

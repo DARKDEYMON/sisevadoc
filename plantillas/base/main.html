@@ -30,18 +30,19 @@
 		   		
 				<h2>Dirección de Evaluación y Acreditación</h2>
 				<p>Sistema de Evaluación Docente</p>
-				{% if perms.usuarios.conf_evaluaion %}
 					{% load evaluacion_tags %}
-					<p><span class="label label-danger">Gestión de Creación Activa: {%initial_default_periodo_tag%}/{%initial_default_gestion_tag%}</span> <span class="label label-danger">Plan de Mejoras Activo?: {% plan_mejoras_act %}</span></p>
-				{% endif %}
-				{% if perms.usuarios.docente %}
-					{% load evaluacion_tags %}
-					<p><span class="label label-danger">Plan de Mejoras Activo?: {% plan_mejoras_act %}</span></p>
-				{% endif %}
+					<p>
+						{% if perms.usuarios.conf_evaluaion %}
+							<span class="label label-danger">Gestión de Creación Activa: {%initial_default_periodo_tag%}/{%initial_default_gestion_tag%}</span> 
+						{% endif %}
+						{% if perms.usuarios.docente %}
+							<span class="label label-danger">Plan de Mejoras Activo?: {% plan_mejoras_act %}</span>
+						{% endif %}
+					</p>
 				<img src="{% static "logo.png" %}" alt="" class="img-responsive center-block" />
 			</div>
 		{% endblock contend %}
-		    
+		
 	{% endblock body %}	
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

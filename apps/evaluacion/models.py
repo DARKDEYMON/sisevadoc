@@ -405,7 +405,6 @@ class token_alumno(models.Model):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def url_resolver(self):
 		res = None if self.usado else reverse_lazy('evaluacion:alumtoken', kwargs={'uidb64': self.id_encode(),'token':self.token_code()})
-		print(res)
 		return res
 	def __str__(self):
 		return str(self.evaluacion)

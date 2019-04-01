@@ -20,7 +20,7 @@ class crear_user_form(UserCreationForm):
 		]
 	def __init__(self, *args, **kwargs):
 		super(crear_user_form, self).__init__(*args, **kwargs)
-		self.fields['email'].required = True
+		self.fields['email'].required = False
 		self.fields['first_name'].required = True
 		self.fields['last_name'].required = True
 
@@ -29,7 +29,7 @@ class crear_user_docente_form(ModelForm):
 		model = user_docente
 		exclude = ['user']
 		labels = {
-			'ci':'C.I.'
+			'ci':'C.I. (Coloque solo el numero sin extensión de ciudad Ej. 2072034, 2072034-1E)'
 		}
 
 class update_user_form(ModelForm):

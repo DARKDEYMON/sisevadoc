@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -62,7 +63,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Evaluaciones Propias<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{% url 'plmejoras:listplnmejoras' %}">Lista de Evaluaciones Digitales.</a></li>
-              <li><a href="{% url 'santiguo:listevalaantg' %}" title="">Lista de Evaluaciones del sistema manual</a></li>
+              <li><a href="{% url 'santiguo:listevalaantg' %}">Lista de Evaluaciones del sistema manual</a></li>
+
             </ul>
           </li>
         </ul>
@@ -80,6 +82,18 @@
           </li>
         </ul>
       {% endif %}
+
+      <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ayuda <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              {% if perms.usuarios.docente %}
+                <li><a href="{% static "Ejemplo-plnmejoras.pdf" %}" target="_blank">Ejemplo de Plan de mejoras</a></li>
+                <li><a href="{% static "Guia-plnmejoras.pdf" %}" target="_blank">Guia de llenado</a></li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
 
       <ul class="nav navbar-nav navbar-right">
        

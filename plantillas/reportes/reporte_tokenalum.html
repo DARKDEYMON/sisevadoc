@@ -15,6 +15,7 @@
     
     @page {
       size:letter;
+      margin: 1cm;
       background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
       background-attachment: fixed;
       background-position: center center;
@@ -40,10 +41,17 @@
       font-size: x-small;
     }
     .texprint{
-      font-size: medium;
+      font-size: xx-small;
     }
-    .imgrq img{
-      display: block; margin-left:auto; margin-right:auto;
+    .qrarea{
+      margin: 0px;
+      padding: 0px;
+    }
+    .qrarea img{
+      display: block;
+      width: 110px;
+      margin: 0px;
+      padding: 0px;
     }
   </style>
 </head>
@@ -69,51 +77,64 @@
     </table>
   </div>
   <b>2.- Claves para los estudiantes</b>
-  <div class="tabla letradefinida">
-    <table style="margin-left:auto; margin-right:auto;">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Clave</th>
-          <th>Estado</th>
-          <th>Creado</th>
-          <th>Url</th>
-        </tr>
-      </thead>
-      <tbody class="texprint">
-        {% load qr_code %}
-        {% load evaluacion_tags %}
-        {% for tok in object_list.token_alumno_set.all %}
-          <tr>
-            <th>{{tok.id_encode}}</th>
-            <th>{{tok.token_code}}</th>
-            <th>
-            {% if tok.usado %}
-              Usado            
-            {% else %}
-              Activo
-            {% endif %}
-            </th>
-            <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
-            <td><a href="https://bit.ly/2qIOEEh">bit.ly/2qIOEEh</a></td>
-          </tr>
-          {% if not tok.usado %}
+  {% load qr_code %}
+  {% load evaluacion_tags %}
+  {% for tok in object_list.token_alumno_set.all %}
+    {% if not forloop.counter|divisibleby:2 %}
+      <div style="display: flex; justify-content: space-between;">
+    {% endif %}
+    <div class="tabla letradefinida" style="page-break-inside: avoid">
+      <table style="margin-left:auto; margin-right:auto;">
+        <tbody class="texprint">
             <tr>
-              <th colspan="5">
-                {#request.META.HTTP_HOST#}{#tok.url_resolver#}
-                {% concat_string request.scheme '://' request.META.HTTP_HOST tok.url_resolver as res %}
-                <div class="imgqr">
-                  {% qr_from_text res size="T" image_format="png" %}
-                </div>
+              <th>ID</th>
+              <th>{{tok.id_encode}}</th>
+              {% if not tok.usado %}
+                  <th rowspan="5" class="qrarea" >
+                    {#request.META.HTTP_HOST#}{#tok.url_resolver#}
+                    {% concat_string request.scheme '://' request.META.HTTP_HOST tok.url_resolver as res %}
+                    {% qr_from_text res size="T" image_format="png" %}
+                  </th>
+              {% else %}
+                  <th rowspan="5" class="qrarea" >
+                    Usado
+                  </td>
+              {% endif %}
+            </tr>
+            <tr>
+              <th>Clave</th>
+              <th>{{tok.token_code}}</th>
+            </tr>
+            <tr>
+              <th>Estado</th>
+              <th>
+              {% if tok.usado %}
+                Usado            
+              {% else %}
+                Activo
+              {% endif %}
               </th>
             </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+            <tr>
+              <th>Creado</th>
+              <th>{{tok.creacion|date:'Y-m-d H:i'}}</th>
+            </tr>
+            <tr>
+              <th>Url</th>
+              <td><a href="https://bit.ly/2qIOEEh">bit.ly/2qIOEEh</a></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+      </div>
+    {% endif %}
+    {% if not forloop.counter|divisibleby:2 and forloop.last %}
+      </div>
+    {% endif %}
+  {% endfor %}
 
-  <div style="page-break-before: always">
+  <div style="page-break-before: always"></div>
   
   <b>3.- Clave del docente (autoevaluacion)</b>
   <div class="tabla">

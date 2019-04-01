@@ -14,6 +14,8 @@ from django.shortcuts import redirect
 from .forms import *
 from .models import *
 from apps.santiguo.models import docentea
+from apps.evaluacion.setting_dinamic import initial_crear_usuario
+from django.http import Http404
 
 from apps.academico.models import *
 
@@ -159,11 +161,14 @@ class crear_usuario_docente_view(CreateView):
 			context['form2'] = self.second_form_class()
 		return context
 	def post(self, request, *args, **kwargs):
-		self.object = self.get_object	
+		self.object = self.get_object
 		form = self.form_class(request.POST)
 		form2 = self.second_form_class(request.POST)
 		#print (form.is_valid())
 		#print (form2.is_valid())
+		if not initial_crear_usuario():
+			raise Http404
+
 		if form.is_valid() and form2.is_valid():
 			#print ("paso")
 			form2Save = form2.save(commit=False)

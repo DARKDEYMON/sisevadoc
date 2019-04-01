@@ -81,7 +81,7 @@
 									  			3.- Reporte Plan de Mejoras
 											</a>
 							    		{% else %}
-							    			<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">Reporte Plan de Mejoras</a>
+							    			<a href="{% url 'plmejoras:reportplmejoras' eva.pk %}" target="_blank">3.- Reporte Plan de Mejoras</a>
 							    		{% endif %}
 								    	
 								    </li>
@@ -117,7 +117,11 @@
 	    	    	</tr>
 	    		{% endfor %}
 	    	{% else %}
-
+	    		<tr>
+	    			<td colspan="8" style="text-align: center;">
+	    				<h1>No cuenta con Evaluaciones</h1>
+	    			</td>
+	    		</tr>
 	    	{% endif %}
 	    	</tbody>
 	    </table>

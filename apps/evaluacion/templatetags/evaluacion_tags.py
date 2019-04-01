@@ -34,5 +34,5 @@ def concat_string(value_1, value_2, value_3, value_4):
 
 @register.filter
 def replace_string(value):
-	print(value)
+	#print(value)
 	return value.replace('Acción a la debilidad: ','')

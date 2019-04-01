@@ -13,7 +13,7 @@
 	    {% endif %}
 	    <div class="alert alert-warning alert-danger" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<strong>Atención!</strong> Si ya tiene una cuenta creada por favor ingrese a través del siguiente enlace <a class="btn btn-primary" href="/" >Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
+			<strong>Atención!</strong> Si ya tiene una cuenta creada por favor ingrese a través del siguiente enlace <a class="btn btn-primary" href="/" >Ingreso <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
 		</div>
 		{% if request.user.is_superuser or res %}
 			<form action="" method="post" class="form">
@@ -29,7 +29,7 @@
 		{% else %}
 			<div class="jumbotron">
 			  <h1>El registro esta deshabilitado temporalmente!!!</h1>
-			  <p>Consulte en la dirección de evaluación y acreditación de la uatf</p>
+			  <p>Consulte en la Dirección de Evaluación y Acreditación Universitaria de la UATF.</p>
 			  <p><a class="btn btn-primary btn-lg" href="/" role="button">Home</a></p>
 			</div>
 		{% endif %}
