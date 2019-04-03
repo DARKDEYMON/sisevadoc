@@ -61,6 +61,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'auditlog.middleware.AuditlogMiddleware',
+    #midelware de autologout
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
 ROOT_URLCONF = 'sisevadoc.urls'
@@ -175,3 +178,7 @@ CONSTANCE_CONFIG = {
     'CREAR_USER':(False,'Indica si se puede crear usuario docente',bool),
 }
 CONSTANCE_SUPERUSER_ONLY = False
+
+#autologout
+SESSION_EXPIRE_SECONDS = 1800 #media hoara
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
