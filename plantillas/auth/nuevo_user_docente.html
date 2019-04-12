@@ -33,4 +33,12 @@
 			  <p><a class="btn btn-primary btn-lg" href="/" role="button">Home</a></p>
 			</div>
 		{% endif %}
+
+		<script>
+			passwords = document.querySelectorAll('.form .form-group input[type=password]');
+			console.log(passwords);
+			passwords.forEach(function(password){
+				password.setAttribute("data-toggle","password");
+			});
+		</script>
 	{% endblock formbody %}
