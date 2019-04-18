@@ -12,6 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Sistema de Evaluación Docente</title>
 	<link rel="stylesheet" href="{% static "gloval.css" %}">
 	<link rel="icon" href="{% static 'favicon.ico' %}">
@@ -43,7 +44,16 @@
 			</div>
 		{% endblock contend %}
 		
-	{% endblock body %}	
+	{% endblock body %}
+	{% block footer %}
+		<footer class="page-footer font-small blue">
+		  <!-- Copyright -->
+		  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+		    <a href="{% url 'usuarios:creditos' %}"> Dirección de Evaluación y Acreditación UATF</a>
+		  </div>
+		  <!-- Copyright -->
+		</footer>
+	{% endblock footer %}
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

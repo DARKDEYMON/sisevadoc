@@ -200,3 +200,6 @@ class crear_usuario_docente_view(CreateView):
 				return  HttpResponseRedirect(self.success_url)
 
 		return self.render_to_response(self.get_context_data(form=form, form2=form2))
+
+def creditos(request):
+	return render(request,"auth/creditos.html",{})
