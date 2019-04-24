@@ -17,6 +17,10 @@ from apps.santiguo.models import docentea
 from apps.evaluacion.setting_dinamic import initial_crear_usuario
 from django.http import Http404
 
+from django.contrib.postgres.search import SearchVector
+from django.db.models import CharField
+from django.db.models.functions import Cast
+
 from apps.academico.models import *
 
 # Create your views here.
@@ -67,13 +71,18 @@ class lista_usuarios_view(ListView):
 			if form.is_valid():
 				search = form.cleaned_data['search']
 		if (search):
-			return self.model.objects.filter(
-				Q(id__icontains=search)|
-				Q(username__icontains=search)|
-				Q(first_name__icontains=search)|
-				Q(last_name__icontains=search),
-				#Q(email__icontains=search),
-				is_staff=False)
+			return self.model.objects.annotate(
+					search=SearchVector(
+						Cast('id', CharField()),
+						'username',
+						'first_name',
+						'last_name',
+						Cast('email', CharField())
+					)
+				).filter(
+					search=search,
+					is_staff=False
+				).order_by('id')
 		else:
 			return self.model.objects.all().filter(is_staff=False).order_by('id')
 

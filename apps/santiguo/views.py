@@ -47,6 +47,7 @@ class list_evaluaciones_antiguos_adm(ListView):
 						'docentea__nombre',
 						'docentea__apellidop',
 						'docentea__apellidom',
+						'docentea__ci',
 						'sigla',
 						'carrera',
 						'materia',

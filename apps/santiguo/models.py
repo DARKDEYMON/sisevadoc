@@ -6,6 +6,8 @@ from auditlog.models import AuditlogHistoryField
 
 from datetime import timedelta
 
+from django.core.exceptions import ValidationError
+
 # Create your models here.
 
 class docentea(models.Model):
