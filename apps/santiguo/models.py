@@ -79,6 +79,67 @@ class evaluaciona(models.Model):
 			return False
 	def nota_final(self):
 		return round(self.auto_eval_docente*0.4 + self.inf_dir*0.1 + self.opi_est*0.5,2)
+	def tiene_devilidades(self):
+		if(self.eval_est.pregunta_1<4 or self.eval_dir.pregunta_1<4):
+			return True
+		if(self.eval_est.pregunta_2<4 or self.eval_dir.pregunta_2<4):
+			return True
+		if(self.eval_est.pregunta_3<4 or self.eval_dir.pregunta_3<4):
+			return True
+		if(self.eval_est.pregunta_4<4):
+			return True
+		if(self.eval_est.pregunta_5<4):
+			return True
+		if(self.eval_est.pregunta_6<4):
+			return True
+		if(self.eval_est.pregunta_7<4):
+			return True
+		if(self.eval_est.pregunta_8<4):
+			return True
+		if(self.eval_est.pregunta_9<4):
+			return True
+		if(self.eval_est.pregunta_10<4):
+			return True
+		if(self.eval_est.pregunta_11<4):
+			return True
+		if(self.eval_est.pregunta_12<4):
+			return True
+		if(self.eval_est.pregunta_13<4):
+			return True
+		if(self.eval_est.pregunta_14<4):
+			return True
+		if(self.eval_est.pregunta_15<4):
+			return True
+		if(self.eval_est.pregunta_16<4):
+			return True
+		if(self.eval_est.pregunta_17<4):
+			return True
+		if(self.eval_est.pregunta_18<4):
+			return True
+		if(self.eval_est.pregunta_19<4):
+			return True
+		#director
+		if(self.eval_dir.pregunta_4<4):
+			return True
+		if(self.eval_dir.pregunta_5<4):
+			return True
+		if(self.eval_dir.pregunta_6<4):
+			return True
+		return False
+
+	def plandm_activo_o_tiene_devilidades(self):
+		if self.gestion==initial_gestion_plnm() and initial_plan_mejorasa() and self.tiene_devilidades():
+			try:
+				return self.plan_mejorasa.activo
+			except Exception as e:
+				return True
+		else:
+			return False
+	def plan_mejoras_generar(self):
+		if initial_plan_mejorasa():
+			if not self.tiene_devilidades() or self.plan_mejorasa:
+				return True
+		return False
 	class Meta:
 		unique_together =(("docentea","gestion","sigla"))
 	def __str__(self):

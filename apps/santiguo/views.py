@@ -181,6 +181,13 @@ class ins_plan_mejoras_reporta_view(ListView):
 			self.evaluacion = self.model_extra.objects.get(id=kwargs['pk'],docentea__ci=self.request.user.user_docente.ci)
 		except:
 			raise Http404
+		#print(self.evaluacion.tiene_devilidades())
+		if not self.evaluacion.tiene_devilidades():
+			print("crear")
+			try:
+				self.model.objects.create(evaluaciona=self.evaluacion)
+			except:
+				print('ya creado')
 		return super(ins_plan_mejoras_reporta_view, self).dispatch(request, *args, **kwargs)
 	def get_queryset(self):
 		res = get_object_or_404(self.model, pk=self.kwargs['pk'])

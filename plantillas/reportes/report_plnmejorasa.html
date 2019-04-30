@@ -86,251 +86,259 @@
 	<br>
 	<b>Objetivo.-</b>
 	<div>El objetivo del plan de mejora es fortalecer las debilidades detectadas de los docentes en la evaluación al desempeño docente para conseguir la calidad docente en el Proceso de enseñanza y aprendizaje.</div>
-	{% load evaluacion_tags %}
-	{% if object_list.pregunta_1 %}
-		{% verbose_name_tag object_list 'pregunta_1' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_1 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_1 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_1 }}</div>
-	{% endif %}
+	{% if object_list.evaluaciona.tiene_devilidades %}
 
-	{% if object_list.pregunta_2 %}
-		{% verbose_name_tag object_list 'pregunta_2' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_2 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_2 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_2 }}</div>
-	{% endif %}
+		{% load evaluacion_tags %}
+		{% if object_list.pregunta_1 %}
+			{% verbose_name_tag object_list 'pregunta_1' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_1 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_1 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_1 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_3 %}
-		{% verbose_name_tag object_list 'pregunta_3' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_3 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_3 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_3 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_2 %}
+			{% verbose_name_tag object_list 'pregunta_2' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_2 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_2 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_2 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_4 %}
-		{% verbose_name_tag object_list 'pregunta_4' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_4 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_4 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_4 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_3 %}
+			{% verbose_name_tag object_list 'pregunta_3' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_3 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_3 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_3 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_5 %}
-		{% verbose_name_tag object_list 'pregunta_5' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_5 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_5 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_5 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_4 %}
+			{% verbose_name_tag object_list 'pregunta_4' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_4 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_4 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_4 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_6 %}
-		{% verbose_name_tag object_list 'pregunta_6' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_6 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_6 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_6 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_5 %}
+			{% verbose_name_tag object_list 'pregunta_5' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_5 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_5 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_5 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_7 %}
-		{% verbose_name_tag object_list 'pregunta_7' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_7 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_7 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_7 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_6 %}
+			{% verbose_name_tag object_list 'pregunta_6' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_6 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_6 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_6 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_8 %}
-		{% verbose_name_tag object_list 'pregunta_8' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_8 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_8 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_8 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_7 %}
+			{% verbose_name_tag object_list 'pregunta_7' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_7 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_7 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_7 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_9 %}
-		{% verbose_name_tag object_list 'pregunta_9' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_9 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_9 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_9 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_8 %}
+			{% verbose_name_tag object_list 'pregunta_8' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_8 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_8 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_8 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_10 %}
-		{% verbose_name_tag object_list 'pregunta_10' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_10 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_10 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_10 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_9 %}
+			{% verbose_name_tag object_list 'pregunta_9' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_9 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_9 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_9 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_11 %}
-		{% verbose_name_tag object_list 'pregunta_11' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_11 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_11 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_11 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_10 %}
+			{% verbose_name_tag object_list 'pregunta_10' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_10 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_10 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_10 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_12 %}
-		{% verbose_name_tag object_list 'pregunta_12' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_12 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_12 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_12 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_11 %}
+			{% verbose_name_tag object_list 'pregunta_11' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_11 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_11 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_11 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_13 %}
-		{% verbose_name_tag object_list 'pregunta_13' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_13 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_13 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_13 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_12 %}
+			{% verbose_name_tag object_list 'pregunta_12' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_12 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_12 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_12 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_14 %}
-		{% verbose_name_tag object_list 'pregunta_14' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_14 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_14 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_14 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_13 %}
+			{% verbose_name_tag object_list 'pregunta_13' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_13 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_13 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_13 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_15 %}
-		{% verbose_name_tag object_list 'pregunta_15' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_15 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_15 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_15 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_14 %}
+			{% verbose_name_tag object_list 'pregunta_14' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_14 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_14 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_14 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_16 %}
-		{% verbose_name_tag object_list 'pregunta_16' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_16 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_16 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_16 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_15 %}
+			{% verbose_name_tag object_list 'pregunta_15' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_15 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_15 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_15 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_17 %}
-		{% verbose_name_tag object_list 'pregunta_17' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_17 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_17 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_17 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_16 %}
+			{% verbose_name_tag object_list 'pregunta_16' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_16 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_16 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_16 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_18 %}
-		{% verbose_name_tag object_list 'pregunta_18' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_18 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_18 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_18 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_17 %}
+			{% verbose_name_tag object_list 'pregunta_17' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_17 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_17 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_17 }}</div>
+		{% endif %}
 
-	{% if object_list.pregunta_19 %}
-		{% verbose_name_tag object_list 'pregunta_19' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.pregunta_19 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_veri_19 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_termino_19 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_18 %}
+			{% verbose_name_tag object_list 'pregunta_18' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_18 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_18 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_18 }}</div>
+		{% endif %}
 
-	{% if object_list.preguntad_4 %}
-		{% verbose_name_tag object_list 'preguntad_4' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.preguntad_4 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_verid_4 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_terminod_4 }}</div>
-	{% endif %}
+		{% if object_list.pregunta_19 %}
+			{% verbose_name_tag object_list 'pregunta_19' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.pregunta_19 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_veri_19 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_termino_19 }}</div>
+		{% endif %}
 
-	{% if object_list.preguntad_5 %}
-		{% verbose_name_tag object_list 'preguntad_5' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.preguntad_5 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_verid_5 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_terminod_5 }}</div>
-	{% endif %}
+		{% if object_list.preguntad_4 %}
+			{% verbose_name_tag object_list 'preguntad_4' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.preguntad_4 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_verid_4 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_terminod_4 }}</div>
+		{% endif %}
 
-	{% if object_list.preguntad_6 %}
-		{% verbose_name_tag object_list 'preguntad_6' as res %}
-		<p><b>{{ res|replace_string }}</b></p>
-		<b>Acción.-</b>
-		<div>{{ object_list.preguntad_6 }}</div>
-		<b>Medio de Verificación.-</b>
-		<div>{{ object_list.medio_verid_6 }}</div>
-		<b>Fecha Termino.-</b>
-		<div>{{ object_list.fecha_terminod_6 }}</div>
-	{% endif %}
+		{% if object_list.preguntad_5 %}
+			{% verbose_name_tag object_list 'preguntad_5' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.preguntad_5 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_verid_5 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_terminod_5 }}</div>
+		{% endif %}
 
-	<b><p>Consideraciones.-</p></b>
-	<p>Cabe destacar que este plan de mejora se validará cuando se inicie la siguiente evaluación al desempeño docente</p>
+		{% if object_list.preguntad_6 %}
+			{% verbose_name_tag object_list 'preguntad_6' as res %}
+			<p><b>{{ res|replace_string }}</b></p>
+			<b>Acción.-</b>
+			<div>{{ object_list.preguntad_6 }}</div>
+			<b>Medio de Verificación.-</b>
+			<div>{{ object_list.medio_verid_6 }}</div>
+			<b>Fecha Termino.-</b>
+			<div>{{ object_list.fecha_terminod_6 }}</div>
+		{% endif %}
+	{% else %}
+		<br>
+		<div>
+			Felicidades usted no cuenta con debilidades, en la presente evaluación!!!!!!! Imprima el documento como prueba y presente a la autoridad pertinente.
+		</div>
+	{% endif %}
+	<br>
+	<b>Consideraciones.-</b>
+	<div>Cabe destacar que este plan de mejora se validará cuando se inicie la siguiente evaluación al desempeño docente.</div>
 	<br>
 	<br>
 	<br>

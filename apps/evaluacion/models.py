@@ -377,6 +377,11 @@ class evaluacion(models.Model):
 				return True
 		else:
 			return False
+	def plan_mejoras_generar(self):
+		if initial_plan_mejorasa():
+			if not self.tiene_devilidades() or self.plan_mejoras:
+				return True
+		return False
 	def __str__(self):
 		return str(self.docente)
 	class Meta:
