@@ -28,7 +28,10 @@
 	    				Materia
 	    			</th>
 	    			<th>
-	    				Gestion
+	    				Gestión
+	    			</th>
+	    			<th>
+	    				Debilidades?
 	    			</th>
 	    			<th>
 	    				Creado
@@ -60,6 +63,13 @@
 	    	    		<td>
 	    	    			{{eva.periodo}}/{{eva.gestion}}<br>
 	    	    		</td>
+	    	    		<th>
+	    	    			{% if eva.tiene_devilidades %}
+								<span class="label label-warning">Si</span>
+	    	    			{% else %}
+								<span class="label label-success">No</span>
+	    	    			{% endif %}
+	    	    		</th>
 	    	    		<td>
 	    	    			{{eva.creacion|date:'d/m/Y H:i'}}
 	    	    		</td>
@@ -72,7 +82,7 @@
 								    <li>
 								    	<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">1.- Reporte Final</a>
 
-								    	{% if eva.plandm_activo %}
+								    	{% if eva.plandm_activo_o_tiene_devilidades %}
 								    		<a href="{% url 'plmejoras:creaupdaplnmejoras' eva.pk %}">2.- Plan de Mejora<span class="glyphicon glyphicon-edit"></a>
 								    	{% endif %}
 								    	
@@ -105,14 +115,14 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-											{% if eva.plan_mejoras %}
+											{# si no tiene debilidades genera #}
+											{% if eva.plan_mejoras or not eva.tiene_devilidades %}
 												<a target="_blank" href="{% url 'plmejoras:reportplmejoras' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
 											{% endif %}
 										</div>
 									</div>
 								</div>
 							</div>
-
 	    	    		</td>
 	    	    	</tr>
 	    		{% endfor %}

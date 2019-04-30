@@ -322,8 +322,55 @@ class evaluacion(models.Model):
 		return len(self.token_alumno_set.filter(usado=True))
 	def cuestionarios_vacios(self):
 		return len(self.token_alumno_set.filter(usado=False))
-	def plandm_activo(self):
-		if self.gestion==initial_gestion_plnm() and self.periodo==initial_periodo_plnm() and initial_plan_mejorasa():
+	def tiene_devilidades(self):
+		if(self.alum_p1()<4 or self.cuestionario_aevaluacion.pregunta_1<4 or self.cuestionario_dcarrera.pregunta_1<4):
+			return True
+		if(self.alum_p2()<4 or self.cuestionario_aevaluacion.pregunta_2<4 or self.cuestionario_dcarrera.pregunta_2<4):
+			return True
+		if(self.alum_p3()<4 or self.cuestionario_aevaluacion.pregunta_3<4 or self.cuestionario_dcarrera.pregunta_3<4):
+			return True
+		if(self.alum_p4()<4 or self.cuestionario_aevaluacion.pregunta_4<4):
+			return True
+		if(self.alum_p5()<4 or self.cuestionario_aevaluacion.pregunta_5<4):
+			return True
+		if(self.alum_p6()<4 or self.cuestionario_aevaluacion.pregunta_6<4):
+			return True
+		if(self.alum_p7()<4 or self.cuestionario_aevaluacion.pregunta_7<4):
+			return True
+		if(self.alum_p8()<4 or self.cuestionario_aevaluacion.pregunta_8<4):
+			return True
+		if(self.alum_p9()<4 or self.cuestionario_aevaluacion.pregunta_9<4):
+			return True
+		if(self.alum_p10()<4 or self.cuestionario_aevaluacion.pregunta_10<4):
+			return True
+		if(self.alum_p11()<4 or self.cuestionario_aevaluacion.pregunta_11<4):
+			return True
+		if(self.alum_p12()<4 or self.cuestionario_aevaluacion.pregunta_12<4):
+			return True
+		if(self.alum_p13()<4 or self.cuestionario_aevaluacion.pregunta_13<4):
+			return True
+		if(self.alum_p14()<4 or self.cuestionario_aevaluacion.pregunta_14<4):
+			return True
+		if(self.alum_p15()<4 or self.cuestionario_aevaluacion.pregunta_15<4):
+			return True
+		if(self.alum_p16()<4 or self.cuestionario_aevaluacion.pregunta_16<4):
+			return True
+		if(self.alum_p17()<4 or self.cuestionario_aevaluacion.pregunta_17<4):
+			return True
+		if(self.alum_p18()<4 or self.cuestionario_aevaluacion.pregunta_18<4):
+			return True
+		if(self.alum_p19()<4 or self.cuestionario_aevaluacion.pregunta_19<4):
+			return True
+		#director
+		if(self.cuestionario_dcarrera.pregunta_4<4):
+			return True
+		if(self.cuestionario_dcarrera.pregunta_5<4):
+			return True
+		if(self.cuestionario_dcarrera.pregunta_6<4):
+			return True
+		return False
+	def plandm_activo_o_tiene_devilidades(self):
+		if self.gestion==initial_gestion_plnm() and self.periodo==initial_periodo_plnm() and initial_plan_mejorasa() and self.tiene_devilidades():
 			try:
 				return self.plan_mejoras.activo
 			except Exception as e:

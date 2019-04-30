@@ -616,6 +616,11 @@ class plan_mejorasa(models.Model):
 		null=False,
 		auto_now_add=True
 	)
+	ultimo_generado = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
 	historial = AuditlogHistoryField()
 	def __str__(self):
 		return str(self.evaluaciona.docentea)
