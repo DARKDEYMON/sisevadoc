@@ -116,8 +116,10 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											{# si no tiene debilidades genera #}
-											{% if eva.plan_mejoras or not eva.tiene_devilidades %}
-												<a target="_blank" href="{% url 'plmejoras:reportplmejoras' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+											{% if eva.plandm_activo_o_tiene_devilidades %}
+												{% if eva.plan_mejoras %}
+													<a target="_blank" href="{% url 'plmejoras:reportplmejoras' eva.pk %}" type="button" class="btn btn-primary" onclick="setTimeout(function(){window.location.reload()},2000);">Aceptar</a>
+												{% endif %}
 											{% endif %}
 										</div>
 									</div>
