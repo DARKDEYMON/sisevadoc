@@ -627,6 +627,9 @@ class token_aevaluacion(models.Model):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
+	def url_resolver(self):
+		res = None if self.usado else reverse_lazy('evaluacion:aevaldoctoken', kwargs={'uidb64': self.id_encode(),'token':self.token_code()})
+		return res
 	def __str__(self):
 		return str(self.evaluacion)
 
@@ -804,6 +807,9 @@ class token_dcarrera(models.Model):
 		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
+	def url_resolver(self):
+		res = None if self.usado else reverse_lazy('evaluacion:dcarreratoken', kwargs={'uidb64': self.id_encode(),'token':self.token_code()})
+		return res
 	def __str__(self):
 		return str(self.evaluacion)
 
