@@ -71,7 +71,7 @@ class materias(models.Model):
 		return str(self.sigla) + " " + self.nombre
 
 class docentes(models.Model):
-	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
+	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)#menytomeny
 	apellidos = models.CharField(
 		max_length=100,
 		null=False,

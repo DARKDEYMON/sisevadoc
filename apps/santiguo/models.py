@@ -287,6 +287,7 @@ class eval_dir(models.Model):
 		return str(self.evaluaciona)
 
 def validate_fecha_minima(value):
+	#print(type(value))
 	#print(value)
 	if value < datetime.date.today() or value> (datetime.date.today() + timedelta(days=250)):
 		raise ValidationError('No se admite una fecha menor a la fecha actual %(min)s, o mayor a el %(max)s.',params={'min':datetime.date.today(),'max': datetime.date.today() + timedelta(days=250)})

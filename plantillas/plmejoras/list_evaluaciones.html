@@ -109,8 +109,12 @@
 										<div class="modal-body">
 										
 										<h3 style="color:red;">!!!Una vez generado su plan de mejora ya no podrá editarlo!!!.</h3>
-										{% if not eva.plan_mejoras %}
-											<h3 style="color:red;"> No ha llenado aun su plan de mejoras</h3>
+										{% if not eva.tiene_devilidades %}
+											<h3 style="color:red;"> No tiene debilidades solo presione aceptar</h3>
+										{% else %}
+											{% if not eva.plan_mejoras %}
+												<h3 style="color:red;"> No ha llenado aun su plan de mejoras</h3>
+											{% endif %}
 										{% endif %}
 										</div>
 										<div class="modal-footer">
