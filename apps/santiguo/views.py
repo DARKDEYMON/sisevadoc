@@ -49,7 +49,7 @@ class list_evaluaciones_antiguos_adm(ListView):
 						'docentea__apellidom',
 						'docentea__ci',
 						'sigla',
-						'carrera',
+						'carrerasa__nombre',
 						'materia',
 						Cast('gestion', CharField())
 					)
@@ -97,7 +97,7 @@ class list_evaluaciones_antiguos(ListView):
 						'docentea__apellidop',
 						'docentea__apellidom',
 						'sigla',
-						'carrera',
+						'carrerasa__nombre',
 						'materia',
 						Cast('gestion', CharField())
 					)

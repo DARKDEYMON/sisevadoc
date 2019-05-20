@@ -10,6 +10,15 @@ from django.core.exceptions import ValidationError
 
 # Create your models here.
 
+class carrerasa(models.Model):
+	nombre = models.CharField(
+		blank=False,
+		null=False,
+		max_length=100
+	)
+	def __str__(self):
+		return self.nombre
+
 class docentea(models.Model):
 	nombre = models.CharField(
 		blank=False,
@@ -37,6 +46,7 @@ class docentea(models.Model):
 
 class evaluaciona(models.Model):
 	docentea = models.ForeignKey(docentea, on_delete=models.CASCADE)
+	carrerasa = models.ForeignKey(carrerasa, on_delete=models.CASCADE)
 	gestion = models.IntegerField(
 		blank=False,
 		null=False
@@ -50,11 +60,6 @@ class evaluaciona(models.Model):
 		blank=False,
 		null=False,
 		max_length=7
-	)
-	carrera = models.CharField(
-		blank=False,
-		null=False,
-		max_length=100
 	)
 	auto_eval_docente = models.FloatField(
 		blank=False,
