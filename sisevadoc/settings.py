@@ -97,7 +97,7 @@ DATABASES = {
     #}
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sisevadoc',                      
+        'NAME': 'evamigra',                      
         'USER': 'postgres',
         'PASSWORD': '123456789',
         'HOST': 'localhost',
