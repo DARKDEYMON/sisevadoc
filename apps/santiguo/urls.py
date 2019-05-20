@@ -26,4 +26,5 @@ urlpatterns = [
     #admin
     path('listevalaantgadm',permission_required('usuarios.evaluacion')(login_required(list_evaluaciones_antiguos_adm.as_view())), name='listevalaantgadm'),
     path('planmejorasact/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(plnmejorasa_active_view.as_view())), name='planmejorasact'),
+    path('verplnmejorasadmin/<int:pk>/',permission_required('usuarios.evaluacion')(login_required(report_plan_mejora_admin_view.as_view())), name='verplnmejorasadmin'),
 ]

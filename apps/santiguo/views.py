@@ -199,3 +199,14 @@ class report_plan_mejorasa_view(WeasyTemplateResponseMixin, ins_plan_mejoras_rep
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+
+class plan_mejora_admin_view(ListView):
+	model = plan_mejorasa
+	template_name = 'reportes/report_plnmejorasa.html'
+	def get_queryset(self):
+		return get_object_or_404(self.model, pk=self.kwargs['pk'])
+
+class report_plan_mejora_admin_view(WeasyTemplateResponseMixin, plan_mejora_admin_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]

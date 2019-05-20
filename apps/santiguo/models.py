@@ -61,11 +61,6 @@ class evaluaciona(models.Model):
 		null=False,
 		max_length=7
 	)
-	carrera = models.CharField(
-		blank=False,
-		null=False,
-		max_length=100
-	)
 	auto_eval_docente = models.FloatField(
 		blank=False,
 		null=False
