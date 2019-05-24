@@ -27,7 +27,7 @@ class user_docente(models.Model):
 		blank=False,
 		validators= [
 			RegexValidator(
-				regex=r'^[0-9]{8}',
+				regex=r'^[0-9]{8,8}$',
 				message='Un celular tiene 8 dígitos numerales',
 				code='solo numeral'
 			)

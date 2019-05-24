@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils import timezone
+from django.apps import apps
+from apps.evaluacion.setting_dinamic import initial_default_gestion, initial_default_periodo
 # Create your models here.
 
 class facultad(models.Model):
@@ -34,6 +36,14 @@ class carreras(models.Model):
 	)
 	def isactivado_crear(self):
 		return True if self.tiempo_activo > timezone.localtime() else False
+	def lista_mejores_gestion_periodo(self):
+		evaluacion =  apps.get_model('evaluacion', 'evaluacion')
+		res = evaluacion.objects.filter(carrera=self, gestion=initial_default_gestion(), periodo=initial_default_periodo(), estado=False)
+		res = sorted(res, key= lambda t: t.result_eval_porcen(), reverse=True)
+		return res
+	def comision_query(self):
+		comisiong =  apps.get_model('evaluacion', 'comisiong')
+		return comisiong.objects.filter(carrera=self,gestion=initial_default_gestion(), periodo=initial_default_periodo())
 	def __str__(self):
 		return str(self.nombre)
 

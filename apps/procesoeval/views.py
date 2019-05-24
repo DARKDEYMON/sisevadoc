@@ -18,6 +18,9 @@ from django_weasyprint import WeasyTemplateResponseMixin
 from django.utils import timezone
 
 from apps.evaluacion.setting_dinamic import initial_default_gestion, initial_default_periodo
+
+from django.contrib.postgres.search import SearchVector
+from django.db.models.functions import Cast
 # Create your views here.
 
 class asignar_evaluacion_view(CreateView):
@@ -90,6 +93,7 @@ class lista_evaluacion_usuario_view(ListView):
 					context['searchdata'] = form.cleaned_data['search']
 		return context
 	def get_queryset(self):
+		print(str(initial_default_gestion())+" "+str(initial_default_periodo()))
 		search = None
 		if self.request.method == "GET":
 			form = self.form_class(self.request.GET)
@@ -97,19 +101,24 @@ class lista_evaluacion_usuario_view(ListView):
 				search = form.cleaned_data['search']
 		if (search):
 			#verificar
-			return self.model.objects.filter(
-					Q(carrera__asignacion_evaluacion__usuario=self.request.user),
-					#Q(estado=True),
-					Q(id__icontains=search)|
-					Q(gestion__icontains=search)|
-					Q(carrera__nombre__icontains=search)|
-					Q(materia__sigla__icontains=search)|
-					Q(materia__nombre__icontains=search)|
-					Q(docente__nombre__icontains=search)|
-					Q(gestion__icontains=search)
+			return self.model.objects.annotate(
+					search=SearchVector(
+						Cast('id', CharField()),
+						Cast('gestion', CharField()),
+						'carrera__nombre',
+						'materia__sigla',
+						'materia__nombre',
+						'docente__nombre',
+						Cast('docente__ci', CharField())
+					)
+				).filter(
+					search=search,
+					carrera__asignacion_evaluacion__usuario=self.request.user,
+					gestion=initial_default_gestion(),
+					periodo=initial_default_periodo()
 				).order_by('-creacion','-gestion')
 		else:
-			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user).order_by('-creacion','-gestion')#, estado=True)
+			return self.model.objects.filter(carrera__asignacion_evaluacion__usuario=self.request.user, gestion=initial_default_gestion(), periodo=initial_default_periodo()).order_by('-creacion','-gestion')#, estado=True)
 #alumno
 class create_cuestionario_alum_pro_view(create_cuestionario_alumno_view):
 	def dispatch(self, request, *args, **kwargs):
@@ -186,7 +195,7 @@ class update_evaluacion_activo_pro_view(update_observaciones_view):
 	success_url = reverse_lazy('procesoeval:listevaluser')
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			self.model.objects.get(carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
+			self.model.objects.get(gestion=initial_default_gestion(), periodo=initial_default_periodo(),carrera__asignacion_evaluacion__usuario=request.user,pk=kwargs['pk'],estado=True)
 		except Exception as e:
 			raise Http404
 		return super(update_evaluacion_activo_pro_view, self).dispatch(request, *args, **kwargs)
@@ -196,7 +205,7 @@ class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
 			#aqui se verifica estramente si los tokens se generaron
-			self.model.objects.get(id=kwargs['pk'], carrera__asignacion_evaluacion__usuario=request.user,token_generate=False)
+			self.model.objects.get(id=kwargs['pk'], gestion=initial_default_gestion(), periodo=initial_default_periodo(), carrera__asignacion_evaluacion__usuario=request.user,token_generate=False)
 		except Exception as e:
 			raise Http404
 		return super(ins_report_tokenalum_pro_view, self).dispatch(request, *args, **kwargs)
@@ -209,7 +218,7 @@ class report_tokenalum_pro_view(WeasyTemplateResponseMixin,ins_report_tokenalum_
 class ins_report_eva_pro_view(ins_report_eva_view):
 	def dispatch(self, request, *args, **kwargs):
 		try:
-			res = self.model.objects.get(id=kwargs['pk'],carrera__asignacion_evaluacion__usuario=request.user)
+			res = self.model.objects.get(id=kwargs['pk'], gestion=initial_default_gestion(), periodo=initial_default_periodo(), carrera__asignacion_evaluacion__usuario=request.user)
 			res.estado = False
 			res.save()
 		except Exception as e:
@@ -329,3 +338,29 @@ class delete_comisiong_pro_view(delete_comisiong_view):
 		return super(delete_comisiong_pro_view, self).dispatch(request, *args, **kwargs)
 	def get_success_url(self):
 		return self.success_url
+
+#reporte final 
+class ins_final_eva_view(ListView):
+	model = carreras
+	template_name = 'reportes/reporte_finaleva.html'
+	def get_context_data(self, **kwargs):
+		context = super(ins_final_eva_view, self).get_context_data(**kwargs)
+		if 'gestion' not in context:
+			context['gestion'] = initial_default_gestion()
+		if 'periodo' not in context:
+			context['periodo'] = initial_default_periodo()
+		return context
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(id=self.kwargs['pk'], asignacion_evaluacion__usuario=self.request.user)
+		except Exception as e:
+			raise Http404
+		return super(ins_final_eva_view, self).dispatch(request, *args, **kwargs)
+	def get_queryset(self):
+		print(self.kwargs['pk'])
+		return get_object_or_404(self.model, id=self.kwargs['pk'])
+
+class reporte_final_eva_view(WeasyTemplateResponseMixin, ins_final_eva_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]

@@ -79,7 +79,8 @@ class lista_docentes_view(ListView):
 						'materia__nombre',
 						'docente__nombre',
 						'docente__apellidos',
-						Cast('gestion', CharField())
+						Cast('gestion', CharField()),
+						Cast('docente__ci', CharField())
 					)
 				).filter(
 					search=search

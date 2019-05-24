@@ -49,4 +49,7 @@ urlpatterns = [
     path('createcomiciong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(create_comisiong_pro_view.as_view())), name='createcomiciong'),
     path('updatecomiciong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(update_comisiong_pro_view.as_view())), name='updatecomiciong'),
     path('deletecomisiong/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(delete_comisiong_pro_view.as_view())), name='deletecomisiong'),
+
+    #reporte final
+    path('reportfinal/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(reporte_final_eva_view.as_view())), name='reportfinal'),
 ]
