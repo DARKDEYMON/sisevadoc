@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.procesoeval',
     'apps.plmejoras',
     'apps.santiguo',
+    'apps.sdcarrera',
     'bootstrap3',
     'smart_selects',
     'constance',

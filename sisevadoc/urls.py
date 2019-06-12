@@ -30,6 +30,7 @@ urlpatterns = [
     path('procesoeval/', include(('apps.procesoeval.urls','procesoeval'), namespace='procesoeval')),
     path('plmejoras/', include(('apps.plmejoras.urls','plmejoras'), namespace='plmejoras')),
     path('santiguo/', include(('apps.santiguo.urls','santiguo'), namespace='santiguo')),#antiguo
+    path('sdcarrera/', include(('apps.sdcarrera.urls','sdcarrera'), namespace='sdcarrera')),
     path('', RedirectView.as_view(url=reverse_lazy('usuarios:main')), name='home'),
     path('chaining/', include('smart_selects.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

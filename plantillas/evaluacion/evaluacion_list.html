@@ -85,7 +85,7 @@
 	    	    			{% else %}
 	    	    				<span class="label label-warning">{{eva.estado_actual}}</span>
 	    	    			{% endif %}
-	    	    			<span class="label label-warning">C.Alum({{eva.cuestionarios_llenados}})</span>
+	    	    			<span class="label label-warning">C.Alum({{eva.cuestionarios_llenados}}/{{eva.numero_alumnos}})</span>
 	    	    		</td>
 	    	    		<td>
 	    	    			{% if not eva.token_generate %}
