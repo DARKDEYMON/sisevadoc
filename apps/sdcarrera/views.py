@@ -1,6 +1,10 @@
 from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
+from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from apps.evaluacion.models import *
+from apps.plmejoras.models import *
+from django.http import Http404
+from apps.evaluacion.views import report_plan_mejorasg_view
 from .forms import *
 from django.contrib.postgres.search import SearchVector
 from django.db.models import CharField
@@ -48,3 +52,15 @@ class lista_plnmejoras_view(ListView):
 				).order_by('-gestion','-creacion','id')
 		else:
 			return self.model.objects.filter(estado=False,carrera__asignacion_evaluacion__usuario=self.request.user).order_by('-gestion','-creacion','id')
+
+class report_plan_mejorasdc_view(report_plan_mejorasg_view):
+	def dispatch(self, request, *args, **kwargs):
+		try:
+			self.model.objects.get(pk=self.kwargs['pk'], evaluacion__estado=False, evaluacion__carrera__asignacion_evaluacion__usuario=self.request.user)
+		except Exception as e:
+			raise Http404
+		return super(report_plan_mejorasdc_view, self).dispatch(request, *args, **kwargs)
+
+class plsnmejoras_gant_view(DetailView):
+	model = plan_mejoras
+	template_name = 'sdcarrera/plnmejora_gant.html'

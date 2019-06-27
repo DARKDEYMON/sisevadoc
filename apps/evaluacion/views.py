@@ -486,3 +486,15 @@ class plan_mejora_active_view(UpdateView):
 	form_class = plan_mejora_active_form
 	template_name = 'evaluacion/activar_planmejoras.html'
 	success_url = reverse_lazy('evaluacion:listaevaluacion')
+
+class ins_plan_mejoras_reportg_view(ListView):
+	model = plan_mejoras
+	template_name = 'reportes/report_plnmejoras.html'
+	def get_queryset(self):
+		res = get_object_or_404(self.model, pk=self.kwargs['pk'])
+		return res
+
+class report_plan_mejorasg_view(WeasyTemplateResponseMixin, ins_plan_mejoras_reportg_view):
+	pdf_stylesheets = [
+		#settings.STATIC_ROOT + 'css/app.css',
+	]

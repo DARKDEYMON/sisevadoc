@@ -19,4 +19,6 @@ from .views import *
 
 urlpatterns = [
     path('listplnmejorasre/',permission_required('usuarios.dcarrera')(login_required(lista_plnmejoras_view.as_view())), name='listplnmejorasre'),
+    path('reportplndr/<int:pk>/',permission_required('usuarios.dcarrera')(login_required(report_plan_mejorasdc_view.as_view())), name='reportplndr'),
+    path('plnmejoragant/<int:pk>',permission_required('usuarios.dcarrera')(login_required(plsnmejoras_gant_view.as_view())), name='plnmejoragant'),
 ]

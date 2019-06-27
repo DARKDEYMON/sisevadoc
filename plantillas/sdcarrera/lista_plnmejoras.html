@@ -81,12 +81,14 @@
 							    	Opciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-								    <li>
-								    	<!--<a href="{% url 'plmejoras:reportfinal' eva.pk %}" target="_blank">Reporte Final</a>-->
-							    		{% if eva.plan_mejoras %}
-								    		<a href="{# url 'plmejoras:verplnmejorasadmin' eva.pk #}" target="_blank">Ver Plan</a>
-								    	{% endif %}
-								    </li>
+									{% if eva.plan_mejoras %}
+									    <li>
+									    	<a href="{% url 'sdcarrera:reportplndr' eva.pk %}" target="_blank">Ver Plan</a>
+									    </li>
+									    <li>
+									    	<a href="{% url 'sdcarrera:plnmejoragant' eva.pk %}" title="">Diagrama de Actividades</a>
+									    </li>
+								    {% endif %}
 								</ul>
 							</div>
 	    	    		</td>
