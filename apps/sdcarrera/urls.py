@@ -21,4 +21,8 @@ urlpatterns = [
     path('listplnmejorasre/',permission_required('usuarios.dcarrera')(login_required(lista_plnmejoras_view.as_view())), name='listplnmejorasre'),
     path('reportplndr/<int:pk>/',permission_required('usuarios.dcarrera')(login_required(report_plan_mejorasdc_view.as_view())), name='reportplndr'),
     path('plnmejoragant/<int:pk>',permission_required('usuarios.dcarrera')(login_required(plsnmejoras_gant_view.as_view())), name='plnmejoragant'),
+    #santiguo
+    path('listplnmejorasreantg',permission_required('usuarios.dcarrera')(login_required(lista_plnmejoras_santiguo_view.as_view())), name='listplnmejorasreantg'),
+    path('reportplndrantg/<int:pk>/',permission_required('usuarios.dcarrera')(login_required(report_plan_mejorasdc_santiguo_view.as_view())), name='reportplndrantg'),
+    path('plnmejoragantantg/<int:pk>/',permission_required('usuarios.dcarrera')(login_required(plsnmejoras_gant_santiguo_view.as_view())), name='plnmejoragantantg'),
 ]

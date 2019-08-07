@@ -52,4 +52,9 @@ urlpatterns = [
 
     #reporte final
     path('reportfinal/<int:pk>/',(permission_required('usuarios.evaluacion'))(login_required(reporte_final_eva_view.as_view())), name='reportfinal'),
+
+    #sistema antiguo
+    path('createasigantg/<int:pk>/',(permission_required('usuarios.usuarios'))(login_required(asignar_evaluacion_santiguo_view.as_view())), name='createasigantg'),
+    path('listaevaluseradminant/<int:pk>/',(permission_required('usuarios.usuarios'))(login_required(lista_evaluacion_usuario_admin_santiguo_view.as_view())), name='listaevaluseradminant'),
+    path('deleteasignacionantg/<int:pk>/',(permission_required('usuarios.usuarios'))(login_required(delete_asignacion_santiguo_view.as_view())), name='deleteasignacionantg'),
 ]

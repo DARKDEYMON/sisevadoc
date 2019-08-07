@@ -1,0 +1,669 @@
+{% extends "base/base_form.html" %}
+	{% block formbody %}
+	    <h2 style="text-align: center;">Diagrama de Actividades (Gant)</h2>
+	    {% if object.evaluaciona.tiene_devilidades %}
+			<div style="position:relative" class="gantt" id="GanttChartDIV"></div>
+		{% else %}
+			<div style="text-align: center;">
+				<h1>No tiene debilidades</h1>
+			</div>
+		{% endif %}
+	    
+	{% endblock formbody %}
+	{% block scriptsjs %}
+		{% if object.evaluaciona.tiene_devilidades %}
+			<script>
+				var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'day');
+				g.setOptions({
+					//vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,
+					vCaptionType: 'Complete',
+					vQuarterColWidth: 36,
+					vDateTaskDisplayFormat: 'day dd month yyyy', // Shown in tool tip box
+					vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
+					vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
+					vLang: 'es',
+					vShowTaskInfoLink: 1, // Show link in tool tip (0/1)
+					vShowEndWeekDate: 0,  // Show/Hide the date for the last day of the week in header for daily
+					/*
+					vAdditionalHeaders: { // Add data columns to your table
+					  category: {
+					    title: 'Category'
+					  },
+					  sector: {
+					    title: 'Sector'
+					  }
+					},
+					*/
+					vUseSingleCell: 10000, // Set the threshold cell per table row (Helps performance for large data.
+					vFormatArr: ['Day', 'Week', 'Month', 'Quarter'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
+				});
+				{% load evaluacion_tags %}
+
+				{% if object.pregunta_1 %}
+					{% verbose_name_tag object 'pregunta_1' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_1|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 1,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_1|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_1 }}</p> Medio de verificación.-<p> {{ object.medio_veri_1 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_2 %}
+					{% verbose_name_tag object 'pregunta_2' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_2|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 2,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_2|date:'Y-m-d' }}",
+
+						//pPlanStart: "{{ object.creacion|date:'Y-m-d'}}",
+						//pPlanEnd: "{{ object.fecha_termino_2|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_2 }}</p> Medio de verificación.-<p> {{ object.medio_veri_2 }}</p>",
+						/*
+						category: "My Category",
+						sector: "Finance"
+						*/
+					});
+				{% endif %}
+
+				{% if object.pregunta_3 %}
+					{% verbose_name_tag object 'pregunta_3' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_3|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 3,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_3|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_3 }}</p> Medio de verificación.-<p> {{ object.medio_veri_3 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_4 %}
+					{% verbose_name_tag object 'pregunta_4' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_4|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 4,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_4|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_4 }}</p> Medio de verificación.-<p> {{ object.medio_veri_4 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_5 %}
+					{% verbose_name_tag object 'pregunta_5' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_5|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 5,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_5|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_5 }}</p> Medio de verificación.-<p> {{ object.medio_veri_5 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_6 %}
+					{% verbose_name_tag object 'pregunta_6' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_6|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 6,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_6|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_6 }}</p> Medio de verificación.-<p> {{ object.medio_veri_6 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_7 %}
+					{% verbose_name_tag object 'pregunta_7' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_7|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 7,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_7|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_7 }}</p> Medio de verificación.-<p> {{ object.medio_veri_7 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_8 %}
+					{% verbose_name_tag object 'pregunta_8' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_8|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 8,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_8|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_8 }}</p> Medio de verificación.-<p> {{ object.medio_veri_8 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_9 %}
+					{% verbose_name_tag object 'pregunta_9' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_9|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 9,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_9|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_9 }}</p> Medio de verificación.-<p> {{ object.medio_veri_9 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_10 %}
+					{% verbose_name_tag object 'pregunta_10' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_10|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 10,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_10|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_10 }}</p> Medio de verificación.-<p> {{ object.medio_veri_10 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_11 %}
+					{% verbose_name_tag object 'pregunta_11' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_11|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 11,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_11|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_11 }}</p> Medio de verificación.-<p> {{ object.medio_veri_11 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_12 %}
+					{% verbose_name_tag object 'pregunta_12' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_12|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 12,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_12|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_12 }}</p> Medio de verificación.-<p> {{ object.medio_veri_12 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_13 %}
+					{% verbose_name_tag object 'pregunta_13' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_13|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 13,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_13|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_13 }}</p> Medio de verificación.-<p> {{ object.medio_veri_13 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_14 %}
+					{% verbose_name_tag object 'pregunta_14' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_14|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 14,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_14|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_14 }}</p> Medio de verificación.-<p> {{ object.medio_veri_14 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_15 %}
+					{% verbose_name_tag object 'pregunta_15' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_15|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 15,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_15|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_15 }}</p> Medio de verificación.-<p> {{ object.medio_veri_15 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_16 %}
+					{% verbose_name_tag object 'pregunta_16' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_16|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 16,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_16|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_16 }}</p> Medio de verificación.-<p> {{ object.medio_veri_16 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_17 %}
+					{% verbose_name_tag object 'pregunta_17' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_17|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 17,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_17|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_17 }}</p> Medio de verificación.-<p> {{ object.medio_veri_17 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_18 %}
+					{% verbose_name_tag object 'pregunta_18' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_18|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 18,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_18|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_18 }}</p> Medio de verificación.-<p> {{ object.medio_veri_18 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.pregunta_19 %}
+					{% verbose_name_tag object 'pregunta_19' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_termino_19|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 19,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_termino_19|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.pregunta_19 }}</p> Medio de verificación.-<p> {{ object.medio_veri_19 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.preguntad_4 %}
+					{% verbose_name_tag object 'preguntad_4' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_terminod_4|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 20,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_terminod_4|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.preguntad_4 }}</p> Medio de verificación.-<p> {{ object.medio_verid_4 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.preguntad_5 %}
+					{% verbose_name_tag object 'preguntad_5' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_terminod_5|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 21,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_terminod_5|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.preguntad_5 }}</p> Medio de verificación.-<p> {{ object.medio_verid_5 }}</p>",
+					});
+				{% endif %}
+
+				{% if object.preguntad_6 %}
+					{% verbose_name_tag object 'preguntad_6' as res %}
+
+					console.log('{{ object.creacion|date:'Y-m-d' }}');
+					console.log('{{ object.fecha_terminod_6|date:'Y-m-d' }}')
+
+					g.AddTaskItemObject({
+						pID: 22,
+						pName: "{{ res|replace_string }}",
+
+						pStart: "{{ object.creacion|date:'Y-m-d' }}",
+						pEnd: "{{ object.fecha_terminod_6|date:'Y-m-d' }}",
+
+						pClass: "ggroupblack",
+						pLink: "",
+						pMile: 0,
+						pRes: "Brian",
+						pComp: 100,
+						pGroup: 0,//a ver 
+						pParent: 0,
+						pOpen: 1,
+						pDepend: "",
+						pCaption: "",
+						pCost: 1000,
+						pNotes: "Acción.- <br><p>{{ object.preguntad_6 }}</p> Medio de verificación.-<p> {{ object.medio_verid_6 }}</p>",
+					});
+				{% endif %}
+
+				g.Draw();
+
+			</script>
+		{% endif %}
+	{% endblock scriptsjs %}

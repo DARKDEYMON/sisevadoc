@@ -53,3 +53,12 @@ class create_comisiongpe_form(ModelForm):
 			'apellidos':'Apellido(s)',
 			'ci':'C.I.'
 		}
+
+
+class asignar_evaluacion_santiguo_form(ModelForm):
+	def __init__(self,*args,**kwargs):
+		super (asignar_evaluacion_santiguo_form,self ).__init__(*args,**kwargs)
+		self.fields['carrerasa'].widget.attrs = {'class':'js-example-basic-single'}
+	class Meta:
+		model = asignacion_evaluacion_santiguo
+		exclude = ['usuario']

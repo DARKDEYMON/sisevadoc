@@ -1,0 +1,14 @@
+{% extends "base/base_form.html" %}
+	{% block formbody %}
+	    {% load bootstrap3 %}
+	    <h2 style="text-align: center;">Asignar Carrera de Evaluación Sistema Antiguo</h2>
+		<form action="" method="post">
+		    {% csrf_token %}
+		    {% bootstrap_form form %}
+		    {% buttons %}
+		        <button type="submit" class="btn btn-primary center-block">
+		            {% bootstrap_icon "send" %} Enviar
+		        </button>
+		    {% endbuttons %}
+		</form>
+	{% endblock formbody %}

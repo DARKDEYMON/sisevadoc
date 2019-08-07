@@ -150,6 +150,8 @@ class evaluaciona(models.Model):
 	def __str__(self):
 		return str(self.docentea)
 
+auditlog.register(evaluaciona)
+
 class eval_est(models.Model):
 	evaluaciona = models.OneToOneField(evaluaciona, on_delete=models.CASCADE, primary_key=True)
 	pregunta_1 = models.FloatField(
@@ -250,6 +252,8 @@ class eval_est(models.Model):
 	def __str__(self):
 		return str(self.evaluaciona)
 
+auditlog.register(eval_est)
+
 class eval_dir(models.Model):
 	evaluaciona = models.OneToOneField(evaluaciona, on_delete=models.CASCADE, primary_key=True)
 	pregunta_1 = models.FloatField(
@@ -290,6 +294,8 @@ class eval_dir(models.Model):
 	)
 	def __str__(self):
 		return str(self.evaluaciona)
+
+auditlog.register(eval_dir)
 
 def validate_fecha_minima(value):
 	#print(type(value))

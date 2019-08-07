@@ -364,3 +364,54 @@ class reporte_final_eva_view(WeasyTemplateResponseMixin, ins_final_eva_view):
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+
+class asignar_evaluacion_santiguo_view(CreateView):
+	form_class = asignar_evaluacion_santiguo_form
+	model_extra = User
+	template_name = 'procesoeval/nuevo_asignareval_antiguo.html'
+	success_url = reverse_lazy('usuarios:listauser')
+	def dispatch(self, request, *args, **kwargs):
+		self.model_res = get_object_or_404(self.model_extra, id=kwargs['pk'])
+		return super(asignar_evaluacion_santiguo_view, self).dispatch(request, *args, **kwargs)
+	def form_valid(self, form):
+		form.instance.usuario = self.model_res
+		return super().form_valid(form)
+
+class delete_asignacion_santiguo_view(DeleteView):
+	model = asignacion_evaluacion_santiguo
+	template_name ='procesoeval/delete_asignacion_santiguo.html'
+	success_url = reverse_lazy('usuarios:listauser')
+
+class lista_evaluacion_usuario_admin_santiguo_view(ListView):
+	model = asignacion_evaluacion_santiguo
+	paginate_by = 10
+	form_class = search_form
+	template_name = 'procesoeval/lista_evaluacion_usuario_admin_santiguo.html'
+	def get_context_data(self, **kwargs):
+		context = super(lista_evaluacion_usuario_admin_santiguo_view, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if self.request.GET:
+			context['form'] = self.form_class(self.request.GET)
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				if form.cleaned_data['search']=='':
+					context['searchdata'] = None
+				else:
+					context['searchdata'] = form.cleaned_data['search']
+		return context
+	def get_queryset(self):
+		pk = self.kwargs.get('pk',0)
+		search = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			if form.is_valid():
+				search = form.cleaned_data['search']
+		if (search):
+			return self.model.objects.filter(
+					Q(usuario=pk),
+					Q(id__icontains=search)|
+					Q(carrerasa__nombre__icontains=search)
+				).order_by('usuario')
+		else:
+			return self.model.objects.filter(usuario=pk)

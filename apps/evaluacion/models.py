@@ -602,8 +602,11 @@ class cuestionario_alumno(models.Model):
 		null=False,
 		auto_now_add=True
 	)
+	historial = AuditlogHistoryField()
 	def __str__(self):
 		return str(self.evaluacion)
+
+auditlog.register(cuestionario_alumno)
 
 class token_aevaluacion(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -774,6 +777,7 @@ class cuestionario_aevaluacion(models.Model):
 		null=False,
 		auto_now_add=True
 	)
+	historial = AuditlogHistoryField()
 	def prom_autoeva(self):
 		return round((self.pregunta_1+self.pregunta_2+self.pregunta_3+self.pregunta_4+self.pregunta_5+self.pregunta_6+self.pregunta_7+
 				self.pregunta_8+self.pregunta_9+self.pregunta_10+self.pregunta_11+self.pregunta_12+self.pregunta_13+self.pregunta_14+
@@ -784,6 +788,8 @@ class cuestionario_aevaluacion(models.Model):
 		return round(self.prom_autoeva_porcen() * 0.4,2)
 	def __str__(self):
 		return str(self.evaluacion)
+
+auditlog.register(cuestionario_aevaluacion)
 
 class token_dcarrera(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -863,6 +869,12 @@ class cuestionario_dcarrera(models.Model):
 		null=False,
 		auto_now_add=True
 	)
+	ultimo_generado = models.DateTimeField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	historial = AuditlogHistoryField()
 	def prom_evadirect(self):
 		return round((self.pregunta_1+self.pregunta_2+self.pregunta_3+self.pregunta_4+self.pregunta_5+self.pregunta_6)/6,2)
 	def prom_evadirect_porcen(self):
@@ -871,3 +883,5 @@ class cuestionario_dcarrera(models.Model):
 		return round(self.prom_evadirect_porcen()* 0.1,2)
 	def __str__(self):
 		return str(self.evaluacion)
+
+auditlog.register(cuestionario_dcarrera)
