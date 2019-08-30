@@ -41,3 +41,7 @@ class create_docente_form(ModelForm):
 
 class search_form(forms.Form):
 	search = forms.CharField(required=False ,label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Buscar...'}))
+
+class mjr_gestion_periodo_form(forms.Form):
+	gestion = forms.IntegerField(required=True,min_value=1999,max_value=3000,label='Gestión')
+	periodo = forms.ChoiceField(required=True, widget=forms.Select,choices=((1,1),(2,2),(3,3)),label='Periodo')

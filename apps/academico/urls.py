@@ -29,5 +29,8 @@ urlpatterns = [
     path('listamateria/',permission_required('usuarios.academico')(login_required(lista_materias_view.as_view())), name='listamateria'),
     path('createdocente/',permission_required('usuarios.academico')(login_required(create_docente_view.as_view())), name='createdocente'),
     path('updatedocente/<int:pk>/',permission_required('usuarios.academico')(login_required(update_docente_view.as_view())), name='updatedocente'),
-    path('listadocente/',permission_required('usuarios.academico')(login_required(lista_docentes_view.as_view())), name='listadocente')
+    path('listadocente/',permission_required('usuarios.academico')(login_required(lista_docentes_view.as_view())), name='listadocente'),
+
+    path('mjrsgestperi/<int:pk>/',permission_required('usuarios.academico')(login_required(mjr_gestion_periodo_view.as_view())), name='mjrsgestperi'),
+    path('mjrsgestperiex/<int:pk>/<int:gestion>/<int:periodo>/',permission_required('usuarios.academico')(login_required(mejores_gestion_periodo_ex_view)), name='mjrsgestperiex')
 ]

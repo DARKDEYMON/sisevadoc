@@ -3,6 +3,11 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.urls import reverse_lazy
 from .forms import *
+from apps.evaluacion.models import evaluacion
+
+import xlwt
+from django.http import HttpResponse
+
 # Create your views here.
 
 class create_facultad_view(CreateView):
@@ -181,3 +186,46 @@ class lista_docentes_view(ListView):
 				)
 		else:
 			return self.model.objects.all().order_by('id')
+
+class mjr_gestion_periodo_view(FormView):
+	success_url_alum = 'academico:mjrsgestperiex'
+	form_class = mjr_gestion_periodo_form
+	template_name = 'academico/mejor_gest_peri.html'
+	def form_valid(self, form):
+		if form.is_valid():
+			self.gestion = form.cleaned_data['gestion']
+			self.periodo = form.cleaned_data['periodo']
+		return super().form_valid(form)
+	def get_success_url(self):
+		return reverse_lazy(self.success_url_alum, kwargs={'pk': self.kwargs['pk'],'gestion':self.gestion,'periodo':self.periodo})
+
+def mejores_gestion_periodo_ex_view(request,pk,gestion,periodo):
+	response = HttpResponse()
+	response['Content-Disposition'] = 'attachment; filename=Notas.xls'
+	carr = carreras.objects.get(pk=pk)
+	res = evaluacion.objects.filter(carrera=carr, gestion=gestion, periodo=periodo, estado=False)
+	res = sorted(res, key= lambda t: t.result_eval_porcen(), reverse=True)
+
+	wb = xlwt.Workbook()
+	ws = wb.add_sheet('Notas',cell_overwrite_ok=True)
+
+	ws.write(0,1,'Docente')
+	ws.write(0,2,'Materia')
+	ws.write(0,3,'Promedio Almuno 50%')
+	ws.write(0,4,'Promedio Autoevalaucion 40%')
+	ws.write(0,5,'Promedio Director de Carrera 10%')
+	ws.write(0,6,'Total')
+	ws.write(0,7,'Literal')
+	con = 1
+	for a in res:
+		ws.write(con,0,a.pk)
+		ws.write(con,1,str(a.docente))
+		ws.write(con,2,str(a.materia))
+		ws.write(con,3,a.prom_alum_porcen_50())
+		ws.write(con,4,a.cuestionario_aevaluacion.prom_autoeva_porcen_40())
+		ws.write(con,5,a.cuestionario_dcarrera.prom_evadirect_porcen_10())
+		ws.write(con,6,a.result_eval_porcen())
+		ws.write(con,7,str(a.resul_eval_literal()))
+		con = con + 1
+	wb.save(response)
+	return response
