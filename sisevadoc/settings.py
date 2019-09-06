@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 import os
 from django.urls import reverse_lazy
