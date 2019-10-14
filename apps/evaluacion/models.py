@@ -385,7 +385,9 @@ class evaluacion(models.Model):
 	def __str__(self):
 		return str(self.docente)
 	class Meta:
-		unique_together = (('docente', 'gestion','materia'),('docente', 'gestion'))
+		#uno al año
+		#unique_together = (('docente', 'gestion','materia'),('docente', 'gestion'))
+		unique_together = (('docente', 'gestion','materia','periodo'),)
 
 auditlog.register(evaluacion)
 

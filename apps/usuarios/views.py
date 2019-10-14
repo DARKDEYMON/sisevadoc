@@ -212,3 +212,15 @@ class crear_usuario_docente_view(CreateView):
 
 def creditos(request):
 	return render(request,"auth/creditos.html",{})
+
+def quitar_permiso_evaluador(request):
+	user = User.objects.all()
+
+	content_type = ContentType.objects.get_for_model(permisos)
+	permission = Permission.objects.get(content_type=content_type, codename='evaluacion')
+
+	for u in user:
+		if u.has_perm('usuarios.evaluacion'):
+			print(u)
+		#u.user_permissions.remove(permission)
+	return HttpResponseRedirect('/')
