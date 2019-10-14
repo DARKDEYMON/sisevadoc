@@ -222,5 +222,5 @@ def quitar_permiso_evaluador(request):
 	for u in user:
 		if u.has_perm('usuarios.evaluacion'):
 			print(u)
-		#u.user_permissions.remove(permission)
+		u.user_permissions.remove(permission)
 	return HttpResponseRedirect('/')
