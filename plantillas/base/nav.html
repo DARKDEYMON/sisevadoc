@@ -1,4 +1,23 @@
 {% load static %}
+<div class="modal fade" id="quitarevaluador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-danger">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Atención!!!</h4>
+      </div>
+      <div class="modal-body">
+        <h3 style="color:red;">!!!Una vez presione aceptar se quitara los permisos de evaluador a todos</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <a target="_blank" href="{% url 'usuarios:quitareval' %}" type="button" class="btn btn-primary">Aceptar</a>
+          <!-- $('#reportemodal{{eva.pk}}').modal('hide') -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -19,8 +38,8 @@
             <ul class="dropdown-menu" role="menu">
               <li><a href="{% url 'usuarios:nuevouser' %}">Crear nuevo usuario</a></li>
               <li><a href="{% url 'usuarios:listauser' %}">Lista de usuarios</a></li>
-              <li><a href="{% url 'usuarios:createdocenuser' %}">Usuario Docente</a></li>
-              <li><a href="{% url 'usuarios:quitareval' %}">Quitar Evaluador</a></li>
+              <li><a href="{% url 'usuarios:createdocenuser' %}">Usuario Docente</a></li> 
+              <li><a href="" data-toggle="modal" data-target="#quitarevaluador">Imprimir Claves</a></li>
             </ul>
           </li>
         </ul>
