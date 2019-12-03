@@ -1,0 +1,25 @@
+<br>
+<div class="panel {% if error %}panel-danger{% else %}panel-primary{% endif %}">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Resultado</div>
+  <div class="panel-body">
+    	{% if error %}
+			<div class="alert alert-danger" role="alert">
+				<a href="#" class="alert-link">Documento Invalido</a>
+			</div>
+    	{% else %}
+    		<div class="alert alert-info" role="alert">
+    			<a href="#" class="alert-link">Documento Valido</a>
+    		</div>
+    	{% endif %}
+  </div>
+
+  <!-- List group -->
+  {% if not error %}
+  	<ul class="list-group">
+		<li class="list-group-item"><strong>Id: </strong>{{ res.pk }}</li>
+		<li class="list-group-item"><strong>Nombre: </strong>{{ res.docente }}</li>
+		<li class="list-group-item"><strong>Nota: </strong>{{ res.nota }}</li>
+	</ul>
+  {% endif %}
+</div>

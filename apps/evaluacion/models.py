@@ -24,6 +24,8 @@ from django.utils.encoding import force_bytes
 from auditlog.registry import auditlog
 from auditlog.models import AuditlogHistoryField
 
+from .firma import *
+
 def random_token():
 	return random.randint(1,10**10)
 
@@ -382,12 +384,14 @@ class evaluacion(models.Model):
 			if not self.tiene_devilidades() or self.plan_mejoras:
 				return True
 		return False
+	def encriptValidator(self):
+		return AesCrypt.encrypt(str({'pk':self.pk,'docente':str(self.docente),'nota':self.result_eval_porcen()}))
 	def __str__(self):
 		return str(self.docente)
 	class Meta:
 		#uno al año
 		#unique_together = (('docente', 'gestion','materia'),('docente', 'gestion'))
-		unique_together = (('docente', 'gestion','materia','periodo'),)
+		unique_together = (('docente', 'gestion','materia','periodo'),('docente','carrera','gestion','periodo'))
 
 auditlog.register(evaluacion)
 

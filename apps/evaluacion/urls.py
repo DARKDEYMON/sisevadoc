@@ -60,4 +60,7 @@ urlpatterns = [
     #activar plan de mejoras si existe
     path('activarplanmj/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(plan_mejora_active_view.as_view())), name='activarplanmj'),
     path('reportplnmejoras/<int:pk>/',permission_required('usuarios.conf_evaluaion')(login_required(report_plan_mejorasg_view.as_view())), name='reportplnmejoras'),
+
+    path('qrreader/',qr_reader,name='qrreader'),
+    path('qrresultdecode/<encrypt>/',qr_resultdecode,name='qrresultdecode'),
 ]

@@ -107,7 +107,8 @@ class permisos_view(FormView):
 										'mod_academico':user.has_perm('usuarios.academico'),
 										'mod_conf_evaluacion':user.has_perm('usuarios.conf_evaluaion'),
 										'mod_evaluacion':user.has_perm('usuarios.evaluacion'),
-										'mod_docente':user.has_perm('usuarios.docente')})
+										'mod_docente':user.has_perm('usuarios.docente'),
+										'mod_dcarrera':user.has_perm('usuarios.dcarrera')})
 		if 'form'not in context or 'user' not in context:
 			context['form'] = form
 			context['user'] = user
@@ -141,6 +142,11 @@ class permisos_view(FormView):
 				my_user.user_permissions.remove(permission)
 			permission = Permission.objects.get(content_type=content_type, codename='docente')
 			if(form.cleaned_data['mod_docente']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='dcarrera')
+			if(form.cleaned_data['mod_dcarrera']):
 				my_user.user_permissions.add(permission)
 			else:
 				my_user.user_permissions.remove(permission)

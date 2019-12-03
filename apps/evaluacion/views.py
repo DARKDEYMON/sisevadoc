@@ -498,3 +498,21 @@ class report_plan_mejorasg_view(WeasyTemplateResponseMixin, ins_plan_mejoras_rep
 	pdf_stylesheets = [
 		#settings.STATIC_ROOT + 'css/app.css',
 	]
+
+def qr_reader(request):
+	return render(request,"evaluacion/qr_reader.html",{})
+
+def qr_resultdecode(request,encrypt):
+	import json
+	resb = bytes(encrypt,'utf-8')
+	error = False
+	try:
+		resdecrypt = AesCrypt.decrypt(resb)
+		resdecryptcom = resdecrypt.replace("\'", "\"")
+		resjson = json.loads(resdecryptcom)
+		print(resjson)
+	except Exception as e:
+		error = True
+		resjson = ''
+	
+	return render(request,"evaluacion/qr_resultdecode.html",{'res':resjson,'error':error})

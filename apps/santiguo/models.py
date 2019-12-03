@@ -684,6 +684,13 @@ class plan_mejorasa(models.Model):
 		validators=[validate_fecha_minima],
 		verbose_name=u'6.- Fecha limite de cumplimiento a la debilidad: Indicador a la debilidad: ¿El docente cumple en las tareas asignadas por el Director de Carrera?.(ED)',
 	)
+	"""
+	notas_obs = models.TextField(
+		blank=True,
+		null=True
+		verbose_name=u'Notas y Observaciones'
+	)
+	"""
 	creacion = models.DateTimeField(
 		blank=False,
 		null=False,

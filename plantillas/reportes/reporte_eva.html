@@ -106,6 +106,12 @@
     .tablenoboder {
       border: none;
     }
+    .qrarea img{
+      display: block;
+      width: 160px;
+      margin: 0px;
+      padding: 0px;
+    }
   </style>
 </head>
 <body>
@@ -1015,6 +1021,25 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
+
+    <br>
+    {% load qr_code %}
+    <div class="tabla">
+      <table style="margin-left:auto; margin-right:auto;">
+        <tbody>
+          <tr>
+            <td>
+              <p>Código QR de verificación del presente documento para verificar su valides siga el siguiente link y compare los resultados impresos
+              </p>
+              <a href="localhost:8000/evaluacion/qrreader/">localhost:8000/evaluacion/qrreader/</a>
+            </td>
+            <td style="text-align: center;" class="qrarea">
+              {% qr_from_text object_list.encriptValidator size="T" image_format="png" %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </body>       
