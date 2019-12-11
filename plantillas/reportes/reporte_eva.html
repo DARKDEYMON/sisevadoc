@@ -1032,7 +1032,7 @@
             <td>
               <p>Código QR de verificación del presente documento para verificar su valides siga el siguiente link y compare los resultados impresos
               </p>
-              <a href="localhost:8000/evaluacion/qrreader/">localhost:8000/evaluacion/qrreader/</a>
+              <a href="{{request.META.HTTP_HOST}}/evaluacion/qrreader/">{{request.META.HTTP_HOST}}/evaluacion/qrreader/</a>
             </td>
             <td style="text-align: center;" class="qrarea">
               {% qr_from_text object_list.encriptValidator size="T" image_format="png" %}

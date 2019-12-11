@@ -511,6 +511,11 @@ def qr_resultdecode(request,encrypt):
 		resdecryptcom = resdecrypt.replace("\'", "\"")
 		resjson = json.loads(resdecryptcom)
 		print(resjson)
+		evares = evaluacion.objects.get(pk=resjson['pk'])
+		#print(evares.result_eval_porcen())
+		if(not(str(evares.docente)==resjson['docente'] and evares.result_eval_porcen()==resjson['nota'])):
+			error = True
+			resjson = ''
 	except Exception as e:
 		error = True
 		resjson = ''
