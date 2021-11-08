@@ -20,13 +20,13 @@ class carreras(models.Model):
 		max_length=250,
 		null=False,
 		blank=False,
-		validators=[
-			RegexValidator(
-				regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóú]{2,}))+$',
-				message='El nombre solo debe contener letras y contener mínimo 4 letras', 
-				code='dato solo alfabetico'
-			)
-		]
+		#validators=[
+		#	RegexValidator(
+		#		regex=r'^(([a-zA-ZÑÁÉÍÓÚáéíóú]{2,} )|([a-zA-ZÑÁÉÍÓÚáéíóú]{2,}))+$',
+		#		message='El nombre solo debe contener letras y contener mínimo 4 letras', 
+		#		code='dato solo alfabetico'
+		#	)
+		#]
 	)
 	tiempo_activo = models.DateTimeField(
 		blank=False,
