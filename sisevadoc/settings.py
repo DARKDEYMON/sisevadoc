@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lfh&1sr*=t^x(s7+83(fhvj=vh4u*!t8z78gb(3!ppq3ab5#oh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -101,7 +101,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sisevadoc',
-        'USER': 'darkdeymon',
+        'USER': 'postgres',
         'PASSWORD': '123456789',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -146,6 +146,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 #medios
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")

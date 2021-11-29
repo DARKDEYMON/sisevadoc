@@ -23,6 +23,8 @@ from django.db.models.functions import Cast
 
 from apps.academico.models import *
 
+from .load_data import *
+
 # Create your views here.
 def main_mage(request):
 	return render(request,"base/main.html",{})
@@ -154,11 +156,13 @@ class permisos_view(FormView):
 		else:
 			return self.render_to_response(self.get_context_data(form=form))
 
+"""
 def handler404(request,exception):
 	return render(request,'errors/404.html',{})
 
 def handler500(request,exception):
 	return render(request,'errors/500.html',{})
+"""
 
 #comensando para la vista de docentes
 class crear_usuario_docente_view(CreateView):
@@ -230,3 +234,14 @@ def quitar_permiso_evaluador(request):
 			print(u)
 		u.user_permissions.remove(permission)
 	return HttpResponseRedirect('/')
+
+class carga_datos_view(FormView):
+	form_class = carga_datos
+	template_name = 'auth/carga_datos.html'
+	success_url = '/'
+	success_message = 'Carga con exito'
+	def form_valid(self, form):
+		if form.is_valid():
+			archivo = self.request.FILES['archivo']
+			load_data = LoadData(archivo)
+		return super().form_valid(form)

@@ -64,3 +64,6 @@ class add_permissions_form(forms.Form):
 class search_form(forms.Form):
 	search = forms.CharField(required=False, label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Buscar...'}))
 	#buscar_por = forms.ChoiceField(label="", help_text="", choices=CHOICES)
+
+class carga_datos(forms.Form):
+	archivo = forms.FileField(label='Archivo', required=True)

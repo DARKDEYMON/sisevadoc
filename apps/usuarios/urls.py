@@ -50,4 +50,6 @@ urlpatterns = [
     path('creditos/',(creditos), name="creditos"),
 
     path('quitareval/',permission_required('usuarios.usuarios')(login_required(quitar_permiso_evaluador)), name='quitareval'),
+
+    path('cargadatos/', permission_required('usuarios.usuarios')(login_required(carga_datos_view.as_view())), name='carga_datos')
 ]

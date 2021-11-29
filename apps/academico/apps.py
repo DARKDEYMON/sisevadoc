@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class AcademicoConfig(AppConfig):
-    name = 'academico'
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.academico'
