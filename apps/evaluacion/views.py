@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector

@@ -18,7 +18,7 @@ from io import BytesIO
 import base64
 
 from .token_eva import *
-from django.utils.http import is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
 from auditlog.registry import auditlog
