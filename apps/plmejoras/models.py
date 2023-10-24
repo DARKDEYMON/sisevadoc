@@ -417,4 +417,4 @@ class plan_mejoras(models.Model):
 	def __str__(self):
 		return str(self.evaluacion.docente)
 
-auditlog.register(plan_mejoras)
+#auditlog.register(plan_mejoras)

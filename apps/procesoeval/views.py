@@ -207,7 +207,7 @@ class ins_report_tokenalum_pro_view(ins_report_tokenalum_view):
 			#aqui se verifica estramente si los tokens se generaron
 			self.model.objects.get(id=kwargs['pk'], gestion=initial_default_gestion(), periodo=initial_default_periodo(), carrera__asignacion_evaluacion__usuario=request.user,token_generate=False)
 		except Exception as e:
-			raise Http404
+			raise Http404('que paso')
 		return super(ins_report_tokenalum_pro_view, self).dispatch(request, *args, **kwargs)
 
 class report_tokenalum_pro_view(WeasyTemplateResponseMixin,ins_report_tokenalum_pro_view):

@@ -150,7 +150,7 @@ class evaluaciona(models.Model):
 	def __str__(self):
 		return str(self.docentea)
 
-auditlog.register(evaluaciona)
+#auditlog.register(evaluaciona)
 
 class eval_est(models.Model):
 	evaluaciona = models.OneToOneField(evaluaciona, on_delete=models.CASCADE, primary_key=True)
@@ -295,7 +295,7 @@ class eval_dir(models.Model):
 	def __str__(self):
 		return str(self.evaluaciona)
 
-auditlog.register(eval_dir)
+#auditlog.register(eval_dir)
 
 def validate_fecha_minima(value):
 	#print(type(value))
@@ -705,4 +705,4 @@ class plan_mejorasa(models.Model):
 	def __str__(self):
 		return str(self.evaluaciona.docentea)
 
-auditlog.register(plan_mejorasa)
+#auditlog.register(plan_mejorasa)

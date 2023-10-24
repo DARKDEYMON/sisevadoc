@@ -393,7 +393,7 @@ class evaluacion(models.Model):
 		#unique_together = (('docente', 'gestion','materia'),('docente', 'gestion'))
 		unique_together = (('docente', 'gestion','materia','periodo'),('docente','carrera','gestion','periodo'))
 
-auditlog.register(evaluacion)
+#auditlog.register(evaluacion)
 
 class comisiong(models.Model):
 	carrera = models.ForeignKey(carreras, on_delete=models.CASCADE)
@@ -437,7 +437,7 @@ class comisiong(models.Model):
 	def __str__(self):
 		return self.ci
 
-auditlog.register(comisiong)
+#auditlog.register(comisiong)
 
 class token_alumno(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -458,7 +458,7 @@ class token_alumno(models.Model):
 		auto_now_add=True
 	)
 	def id_encode(self):
-		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+		return urlsafe_base64_encode(force_bytes(self.pk))#.decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def url_resolver(self):
@@ -612,7 +612,7 @@ class cuestionario_alumno(models.Model):
 	def __str__(self):
 		return str(self.evaluacion)
 
-auditlog.register(cuestionario_alumno)
+#auditlog.register(cuestionario_alumno)
 
 class token_aevaluacion(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -633,7 +633,7 @@ class token_aevaluacion(models.Model):
 		auto_now_add=True
 	)
 	def id_encode(self):
-		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+		return urlsafe_base64_encode(force_bytes(self.pk))#.decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def url_resolver(self):
@@ -795,7 +795,7 @@ class cuestionario_aevaluacion(models.Model):
 	def __str__(self):
 		return str(self.evaluacion)
 
-auditlog.register(cuestionario_aevaluacion)
+#auditlog.register(cuestionario_aevaluacion)
 
 class token_dcarrera(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -816,7 +816,7 @@ class token_dcarrera(models.Model):
 		auto_now_add=True
 	)
 	def id_encode(self):
-		return urlsafe_base64_encode(force_bytes(self.pk)).decode('utf-8')
+		return urlsafe_base64_encode(force_bytes(self.pk))#.decode('utf-8')
 	def token_code(self):
 		return 'Usado' if self.usado else evaluacion_token_generator.make_token(self)
 	def url_resolver(self):
@@ -890,4 +890,4 @@ class cuestionario_dcarrera(models.Model):
 	def __str__(self):
 		return str(self.evaluacion)
 
-auditlog.register(cuestionario_dcarrera)
+#auditlog.register(cuestionario_dcarrera)

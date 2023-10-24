@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://poahelp.uatf.edu.bo','https://fba0-181-115-147-164.ngrok-free.app']
+
 
 # Application definition
 

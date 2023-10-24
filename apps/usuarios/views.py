@@ -83,10 +83,10 @@ class lista_usuarios_view(ListView):
 					)
 				).filter(
 					search=search,
-					is_staff=False
+					#is_staff=False
 				).order_by('id')
 		else:
-			return self.model.objects.all().filter(is_staff=False).order_by('id')
+			return self.model.objects.all().filter().order_by('id')
 
 class user_baja_alta_view(UpdateView):
 	model = User
